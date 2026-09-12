@@ -60,6 +60,7 @@ apps/web/              React Demo 页面
 packages/shared/       跨组共享类型与工具
 packages/3d-renderer/  3D 渲染组工作区
 packages/rag-engine/   RAG 知识组工作区
+packages/mock-server/  供两组和前端并行联调的 Express Mock API
 docs/api-contract.md   两组共同冻结的接口契约
 scripts/               GitHub 初始化辅助脚本
 ```
@@ -67,6 +68,12 @@ scripts/               GitHub 初始化辅助脚本
 ## 接口约定
 
 所有请求、响应、错误码和共享类型以 [接口约定](docs/api-contract.md) 为准。变更接口前先更新文档，在 PR 中说明影响，并取得受影响组的确认。
+
+前端联调时另开一个终端启动 Mock Server：
+
+```bash
+npm run dev:mock
+```
 
 ## 分级验收规则
 

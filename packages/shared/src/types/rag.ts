@@ -1,61 +1,78 @@
 import type { Part } from './3d';
 
-/** 可回溯到原始资料的证据片段。 */
-export interface SourceReference {
-  chunkId: string;
-  documentName: string;
-  page?: number;
-  excerpt: string;
-}
-
-/** 配件检索请求；query 可容纳门店人员的自然语言补充。 */
+/** 配件匹配检索请求；limit 默认 10，允许范围 1-20。 */
 export interface SearchRequest {
-  vehicleModelId: string;
-  partType: string;
-  query?: string;
+  query: string;
+  motorcycleModel?: string;
   limit?: number;
 }
 
-/** 单条配件结果必须携带匹配度和依据。 */
-export interface PartSearchHit {
-  part: Part;
+/** 单条配件检索结果，score 范围为 0-1，越大越相关。 */
+export interface SearchResult extends Part {
   score: number;
-  requiresManualConfirmation: boolean;
-  references: SourceReference[];
 }
 
+/** 配件检索响应；queryId 用于后续提交结果反馈。 */
 export interface SearchResponse {
-  hits: PartSearchHit[];
-  elapsedMs: number;
+  queryId: string;
+  results: SearchResult[];
+  total: number;
 }
 
-/** 故障诊断的输入。 */
+/** 故障诊断请求；mileage 的单位为公里且不得为负数。 */
 export interface FaultDiagnosisRequest {
-  vehicleModelId: string;
   symptom: string;
+  motorcycleModel?: string;
+  mileage?: number;
 }
 
-export type FaultLikelihood = 'high' | 'medium' | 'low';
-
-/** 诊断原因不可脱离 evidenceChunkIds 指向的证据生成。 */
-export interface FaultCause {
-  summary: string;
-  likelihood: FaultLikelihood;
-  evidenceChunkIds: string[];
+/** 知识来源引用；每条诊断结论都必须能追溯到至少一个引用。 */
+export interface Reference {
+  title: string;
+  sourceType: 'manual' | 'case' | 'catalog';
+  excerpt: string;
+  url: string;
 }
 
-export interface DiagnosisStep {
-  order: number;
-  instruction: string;
-  evidenceChunkIds: string[];
+/** 单个可能原因、概率和建议处理方案。probability 范围为 0-1。 */
+export interface PossibleCause {
+  cause: string;
+  probability: number;
+  solution: string;
 }
 
-/** 完整诊断结果；无可靠资料时 insufficientEvidence 为 true。 */
-export interface FaultDiagnosis {
-  causes: FaultCause[];
-  steps: DiagnosisStep[];
-  requiredParts: Part[];
-  references: SourceReference[];
-  insufficientEvidence: boolean;
-  elapsedMs: number;
+/** 故障诊断响应；references 不得为空。 */
+export interface FaultDiagnosisResult {
+  queryId: string;
+  diagnosis: string;
+  possibleCauses: PossibleCause[];
+  references: Reference[];
 }
+
+/** 检索结果反馈请求。 */
+export interface FeedbackRequest {
+  queryId: string;
+  rating: 'up' | 'down';
+  comment?: string;
+}
+
+/** 反馈提交成功响应。 */
+export interface FeedbackResponse {
+  success: true;
+}
+
+/** 知识库条目详情。 */
+export interface KnowledgeEntry {
+  id: string;
+  title: string;
+  content: string;
+  sourceType: Reference['sourceType'];
+  sourceUrl: string;
+  updatedAt: string;
+}
+
+/** 兼容旧名称；新代码应优先使用 FaultDiagnosisResult。 */
+export type FaultDiagnosis = FaultDiagnosisResult;
+
+/** 兼容旧名称；新代码应优先使用 Reference。 */
+export type SourceReference = Reference;
