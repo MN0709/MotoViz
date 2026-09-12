@@ -29,10 +29,10 @@
 
 ## TripoSR 官方演示 HTTP 烟测
 
-命令（文件路径为本机临时文件，生成结果默认写入系统临时目录）：
+命令（本机测试照片已移至 Git 忽略的 `local-3d-evaluation/scratch/`；其他检出需按上表来源自行取得照片。生成结果默认写入系统临时目录）：
 
 ```bash
-node scripts/evaluate-image-to-3d.mjs /tmp/motofit-exhaust-commons.jpg /tmp/motofit-panniers-commons.jpg /tmp/motofit-windshield-commons.jpg
+node scripts/evaluate-image-to-3d.mjs local-3d-evaluation/scratch/motofit-exhaust-commons.jpg local-3d-evaluation/scratch/motofit-panniers-commons.jpg local-3d-evaluation/scratch/motofit-windshield-commons.jpg
 ```
 
 脚本对每张图片调用公开演示的上传、预处理、生成、GLB 下载端点，并检查 GLB v2 文件头、JSON 块、网格、顶点和 `POSITION` 包围盒。它没有运行本地 AI，也没有把图片或模型写入仓库。
@@ -55,7 +55,7 @@ node scripts/evaluate-image-to-3d.mjs /tmp/motofit-exhaust-commons.jpg /tmp/moto
 | 边箱 | 2 | 2 | 1 | 未检查 | 能看出单个箱体轮廓及接缝，原图中的双边箱没有被可靠分离；表面近乎灰白、细节模糊，不能作为两件独立配件直接挂载。 |
 | 风挡 | 0 | 0 | 0 | 0 | 生成的是不规则的实心片/块，混入周边结构；旋转后仍无透明风挡的薄片与透光性质，不可用。 |
 
-以上视觉结果说明**“GLB 可解析”不等于“配件模型可用”**。这组三图没有一份通过可独立挂载、纹理和材质的基本检查；本轮也无法验证实车尺寸或穿模。截图及 GLB 保留在本机系统临时目录供本轮复核，不作为产品素材提交；复核者可按上文命令重跑。选型状态仍为待定，MVP 应将 #8 预设模型作为确定性保底，#4 图片生成只在找到可控 HTTP 服务并用合适输入复测合格后启用。
+以上视觉结果说明**“GLB 可解析”不等于“配件模型可用”**。这组三图没有一份通过可独立挂载、纹理和材质的基本检查；本轮也无法验证实车尺寸或穿模。截图及 GLB 已移至本机 Git 忽略的 `local-3d-evaluation/` 供复核，不作为产品素材提交；其他检出可按上文来源取得照片后重跑。选型状态仍为待定，MVP 应将 #8 预设模型作为确定性保底，#4 图片生成只在找到可控 HTTP 服务并用合适输入复测合格后启用。
 
 Stable Fast 3D 的 `/info` 能提供 `/run_button` 参数说明，图片上传也返回了临时路径，但带或不带 `session_hash` 调用运行端点都在事件流中返回 `404: Session not found`。这只证明当前匿名、直接 HTTP 调用方式不可用；不能据此断言模型本身生成失败。若要选它，需在独立部署或受支持的客户端/账号下重新验证。
 
