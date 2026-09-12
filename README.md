@@ -13,14 +13,14 @@
 | 角色 | 姓名 / GitHub 用户名 |
 | --- | --- |
 | 3D 组长 | @siguadht |
-| 3D 组员 A | 待填写 |
-| 3D 组员 B | 待填写 |
-| 3D 组员 C | 待填写 |
+| 3D 组员 A | @20050202ys-sketch |
+| 3D 组员 B | @1105qianhao-oss |
+| 3D 组员 C | @kevin-long26 |
 | RAG 组长 | @MN0709 |
-| RAG 组员 A | 待填写 |
-| RAG 组员 B | 待填写 |
-| RAG 组员 C / 前端负责人 | 待填写 |
-| 大组长（产品验收） | @Ethan-hy |
+| RAG 组员 A | @zooxz7c-cyber |
+| RAG 组员 B | @khu016 |
+| RAG 组员 C / 前端负责人 | @Ethan-hy |
+| 大组长（产品验收） | @Ethan-hy（兼任） |
 
 ## 技术栈
 
