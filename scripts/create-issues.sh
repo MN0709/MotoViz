@@ -29,7 +29,15 @@ ensure_milestone() {
 ensure_milestone "第一阶段 Day1-5" "搭建 + 接口约定 + 各自开发"
 ensure_milestone "第二阶段 Day6-10" "联调 + 打磨 + Demo 彩排 + 演示"
 
-declare -A issue_numbers
+set_issue_number() {
+  local key="$1" number="$2"
+  eval "issue_number_${key}=\"$number\""
+}
+
+get_issue_number() {
+  local key="$1"
+  eval "printf '%s' \"\${issue_number_${key}:-}\""
+}
 
 create_issue() {
   local key="$1" title="$2" group="$3" priority="$4" milestone="$5" hours="$6" dependencies="$7" description="$8" acceptance="$9" technical="${10}"
@@ -38,7 +46,7 @@ create_issue() {
     dependency_text=""
     IFS=',' read -ra dependency_keys <<< "$dependencies"
     for dependency_key in "${dependency_keys[@]}"; do
-      dependency_text+="#${issue_numbers[$dependency_key]} "
+      dependency_text+="#$(get_issue_number "$dependency_key") "
     done
   fi
 
@@ -57,12 +65,13 @@ create_issue() {
   if [[ -n "$existing" ]]; then
     number="${existing%%$'\t'*}"
     url="${existing#*$'\t'}"
+    gh issue edit "$number" --repo "$repo" --body-file "$body_file" --add-label "$group" --add-label "$priority" --milestone "$milestone" >/dev/null
   else
     url="$(gh issue create --repo "$repo" --title "$title" --body-file "$body_file" --label "$group" --label "$priority" --milestone "$milestone")"
     number="${url##*/}"
   fi
   rm -f "$body_file"
-  issue_numbers[$key]="$number"
+  set_issue_number "$key" "$number"
   printf '%s\t#%s\t%s\n' "$key" "$number" "$url"
 
   if [[ -n "$project_number" ]]; then
@@ -108,7 +117,7 @@ create_issue F07 "[feat] 3D - 改装前后对比视图" "3D 渲染" P1 "第二�
 create_issue F08 "[feat] 3D - 预设配件 3D 模型库降级方案" "3D 渲染" P0 "第一阶段 Day1-5" "16h" F05 \
   "准备 3D 生成不可用时的现场演示保底模型库和配置开关。" \
   $'- [ ] 准备 5-8 个预设配件模型（排气、风挡、边箱等）\n- [ ] 可按类型匹配\n- [ ] 支持手动调整位置、旋转、缩放' \
-  "使用 `3D_MODE=generated|preset`；确认模型许可证与资源体积。"
+  "使用 3D_MODE=generated 或 3D_MODE=preset；确认模型许可证与资源体积。"
 
 create_issue F09 "[feat] RAG - 初始数据采集与整理" "RAG 检索" P0 "第一阶段 Day1-5" "32h" - \
   "整理配件 CSV、维修手册 PDF 和故障案例，输出逐条可追踪的导入报告。" \
@@ -168,4 +177,4 @@ create_issue F19 "[feat] 前端 - 检索对话页集成" "前端" P0 "第一阶�
 create_issue F20 "[feat] 文档 - 接口约定与 Mock Server" "文档" P0 "第一阶段 Day1-5" "8h" - \
   "两组在 Day1 冻结跨模块接口、共享类型、错误码和 Mock 响应，支撑并行开发。" \
   $'- [ ] 3D 组 4 个 API 定义完成\n- [ ] RAG 组 4 个 API 定义完成\n- [ ] Mock Server 可返回模拟数据' \
-  "以 `docs/api-contract.md` 和 `@motorcycle-ai/shared` 为单一事实来源；变更必须记录并由两组确认。"
+  "以 docs/api-contract.md 和 @motorcycle-ai/shared 为单一事实来源；变更必须记录并由两组确认。"
