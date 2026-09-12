@@ -1,6 +1,7 @@
-# 默认由大组长负责最终产品验收。具体路径规则放在后面，以免被默认规则覆盖。
-* @Ethan-hy
-
-# GitHub 对一条规则中的多个 owner 只要求其中一位批准；PR 模板与团队流程仍要求两位都签字。
-/packages/3d-renderer/** @siguadht @Ethan-hy
-/packages/rag-engine/** @MN0709 @Ethan-hy
+# 分级验收：不同行的规则是 AND 关系（都必须批准），同一行多个 owner 是 OR 关系（只需一人批准）
+# 3D组代码：3D组长 + 大组长 都必须批准
+/packages/3d-renderer/**   @siguadht
+# RAG组代码：RAG组长 + 大组长 都必须批准
+/packages/rag-engine/**    @MN0709
+# 所有代码：大组长必须批准（公共/前端文件只匹配这一行）
+*                         @Ethan-hy
