@@ -9,7 +9,7 @@
 | 方案 | 官方证据 | 优点 | 当前限制与许可证结论 |
 | --- | --- | --- | --- |
 | [TripoSR](https://github.com/VAST-AI-Research/TripoSR) | [README](https://github.com/VAST-AI-Research/TripoSR#readme)、[MIT 许可证](https://github.com/VAST-AI-Research/TripoSR/blob/main/LICENSE)、[运行参数](https://github.com/VAST-AI-Research/TripoSR/blob/main/run.py) | 单张图片、约 6 GB 显存；模型与代码声明为 MIT；可输出 GLB；官方公开 Gradio 演示有 HTTP 端点 | 官方演示不是有 SLA 的生产服务。下表实测 3/3 产生有效 GLB，但从上传到文件下载均超过 #4 的 60 秒目标；真实质量和实车比例仍需确认。 |
-| [Stable Fast 3D](https://github.com/Stability-AI/stable-fast-3d) | [README](https://github.com/Stability-AI/stable-fast-3d#readme)、[社区许可证](https://github.com/Stability-AI/stable-fast-3d/blob/main/LICENSE.md) | 单图直接输出 GLB，官方说明默认约 6 GB 显存；提供背景处理与 UV 纹理 | 权重访问受限；商业使用有注册及收入门槛等许可条件；Mac MPS 支持仍属实验性。公开演示配置可访问，但尚未用本测试集运行。 |
+| [Stable Fast 3D](https://github.com/Stability-AI/stable-fast-3d) | [README](https://github.com/Stability-AI/stable-fast-3d#readme)、[社区许可证](https://github.com/Stability-AI/stable-fast-3d/blob/main/LICENSE.md) | 单图直接输出 GLB，官方说明默认约 6 GB 显存；提供背景处理与 UV 纹理 | 权重访问受限；商业使用有注册及收入门槛等许可条件；Mac MPS 支持仍属实验性。公开演示配置可访问，但本次直接 HTTP 调用两次均返回 `404: Session not found`，未取得生成结果。 |
 | [TRELLIS](https://github.com/microsoft/TRELLIS) | [README](https://github.com/microsoft/TRELLIS#readme)、[许可证](https://github.com/microsoft/TRELLIS/blob/main/LICENSE) | 单图/实验性多图，官方示例可提取 GLB；主模型和多数代码为 MIT | 官方要求 Linux 和至少 16 GB NVIDIA 显存，部分子模块有独立许可证；部署成本较高。本次公开演示健康检查返回 503，未跑通真实输入。 |
 | [Hunyuan3D-2](https://github.com/Tencent-Hunyuan/Hunyuan3D-2) | [中文 README](https://github.com/Tencent-Hunyuan/Hunyuan3D-2/blob/main/README_zh_cn.md)、[社区许可证](https://github.com/Tencent-Hunyuan/Hunyuan3D-2/blob/main/LICENSE) | 官方自托管 API Server 有 `/generate`，示例直接返回 GLB；几何和纹理分阶段 | 使用受专门社区许可证和地域条件限制，不能当成 MIT；目前没有可用的外部部署地址与三图实测。 |
 
@@ -44,6 +44,8 @@ node scripts/evaluate-image-to-3d.mjs /tmp/motofit-exhaust-commons.jpg /tmp/moto
 | 风挡 | 2,395,288 | 59,916 | 1.036 × 0.933 × 0.482 | 2.2 / 0.6 / 3.6 / 147.8 秒 | **154.2 秒** |
 
 三份文件的 GLB 头和几何元数据均有效。这里的“生成”是公开演示报告的请求等待时间，不代表可复用的推理性能；“下载”包含当前网络路径的波动。模型包围盒没有实物标尺，**不能证明实车比例正确**。浏览器外观检查尚未完成，因此也不能据此声称无穿模或质量达标。
+
+Stable Fast 3D 的 `/info` 能提供 `/run_button` 参数说明，图片上传也返回了临时路径，但带或不带 `session_hash` 调用运行端点都在事件流中返回 `404: Session not found`。这只证明当前匿名、直接 HTTP 调用方式不可用；不能据此断言模型本身生成失败。若要选它，需在独立部署或受支持的客户端/账号下重新验证。
 
 ## Day 2 决策门槛
 
