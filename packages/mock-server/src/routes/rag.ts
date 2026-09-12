@@ -114,6 +114,7 @@ router.post('/search/fault', (request, response) => {
     queryId: `query-${randomUUID()}`,
     diagnosis: best.score > 0 ? best.faultCase.diagnosis : '未精确命中症状，以下为通用安全排查建议，请由专业技师复核。',
     possibleCauses: best.faultCase.possibleCauses,
+    requiredParts: best.faultCase.requiredParts,
     references: best.faultCase.references,
   };
   response.json(result);
