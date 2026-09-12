@@ -1,0 +1,6 @@
+# 默认由大组长负责最终产品验收。具体路径规则放在后面，以免被默认规则覆盖。
+* @Ethan-hy
+
+# GitHub 对一条规则中的多个 owner 只要求其中一位批准；PR 模板与团队流程仍要求两位都签字。
+/packages/3d-renderer/** @siguadht @Ethan-hy
+/packages/rag-engine/** @MN0709 @Ethan-hy
