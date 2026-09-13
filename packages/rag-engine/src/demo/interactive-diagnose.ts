@@ -9,7 +9,7 @@
 
 import { createInterface } from 'node:readline';
 import { diagnoseFault } from '../diagnosis-engine.js';
-import { HttpLLMAdapter, MultiKeyLLMAdapter, selectLLMAdapter } from '../llm-adapter.js';
+import { MultiKeyLLMAdapter, selectLLMAdapter } from '../llm-adapter.js';
 import type { KnowledgeDocument } from '../knowledge-search.js';
 
 // 示例知识库（Demo用，真实数据由谢以波采集）
@@ -96,10 +96,14 @@ async function main() {
     console.log(`已切换到Mock模式（${selected.note}）\n`);
   }
 
-  while (true) {
+  let running = true;
+  while (running) {
     console.log('\n--- 新的诊断 ---\n');
     const symptom = await ask('输入故障症状（输入q退出）：');
-    if (symptom.trim().toLowerCase() === 'q') break;
+    if (symptom.trim().toLowerCase() === 'q') {
+      running = false;
+      break;
+    }
 
     const motorcycleModel = await ask('输入车型（可选，直接回车跳过）：');
     const mileageStr = await ask('输入里程（公里，可选，直接回车跳过）：');
