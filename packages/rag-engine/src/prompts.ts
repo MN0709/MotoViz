@@ -172,10 +172,10 @@ export const DIAGNOSIS_FEW_SHOT_MESSAGES: readonly { role: 'system' | 'user' | '
 ];
 
 /**
- * 构建故障诊断的完整消息数组（khu016直接用这个，不需要自己拼）
+ * 构建故障诊断的完整消息数组，调用方直接使用，无需自行拼接
  *
  * 包含：system prompt + few-shot示例 + 当前用户问题
- * khu016只需把返回值传给llm-adapter，不需要做任何决策。
+ * 调用方只需将返回值传给llm-adapter即可。
  *
  * @param symptom 用户输入的故障症状
  * @param context 检索到的Top-5知识条目
