@@ -83,6 +83,7 @@ console.log(
         min: Number(sorted[0].toFixed(1)),
         max: Number(sorted[sorted.length - 1].toFixed(1)),
       },
+      samplesMs: results.map((ms) => Number(ms.toFixed(1))),
       failures,
     },
     null,

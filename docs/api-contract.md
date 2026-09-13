@@ -249,6 +249,7 @@ interface SearchResult {
   price: number;
   source: string;
   sourceUrl: string;
+  thumbnailUrl?: string;
   score: number;
 }
 ```
@@ -280,6 +281,7 @@ interface SearchResult {
 | 400 | `QUERY_REQUIRED` | `query` 缺失或为空 |
 | 400 | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串 |
 | 400 | `INVALID_LIMIT` | `limit` 不是 1-20 的整数 |
+| 500 | `RAG_SEARCH_ERROR` | 检索内部失败 |
 
 ### 3.2 故障诊断检索
 
@@ -332,7 +334,7 @@ interface Reference {
 }
 ```
 
-`probability` 范围为 0-1。`references` 必须至少有一项；真实 RAG 服务必须保证每条诊断结论能映射到引用证据，不允许仅生成格式合法但无法溯源的答案。`requiredParts` 为诊断建议更换的配件列表，`stock` 为当前库存数量，无库存时返回 0；无建议配件时返回空数组。`references[].knowledgeId` 对应知识库条目 ID，前端可通过 `GET /api/rag/knowledge/{knowledgeId}` 获取完整原文；`references[].url` 为该条目的原始来源链接，来自 F09 采集时记录的 sourceUrl。
+`probability` 范围为 0-1。`references` **允许为空**（知识库无相关案例时返回空数组，不造假引用）；非空时真实 RAG 服务必须保证每个引用能映射到本次召回上下文，不允许仅生成格式合法但无法溯源的答案。`requiredParts` 为诊断建议更换的配件列表，`stock` 为当前库存数量，无库存时返回 0；无建议配件时返回空数组。`references[].knowledgeId` 对应知识库条目 ID，前端可通过 `GET /api/rag/knowledge/{knowledgeId}` 获取完整原文；`references[].url` 为该条目的原始来源链接，来自 F09 采集时记录的 sourceUrl。
 
 ```json
 {
@@ -378,6 +380,7 @@ interface Reference {
 | 400 | `SYMPTOM_REQUIRED` | `symptom` 缺失或为空 |
 | 400 | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串 |
 | 400 | `INVALID_MILEAGE` | 里程不是非负数 |
+| 500 | `RAG_DIAGNOSIS_ERROR` | 诊断内部失败 |
 
 ### 3.3 获取知识库条目详情
 
@@ -435,6 +438,8 @@ interface Reference {
 | 400 | `QUERY_ID_REQUIRED` | `queryId` 缺失或为空 |
 | 400 | `INVALID_RATING` | `rating` 不是 `up/down` |
 | 400 | `INVALID_COMMENT` | `comment` 不是字符串 |
+| 404 | `QUERY_NOT_FOUND` | `queryId` 在查询日志中不存在 |
+| 500 | `RAG_FEEDBACK_ERROR` | 反馈落盘失败 |
 
 ## 4. 共享类型与字段所有权
 
@@ -467,3 +472,4 @@ interface Reference {
 | 2026-09-12 | 1.0.0-rc1 | 冻结 8 个 API、共享枚举、错误响应和 Mock 示例 | Codex | 待 `@siguadht` 审核 | 待 `@MN0709` 审核 |
 | 2026-09-12 | 1.0.0-rc2 | RAG 组字段补齐：配件检索加 `sourceUrl`、故障诊断加 `requiredParts`、`references` 加 `knowledgeId`；对齐 F09 采集 sourceUrl | `@MN0709` | 待 `@siguadht` 确认 | — |
 | 2026-09-12 | 1.0.0-rc3 | **RAG 组长签字确认**：可行性验证完成（`docs/rag-feasibility.md`）——关键词检索 Top-1 受控 5/5；DeepSeek `deepseek-chat` 实测 20/20 结构率 100%、0 降级、延迟 P95=1.63s（≤5s 红线）。附带交付条件：① F12 开发期补车型/类型硬过滤 + 最低分阈值 + 50 条正式测试集；② F13 开发期用真实数据复测延迟并评测诊断合理率（≥70% 待标注数据评测）；③ `possibleCauses` 逐条 `referenceIds` 列为 P1 优化 | `@MN0709` | 待 `@siguadht` 确认 | ✅ 已确认 `@MN0709` |
+| 2026-09-13 | 1.0.0-rc5 | **组长拍板修正（对齐 Codex 开工审核）**：① 撤销 404 单码，改回标准 REST——400 参数错误 / 404 资源不存在 / 500 内部失败；② 配件检索响应增加 `thumbnailUrl`（`Part` 同步增加，`SearchResult` 继承）；③ `references` 允许为空（空召回不造假引用）；④ 知识条目增加 `models` 车型打标字段。Mock Server 同步更新 | `@MN0709` | 待 `@siguadht` 确认 | ✅ 已确认 `@MN0709` |
