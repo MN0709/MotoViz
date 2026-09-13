@@ -26,7 +26,7 @@ Closes #
 
 ## 大组长产品验收
 
-> 由 @Ethan-hy 填写。
+> 由 @moronfranklyn-lab 填写。
 
 - [ ] 验收通过
 - [ ] 需修改

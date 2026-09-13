@@ -19,8 +19,8 @@
 | RAG 组长 | @MN0709 |
 | RAG 组员 A | @zooxz7c-cyber |
 | RAG 组员 B | @khu016 |
-| RAG 组员 C / 前端负责人 | @Ethan-hy |
-| 大组长（产品验收） | @Ethan-hy（兼任） |
+| RAG 组员 C / 前端负责人 | @moronfranklyn-lab |
+| 大组长（产品验收） | @moronfranklyn-lab（兼任） |
 
 ## 技术栈
 
@@ -77,10 +77,10 @@ npm run dev:mock
 
 ## 分级验收规则
 
-- 所有 PR：至少 1 位同组成员 Review，并由大组长 `@Ethan-hy` 做最终产品验收。
+- 所有 PR：至少 1 位同组成员 Review，并由大组长 `@moronfranklyn-lab` 做最终产品验收。
 - 3D 组 PR：还必须由 3D 组长 `@siguadht` 技术验收，目标合计 3 人批准。
 - RAG 组 PR：还必须由 RAG 组长 `@MN0709` 技术验收，目标合计 3 人批准。
-- 前端/公共 PR：同组 Review + `@Ethan-hy` 最终验收，目标合计 2 人批准。
+- 前端/公共 PR：同组 Review + `@moronfranklyn-lab` 最终验收，目标合计 2 人批准。
 - CI 的 lint、typecheck、build 必须全部通过；有“需修改”意见不得合并。
 - GitHub 原生单条分支保护只能设置全仓统一批准数，无法按目录动态设置 3/2 人。CODEOWNERS 会自动请求对应负责人；团队必须同时遵守上述流程规则。
 
