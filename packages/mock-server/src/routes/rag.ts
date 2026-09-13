@@ -9,6 +9,12 @@ import type {
   SearchResponse,
   SearchResult,
 } from '@motorcycle-ai/shared';
+import {
+  expandControlledPartQueryTerms,
+  inferPartTypeFromQuery,
+  matchesMotorcycleModel,
+  normalizeSearchText,
+} from '@motorcycle-ai/shared';
 import { faultCases } from '../data/faults.js';
 import { knowledgeEntries } from '../data/knowledge.js';
 import { parts } from '../data/parts.js';
@@ -62,47 +68,19 @@ function parseFaultRequest(value: unknown): FaultDiagnosisRequest {
   };
 }
 
-function inferPartType(query: string): string | undefined {
-  if (/排气|exhaust/i.test(query)) return 'exhaust';
-  if (/风挡|挡风|windshield/i.test(query)) return 'windshield';
-  if (/边箱|侧箱|saddlebag/i.test(query)) return 'saddlebag';
-  return undefined;
-}
-
-function normalize(value: string): string {
-  return value
-    .normalize('NFKC')
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .trim();
-}
-
-function modelMatches(candidate: string, requested: string): boolean {
-  const canonical = (value: string): string =>
-    value
-      .normalize('NFKC')
-      .toLowerCase()
-      .replace(/[^\p{L}\p{N}]+/gu, '');
-  const withoutYearRange = (value: string): string =>
-    value.replace(/(?:19|20)\d{2}(?:(?:19|20)\d{2})?$/u, '');
-  const fit = canonical(candidate);
-  const model = canonical(requested);
-  return fit === model || withoutYearRange(fit) === model;
-}
-
 router.post('/search/parts', (request, response) => {
   const input = parseSearchRequest(request.body as unknown);
-  const query = input.query.toLowerCase();
-  const inferredType = inferPartType(query);
+  const queryTerms = expandControlledPartQueryTerms(input.query);
+  const inferredType = inferPartTypeFromQuery(input.query);
   const scored: SearchResult[] = parts
     .map((part) => {
-      const searchable = normalize(
+      const searchable = normalizeSearchText(
         `${part.name} ${part.brand} ${part.source} ${part.fitModels.join(' ')}`,
       );
       const typeMatch = inferredType === part.partType;
-      const textMatch = searchable.includes(normalize(query));
+      const textMatch = queryTerms.some((term) => searchable.includes(normalizeSearchText(term)));
       const modelMatch = input.motorcycleModel
-        ? part.fitModels.some((model) => modelMatches(model, input.motorcycleModel ?? ''))
+        ? part.fitModels.some((model) => matchesMotorcycleModel(model, input.motorcycleModel ?? ''))
         : false;
       const score = Math.min(
         0.99,
@@ -115,7 +93,7 @@ router.post('/search/parts', (request, response) => {
     .filter(
       (part) =>
         !input.motorcycleModel ||
-        part.fitModels.some((model) => modelMatches(model, input.motorcycleModel ?? '')),
+        part.fitModels.some((model) => matchesMotorcycleModel(model, input.motorcycleModel ?? '')),
     )
     .sort((left, right) => right.score - left.score);
 

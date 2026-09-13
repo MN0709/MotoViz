@@ -2,3 +2,5 @@
 export function indexById<T extends { id: string }>(items: readonly T[]): ReadonlyMap<string, T> {
   return new Map(items.map((item) => [item.id, item]));
 }
+
+export * from './rag-search.js';

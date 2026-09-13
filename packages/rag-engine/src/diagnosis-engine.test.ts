@@ -316,6 +316,33 @@ test('trusted part metadata is filled by the server instead of trusting LLM fiel
   ]);
 });
 
+test('motorcycle-specific required parts degrade when no trusted catalog proves fitment', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  assert.ok(first);
+  const documents: KnowledgeDocument[] = [
+    {
+      ...first,
+      parts: [{ partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 3 }],
+    },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '需要更换受信配件',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: 'spark-001' }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+
+  const outcome = await diagnoseFault('冷车启动困难', documents, adapter, {
+    motorcycleModel: '春风250SR 2021',
+  });
+
+  assertFallback(outcome, 'invalid-part');
+});
+
 test('catalog rejects an unknown part ID even when a document snapshot contains it', async () => {
   const first = diagnosisDemoKnowledge[0];
   assert.ok(first);
@@ -367,6 +394,51 @@ test('catalog fitment hard-filter removes a mismatched recommended part', async 
   });
   assert.equal(outcome.degraded, false);
   assert.deepEqual(outcome.result.requiredParts, []);
+});
+
+test('catalog fitment binding accepts range years and boundaries but rejects outside years', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  assert.ok(first);
+  const trustedPart = { partId: 'fit-range', name: '配件', brand: 'Trusted', stock: 1 };
+  const documents: KnowledgeDocument[] = [{ ...first, parts: [trustedPart] }];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '按资料检查',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: trustedPart.partId }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+  const partsCatalog = [
+    {
+      ...trustedPart,
+      partType: 'other' as const,
+      fitModels: ['春风 250SR 2020-2023'],
+      price: 1,
+      source: '目录',
+      sourceUrl: 'https://example.com/part',
+      thumbnailUrl: 'https://example.com/part.png',
+    },
+  ];
+
+  for (const year of [2020, 2021, 2023]) {
+    const outcome = await diagnoseFault('冷车启动困难', documents, adapter, {
+      motorcycleModel: `春风250SR ${year}`,
+      partsCatalog,
+    });
+    assert.equal(outcome.degraded, false);
+    assert.deepEqual(outcome.result.requiredParts, [trustedPart]);
+  }
+  for (const year of [2019, 2024]) {
+    const outcome = await diagnoseFault('冷车启动困难', documents, adapter, {
+      motorcycleModel: `春风250SR ${year}`,
+      partsCatalog,
+    });
+    assert.equal(outcome.degraded, false);
+    assert.deepEqual(outcome.result.requiredParts, []);
+  }
 });
 
 test('identical cross-document part snapshots deduplicate safely', async () => {

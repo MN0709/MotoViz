@@ -13,6 +13,10 @@ export function bindRequiredParts(
   catalog?: readonly Part[],
   motorcycleModel?: string,
 ): RequiredPart[] {
+  if (drafts.length > 0 && motorcycleModel?.trim() && catalog === undefined) {
+    throw new Error('指定车型时缺少可验证适配关系的可信配件目录');
+  }
+
   const trustedParts = new Map<string, RequiredPart>();
   for (const hit of context) {
     for (const part of hit.parts ?? []) {

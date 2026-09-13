@@ -104,6 +104,51 @@ test('feedback accepts query IDs from both part and fault searches', async () =>
   }
 });
 
+test('part search HTTP keeps controlled synonyms and model year ranges aligned', async () => {
+  const app = express();
+  app.use(express.json());
+  app.use('/api/rag', ragRouter);
+  const server = app.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const { port } = server.address() as AddressInfo;
+  const baseUrl = `http://127.0.0.1:${port}`;
+
+  try {
+    const exhaust = await postJson(baseUrl, '/api/rag/search/parts', {
+      query: '排气',
+      motorcycleModel: '川崎 Ninja 400 2021',
+    });
+    const muffler = await postJson(baseUrl, '/api/rag/search/parts', {
+      query: '消音器',
+      motorcycleModel: '川崎 Ninja 400 2021',
+    });
+    assert.equal(exhaust.status, 200);
+    assert.equal(muffler.status, 200);
+    assert.deepEqual(
+      (muffler.body.results as Array<{ partId: string }>).map((part) => part.partId),
+      (exhaust.body.results as Array<{ partId: string }>).map((part) => part.partId),
+    );
+
+    for (const year of [2018, 2023]) {
+      const boundary = await postJson(baseUrl, '/api/rag/search/parts', {
+        query: '消音器',
+        motorcycleModel: `川崎 Ninja 400 ${year}`,
+      });
+      assert.equal((boundary.body.results as unknown[]).length > 0, true);
+    }
+    for (const year of [2017, 2024]) {
+      const outside = await postJson(baseUrl, '/api/rag/search/parts', {
+        query: '消音器',
+        motorcycleModel: `川崎 Ninja 400 ${year}`,
+      });
+      assert.deepEqual(outside.body.results, []);
+    }
+  } finally {
+    server.close();
+    await once(server, 'close');
+  }
+});
+
 test('3D registration references existing part and model IDs only', () => {
   const partIds = new Set(parts.map((part) => part.partId));
   const modelIds = new Set(models.map((model) => model.modelId));

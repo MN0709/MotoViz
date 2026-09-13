@@ -100,6 +100,28 @@ test('part search ignores model spacing without prefix false positives', () => {
   assert.deepEqual(searchParts(fixtures, { query: '排气', motorcycleModel: '车型AB' }), []);
 });
 
+test('part search accepts a requested year inside the fitment range and both boundaries', () => {
+  const ranged = [{ ...fixtures[0]!, fitModels: ['春风 250SR 2020-2023'] }];
+  for (const year of [2020, 2021, 2023]) {
+    assert.deepEqual(
+      searchParts(ranged, { query: '排气', motorcycleModel: `春风250SR ${year}` }).map(
+        (part) => part.partId,
+      ),
+      ['p-a'],
+    );
+  }
+});
+
+test('part search rejects requested years outside the fitment range', () => {
+  const ranged = [{ ...fixtures[0]!, fitModels: ['春风 250SR 2020-2023'] }];
+  for (const year of [2019, 2024]) {
+    assert.deepEqual(
+      searchParts(ranged, { query: '排气', motorcycleModel: `春风250SR ${year}` }),
+      [],
+    );
+  }
+});
+
 test('part search returns empty for completely unrelated query', () => {
   assert.deepEqual(searchParts(fixtures, { query: '完全不存在的商品' }), []);
 });

@@ -400,6 +400,7 @@ interface Reference {
   "content": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。",
   "sourceType": "manual",
   "sourceUrl": "https://example.com/manuals/ninja400/fuel-system#cold-start",
+  "models": ["川崎 Ninja 400 2018-2023"],
   "updatedAt": "2026-09-12T09:00:00.000Z"
 }
 ```
