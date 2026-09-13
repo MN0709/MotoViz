@@ -9,7 +9,9 @@ const selection = selectAdapter(process.env);
 const adapter = selection.adapter;
 
 if (selection.mode !== 'real') {
-  console.error('不是真实模式，无法测延迟。请设置 LLM_MODE=real + LLM_BASE_URL/LLM_API_KEY/LLM_MODEL');
+  console.error(
+    '不是真实模式，无法测延迟。请设置 LLM_MODE=real + LLM_BASE_URL/LLM_API_KEY/LLM_MODEL',
+  );
   process.exit(1);
 }
 
@@ -83,6 +85,7 @@ console.log(
         min: Number(sorted[0].toFixed(1)),
         max: Number(sorted[sorted.length - 1].toFixed(1)),
       },
+      samplesMs: results.map((ms) => Number(ms.toFixed(1))),
       failures,
     },
     null,

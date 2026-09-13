@@ -14,10 +14,11 @@
 ```
 
 - `knowledge-search.ts`：只召回最多 5 条正相关的 `manual` 和 `fault-case`，故障案例排序分乘 `1.2`；不会用零相关资料凑数。
-- `prompts.ts`：系统约束与 Top-5 上下文注入。当前沿用 feasibility Prompt 并做工程化拆分，后续可直接替换组长初稿。
+- `prompts.ts`：集成 PR #21 的正式系统提示词、2 轮 few-shot、资料不足/非维修问题安全响应，以及 Top-5 上下文注入。
 - `llm-adapter.ts`：`LLM_MODE=mock|http` 双模式；HTTP 使用 `response_format: { "type": "json_object" }` 和最长 4.5 秒的 `AbortController` 超时。
 - `validate.ts`：分别校验未信任的 LLM 草稿和最终 `FaultDiagnosisResult`。
 - `reference-binder.ts`：模型只能提供 `knowledgeId`；标题、摘要、URL 和来源类型全部由本次 Top-5 上下文回填。
+- `part-binder.ts`：模型只能选择上下文 `allowedParts` 中的 `partId`；名称、品牌和库存由服务端可信快照回填。
 - `fallback.ts`：超时、非法 JSON、结构错误或伪造引用时整体降级，不返回半份 AI 诊断。
 - `diagnosis-engine.ts`：串联检索、生成、验证、引用回填和降级。
 
@@ -49,11 +50,12 @@ Demo 自带的故障注入始终使用本地传输替身，不会向 `local.inva
 - HTTP 请求包含 JSON Object 输出约束，超时上限为 4500ms。
 - 超时、非法 JSON、伪造 `knowledgeId` 均触发整体降级。
 - 降级结果使用固定诊断文案，`possibleCauses=[]`、`requiredParts=[]`，并回填全部 Top-5 资料。
-- 知识库完全为空时显式报错，不会为了满足引用字段而伪造资料。
-- 当前没有可信库存数据源，Prompt 强制 `requiredParts=[]`；模型擅自生成配件或库存时会整体降级。
+- 按 RC5，资料不足或非维修问题允许空原因和空引用；普通诊断仍必须包含至少一个原因和一个受信引用。
+- 知识库无正相关资料时返回正式的“参考资料不足”安全结果和空引用，不会为了满足结构而伪造资料。
+- `requiredParts` 仅接受知识上下文显式携带的可信配件 ID，最终字段由服务端回填；未知 ID 会整体降级。
 
 ## 数据与验收边界
 
 Demo 中的知识、URL 和诊断内容均为合成工程数据，不能作为真实维修建议。当前结果验证的是代码结构、引用安全和异常韧性，没有验证 Issue #13 要求的 20 条真实故障诊断合理率，也没有交付 Issue #11 的 Embedding API 与增量向量索引。本模块支撑 #11 的关键词基线并解除 #13 的诊断链路前置依赖，但不单独关闭这两个 Issue。
 
-当前实现基于 feasibility PR #21 提供的 RC3 共享类型和接口契约；合并本 PR 前需先合并 #21，或在合并时保留等价的共享类型变更。
+当前实现已同步 feasibility PR #21 的正式 Prompt 与 RC5 接口约定。PR #21 合并后应将本分支同步到最新 `main`，重跑 `test:rag`、`lint`、`typecheck` 和 `build`，再申请技术与产品复审。

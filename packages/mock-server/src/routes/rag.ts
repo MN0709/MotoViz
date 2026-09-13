@@ -28,12 +28,16 @@ function parseSearchRequest(value: unknown): SearchRequest {
   if (value.motorcycleModel !== undefined && typeof value.motorcycleModel !== 'string') {
     throw new HttpError(400, 'INVALID_MOTORCYCLE_MODEL', 'motorcycleModel 必须是字符串');
   }
-  if (value.limit !== undefined && (!Number.isInteger(value.limit) || Number(value.limit) < 1 || Number(value.limit) > 20)) {
+  if (
+    value.limit !== undefined &&
+    (!Number.isInteger(value.limit) || Number(value.limit) < 1 || Number(value.limit) > 20)
+  ) {
     throw new HttpError(400, 'INVALID_LIMIT', 'limit 必须是 1-20 的整数');
   }
   return {
     query: value.query.trim(),
-    motorcycleModel: typeof value.motorcycleModel === 'string' ? value.motorcycleModel.trim() : undefined,
+    motorcycleModel:
+      typeof value.motorcycleModel === 'string' ? value.motorcycleModel.trim() : undefined,
     limit: typeof value.limit === 'number' ? value.limit : undefined,
   };
 }
@@ -50,7 +54,8 @@ function parseFaultRequest(value: unknown): FaultDiagnosisRequest {
   }
   return {
     symptom: value.symptom.trim(),
-    motorcycleModel: typeof value.motorcycleModel === 'string' ? value.motorcycleModel.trim() : undefined,
+    motorcycleModel:
+      typeof value.motorcycleModel === 'string' ? value.motorcycleModel.trim() : undefined,
     mileage: typeof value.mileage === 'number' ? value.mileage : undefined,
   };
 }
@@ -68,17 +73,27 @@ router.post('/search/parts', (request, response) => {
   const inferredType = inferPartType(query);
   const scored: SearchResult[] = parts
     .map((part) => {
-      const searchable = `${part.name} ${part.brand} ${part.source} ${part.fitModels.join(' ')}`.toLowerCase();
+      const searchable =
+        `${part.name} ${part.brand} ${part.source} ${part.fitModels.join(' ')}`.toLowerCase();
       const typeMatch = inferredType === part.partType;
       const textMatch = searchable.includes(query);
       const modelMatch = input.motorcycleModel
-        ? part.fitModels.some((model) => model.toLowerCase().includes(input.motorcycleModel?.toLowerCase() ?? ''))
+        ? part.fitModels.some((model) =>
+            model.toLowerCase().includes(input.motorcycleModel?.toLowerCase() ?? ''),
+          )
         : false;
-      const score = Math.min(0.99, 0.45 + (typeMatch ? 0.25 : 0) + (textMatch ? 0.15 : 0) + (modelMatch ? 0.14 : 0));
+      const score = Math.min(
+        0.99,
+        0.45 + (typeMatch ? 0.25 : 0) + (textMatch ? 0.15 : 0) + (modelMatch ? 0.14 : 0),
+      );
       return { ...part, score };
     })
     .filter((part) => inferredType === undefined || part.partType === inferredType)
-    .filter((part) => !input.motorcycleModel || part.fitModels.some((model) => model.includes(input.motorcycleModel ?? '')))
+    .filter(
+      (part) =>
+        !input.motorcycleModel ||
+        part.fitModels.some((model) => model.includes(input.motorcycleModel ?? '')),
+    )
     .sort((left, right) => right.score - left.score);
 
   const limit = input.limit ?? 10;
@@ -107,12 +122,15 @@ router.post('/search/fault', (request, response) => {
     .sort((left, right) => right.score - left.score);
   const best = matches[0];
   if (!best) {
-    throw new HttpError(500, 'MOCK_DATA_EMPTY', 'Mock 故障案例为空');
+    throw new HttpError(404, 'RAG_DIAGNOSIS_ERROR', '请求参数不合法或诊断失败');
   }
 
   const result: FaultDiagnosisResult = {
     queryId: `query-${randomUUID()}`,
-    diagnosis: best.score > 0 ? best.faultCase.diagnosis : '未精确命中症状，以下为通用安全排查建议，请由专业技师复核。',
+    diagnosis:
+      best.score > 0
+        ? best.faultCase.diagnosis
+        : '未精确命中症状，以下为通用安全排查建议，请由专业技师复核。',
     possibleCauses: best.faultCase.possibleCauses,
     requiredParts: best.faultCase.requiredParts,
     references: best.faultCase.references,
@@ -134,7 +152,7 @@ router.post('/feedback', (request, response) => {
     throw new HttpError(400, 'QUERY_ID_REQUIRED', 'queryId 不能为空');
   }
   if (body.rating !== 'up' && body.rating !== 'down') {
-    throw new HttpError(400, 'INVALID_RATING', 'rating 只能是 up 或 down');
+    throw new HttpError(400, 'INVALID_RATING', 'rating 必须是 up 或 down');
   }
   if (body.comment !== undefined && typeof body.comment !== 'string') {
     throw new HttpError(400, 'INVALID_COMMENT', 'comment 必须是字符串');

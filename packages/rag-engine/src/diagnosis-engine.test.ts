@@ -11,7 +11,11 @@ import {
 } from './llm-adapter.js';
 import type { KnowledgeDocument } from './knowledge-search.js';
 import { searchKnowledge } from './knowledge-search.js';
-import { buildDiagnosisMessages } from './prompts.js';
+import {
+  buildDiagnosisMessages,
+  INSUFFICIENT_DIAGNOSIS,
+  UNSUPPORTED_DIAGNOSIS,
+} from './prompts.js';
 import { bindReferences } from './reference-binder.js';
 import { isFaultDiagnosisResult } from './validate.js';
 import { diagnosisDemoKnowledge } from './demo/sample-knowledge.js';
@@ -56,12 +60,19 @@ test('fault-case receives a 1.2 ranking boost', () => {
 
 test('prompt injects at most five knowledge IDs and constrains references', () => {
   const context = searchKnowledge('冷车启动', diagnosisDemoKnowledge);
-  const messages = buildDiagnosisMessages('冷车启动', context);
-  assert.equal(messages.length, 2);
-  assert.match(messages[0]?.content ?? '', /references 只能填写/);
-  const userPayload = JSON.parse(messages[1]?.content ?? '{}') as { CONTEXT_JSON?: unknown[] };
-  assert.equal(userPayload.CONTEXT_JSON?.length, context.length);
-  assert.match(messages[1]?.content ?? '', new RegExp(context[0]?.knowledgeId ?? 'missing'));
+  const messages = buildDiagnosisMessages('冷车启动', context, 'Ninja 400', 8000);
+  assert.equal(messages.length, 6);
+  assert.match(messages[0]?.content ?? '', /knowledgeId 只能来自当前参考资料/);
+  assert.match(messages[0]?.content ?? '', /allowedParts/);
+  const userPayload = JSON.parse(messages.at(-1)?.content ?? '{}') as {
+    references?: unknown[];
+    motorcycleModel?: string;
+    mileage?: number;
+  };
+  assert.equal(userPayload.references?.length, context.length);
+  assert.equal(userPayload.motorcycleModel, 'Ninja 400');
+  assert.equal(userPayload.mileage, 8000);
+  assert.match(messages.at(-1)?.content ?? '', new RegExp(context[0]?.knowledgeId ?? 'missing'));
 });
 
 test('reference binder uses trusted metadata and rejects one forged ID entirely', () => {
@@ -104,18 +115,25 @@ test('three mock symptoms produce valid complete results', async () => {
   }
 });
 
-test('empty knowledge corpus fails explicitly instead of fabricating a reference', async () => {
-  await assert.rejects(
-    diagnoseFault('任意症状', [], new MockLLMAdapter(), { queryId: 'empty-context' }),
-    /没有可用于诊断/,
-  );
+test('empty knowledge corpus returns the formal insufficient-evidence response', async () => {
+  const outcome = await diagnoseFault('任意症状', [], new MockLLMAdapter(), {
+    queryId: 'empty-context',
+  });
+  assert.equal(outcome.degraded, false);
+  assert.equal(outcome.result.diagnosis, INSUFFICIENT_DIAGNOSIS);
+  assert.deepEqual(outcome.result.references, []);
+  assert.equal(isFaultDiagnosisResult(outcome.result), true);
 });
 
-test('unmatched symptom fails explicitly instead of diagnosing from zero-score evidence', async () => {
-  await assert.rejects(
-    diagnoseFault('完全未知的 xyz 症状', diagnosisDemoKnowledge, new MockLLMAdapter()),
-    /没有可用于诊断/,
+test('unmatched symptom returns insufficient evidence instead of using zero-score documents', async () => {
+  const outcome = await diagnoseFault(
+    '完全未知的 xyz 症状',
+    diagnosisDemoKnowledge,
+    new MockLLMAdapter(),
   );
+  assert.equal(outcome.degraded, false);
+  assert.equal(outcome.result.diagnosis, INSUFFICIENT_DIAGNOSIS);
+  assert.deepEqual(outcome.result.references, []);
 });
 
 test('duplicate or incomplete knowledge records are rejected', () => {
@@ -123,6 +141,13 @@ test('duplicate or incomplete knowledge records are rejected', () => {
   assert.ok(first);
   assert.throws(() => searchKnowledge('冷车', [first, { ...first }]), /ID 重复/);
   assert.throws(() => searchKnowledge('冷车', [{ ...first, sourceUrl: '' }]), /均不能为空/);
+  assert.throws(
+    () =>
+      searchKnowledge('冷车', [
+        { ...first, parts: [{ partId: 'bad', name: '', brand: 'Brand', stock: 1 }] },
+      ]),
+    /配件数据不完整/,
+  );
 });
 
 function assertFallback(
@@ -134,7 +159,7 @@ function assertFallback(
   assert.equal(outcome.result.diagnosis, FALLBACK_DIAGNOSIS);
   assert.deepEqual(outcome.result.possibleCauses, []);
   assert.deepEqual(outcome.result.requiredParts, []);
-  assert.ok(outcome.context.length > 0 && outcome.context.length <= 5);
+  assert.ok(outcome.context.length <= 5);
   assert.equal(outcome.result.references.length, outcome.context.length);
   assert.equal(isFaultDiagnosisResult(outcome.result), true);
 }
@@ -215,6 +240,56 @@ test('untrusted required parts cause whole-result fallback', async () => {
         requiredParts: [{ partId: 'fake', name: '伪造配件', brand: '伪造品牌', stock: 99 }],
         references: [{ knowledgeId: context[0]?.knowledgeId }],
       };
+    },
+  };
+  const outcome = await diagnoseFault('冷车启动困难', diagnosisDemoKnowledge, adapter);
+  assertFallback(outcome, 'invalid-part');
+});
+
+test('trusted part metadata is filled by the server instead of trusting LLM fields', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  assert.ok(first);
+  const documents: KnowledgeDocument[] = [
+    {
+      ...first,
+      parts: [{ partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 3 }],
+    },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '需要按资料检查并更换受信配件',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: 'spark-001', name: '伪造', brand: '伪造', stock: 999 }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+  const outcome = await diagnoseFault('冷车启动困难', documents, adapter);
+  assert.equal(outcome.degraded, false);
+  assert.deepEqual(outcome.result.requiredParts, [
+    { partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 3 },
+  ]);
+});
+
+test('formal safe responses allow empty causes and references without weakening normal diagnosis', async () => {
+  for (const diagnosis of [INSUFFICIENT_DIAGNOSIS, UNSUPPORTED_DIAGNOSIS]) {
+    const adapter: LLMAdapter = {
+      async generateDiagnosis() {
+        return { diagnosis, possibleCauses: [], requiredParts: [], references: [] };
+      },
+    };
+    const outcome = await diagnoseFault('冷车启动困难', diagnosisDemoKnowledge, adapter);
+    assert.equal(outcome.degraded, false);
+    assert.deepEqual(outcome.result.references, []);
+    assert.equal(isFaultDiagnosisResult(outcome.result), true);
+  }
+});
+
+test('ordinary diagnosis cannot bypass evidence rules with empty causes and references', async () => {
+  const adapter: LLMAdapter = {
+    async generateDiagnosis() {
+      return { diagnosis: '普通诊断', possibleCauses: [], requiredParts: [], references: [] };
     },
   };
   const outcome = await diagnoseFault('冷车启动困难', diagnosisDemoKnowledge, adapter);

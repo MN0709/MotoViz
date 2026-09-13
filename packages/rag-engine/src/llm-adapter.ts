@@ -1,6 +1,6 @@
 import type { LLMAdapter } from './diagnosis-types.js';
 import type { KnowledgeSearchHit } from './knowledge-search.js';
-import { buildDiagnosisMessages } from './prompts.js';
+import { buildDiagnosisMessages, INSUFFICIENT_DIAGNOSIS } from './prompts.js';
 
 const HARD_TIMEOUT_MS = 4500;
 
@@ -74,7 +74,14 @@ export class MockLLMAdapter implements LLMAdapter {
     context: readonly KnowledgeSearchHit[],
   ): Promise<unknown> {
     const first = context[0];
-    if (!first) throw new Error('没有可用知识上下文');
+    if (!first) {
+      return {
+        diagnosis: INSUFFICIENT_DIAGNOSIS,
+        possibleCauses: [],
+        requiredParts: [],
+        references: [],
+      };
+    }
     return {
       diagnosis: `根据《${first.title}》，应按资料顺序检查与“${symptom}”相关的系统。`,
       possibleCauses: [

@@ -26,7 +26,7 @@ export interface FaultDiagnosisRequest {
   mileage?: number;
 }
 
-/** 知识来源引用；每条诊断结论都必须能追溯到至少一个引用。 */
+/** 知识来源引用；存在诊断证据时必须能追溯到本次召回上下文。 */
 export interface Reference {
   knowledgeId: string;
   title: string;
@@ -50,7 +50,7 @@ export interface RequiredPart {
   stock: number;
 }
 
-/** 故障诊断响应；references 不得为空。 */
+/** 故障诊断响应；知识库无相关案例或问题无关时 references 允许为空。 */
 export interface FaultDiagnosisResult {
   queryId: string;
   diagnosis: string;

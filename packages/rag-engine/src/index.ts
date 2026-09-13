@@ -10,7 +10,14 @@ export {
 } from './llm-adapter.js';
 export { searchKnowledge, tokenizeKnowledge } from './knowledge-search.js';
 export type { KnowledgeDocument, KnowledgeSearchHit } from './knowledge-search.js';
-export { buildDiagnosisMessages, DIAGNOSIS_SYSTEM_PROMPT } from './prompts.js';
+export { bindRequiredParts } from './part-binder.js';
+export {
+  buildDiagnosisMessages,
+  DIAGNOSIS_FEW_SHOT_MESSAGES,
+  DIAGNOSIS_SYSTEM_PROMPT,
+  INSUFFICIENT_DIAGNOSIS,
+  UNSUPPORTED_DIAGNOSIS,
+} from './prompts.js';
 export { bindReferences } from './reference-binder.js';
 export type { RagHealth, RagMode } from './types.js';
 export { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';

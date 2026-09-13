@@ -5,6 +5,7 @@ import { buildFallbackResult } from './fallback.js';
 import type { KnowledgeDocument } from './knowledge-search.js';
 import { searchKnowledge } from './knowledge-search.js';
 import { LLMAdapterError } from './llm-adapter.js';
+import { bindRequiredParts } from './part-binder.js';
 import { bindReferences } from './reference-binder.js';
 import { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
 
@@ -34,9 +35,6 @@ export async function diagnoseFault(
   const suppliedQueryId = options.queryId?.trim();
   const queryId = suppliedQueryId || `query-${randomUUID()}`;
   const context = searchKnowledge(symptom, documents);
-  if (context.length === 0) {
-    throw new Error('知识库中没有可用于诊断的维修手册或故障案例');
-  }
 
   let draft: unknown;
   try {
@@ -53,18 +51,27 @@ export async function diagnoseFault(
     return fallbackOutcome(queryId, context, 'invalid-structure');
   }
 
-  let result: FaultDiagnosisResult;
+  let references: FaultDiagnosisResult['references'];
   try {
-    result = {
-      queryId,
-      diagnosis: draft.diagnosis.trim(),
-      possibleCauses: draft.possibleCauses,
-      requiredParts: draft.requiredParts,
-      references: bindReferences(draft.references, context),
-    };
+    references = bindReferences(draft.references, context);
   } catch {
     return fallbackOutcome(queryId, context, 'invalid-reference');
   }
+
+  let requiredParts: FaultDiagnosisResult['requiredParts'];
+  try {
+    requiredParts = bindRequiredParts(draft.requiredParts, context);
+  } catch {
+    return fallbackOutcome(queryId, context, 'invalid-part');
+  }
+
+  const result: FaultDiagnosisResult = {
+    queryId,
+    diagnosis: draft.diagnosis.trim(),
+    possibleCauses: draft.possibleCauses,
+    requiredParts,
+    references,
+  };
 
   if (!isFaultDiagnosisResult(result)) {
     return fallbackOutcome(queryId, context, 'invalid-structure');

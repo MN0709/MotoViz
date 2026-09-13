@@ -1,14 +1,18 @@
-import type { FaultDiagnosisResult, PossibleCause, RequiredPart } from '@motorcycle-ai/shared';
+import type { FaultDiagnosisResult, PossibleCause } from '@motorcycle-ai/shared';
 import type { KnowledgeSearchHit } from './knowledge-search.js';
 
 export interface LLMReferenceDraft {
   knowledgeId: string;
 }
 
+export interface LLMRequiredPartDraft {
+  partId: string;
+}
+
 export interface LLMDiagnosisDraft {
   diagnosis: string;
   possibleCauses: PossibleCause[];
-  requiredParts: RequiredPart[];
+  requiredParts: LLMRequiredPartDraft[];
   references: LLMReferenceDraft[];
 }
 
@@ -25,6 +29,7 @@ export interface DiagnosisOutcome {
     | 'http-error'
     | 'llm-error'
     | 'invalid-structure'
-    | 'invalid-reference';
+    | 'invalid-reference'
+    | 'invalid-part';
   context: KnowledgeSearchHit[];
 }

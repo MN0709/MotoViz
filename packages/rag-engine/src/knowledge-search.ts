@@ -1,4 +1,4 @@
-import type { Reference } from '@motorcycle-ai/shared';
+import type { Reference, RequiredPart } from '@motorcycle-ai/shared';
 
 export interface KnowledgeDocument {
   knowledgeId: string;
@@ -6,6 +6,8 @@ export interface KnowledgeDocument {
   sourceType: Reference['sourceType'];
   sourceUrl: string;
   content: string;
+  /** 由采集/库存服务提供的可信配件快照；LLM 只能选择其中的 partId。 */
+  parts?: readonly RequiredPart[];
 }
 
 export interface KnowledgeSearchHit extends KnowledgeDocument {
@@ -15,6 +17,16 @@ export interface KnowledgeSearchHit extends KnowledgeDocument {
 
 const DEFAULT_LIMIT = 5;
 const FAULT_CASE_WEIGHT = 1.2;
+
+function isTrustedPart(part: RequiredPart): boolean {
+  return (
+    part.partId.trim().length > 0 &&
+    part.name.trim().length > 0 &&
+    part.brand.trim().length > 0 &&
+    Number.isInteger(part.stock) &&
+    part.stock >= 0
+  );
+}
 
 function normalize(text: string): string {
   return text
@@ -69,6 +81,13 @@ export function searchKnowledge(
     }
     if (seenIds.has(document.knowledgeId)) {
       throw new Error(`知识条目 ID 重复：${document.knowledgeId}`);
+    }
+    if (document.parts && !document.parts.every(isTrustedPart)) {
+      throw new Error(`知识条目配件数据不完整：${document.knowledgeId}`);
+    }
+    const partIds = document.parts?.map((part) => part.partId) ?? [];
+    if (new Set(partIds).size !== partIds.length) {
+      throw new Error(`知识条目配件 ID 重复：${document.knowledgeId}`);
     }
     seenIds.add(document.knowledgeId);
   }

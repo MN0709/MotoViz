@@ -1,5 +1,6 @@
 import type { FaultDiagnosisResult, Reference } from '@motorcycle-ai/shared';
 import type { LLMDiagnosisDraft } from './diagnosis-types.js';
+import { INSUFFICIENT_DIAGNOSIS, UNSUPPORTED_DIAGNOSIS } from './prompts.js';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
@@ -33,6 +34,14 @@ function validRequiredPart(value: unknown): boolean {
   );
 }
 
+function validRequiredPartDraft(value: unknown): boolean {
+  return isRecord(value) && isNonEmptyString(value.partId);
+}
+
+function validReferenceDraft(value: unknown): boolean {
+  return isRecord(value) && isNonEmptyString(value.knowledgeId);
+}
+
 function validReference(value: unknown): value is Reference {
   return (
     isRecord(value) &&
@@ -46,25 +55,44 @@ function validReference(value: unknown): value is Reference {
   );
 }
 
-/** LLM 草稿的运行时边界；正常生成必须给出至少一个原因和一个引用 ID。 */
+/** LLM 草稿边界：正常诊断需证据；两种正式安全响应允许空原因/空引用。 */
 export function isLLMDiagnosisDraft(value: unknown): value is LLMDiagnosisDraft {
+  if (
+    !isRecord(value) ||
+    !isNonEmptyString(value.diagnosis) ||
+    !Array.isArray(value.possibleCauses) ||
+    !value.possibleCauses.every(validPossibleCause) ||
+    !Array.isArray(value.requiredParts) ||
+    !value.requiredParts.every(validRequiredPartDraft) ||
+    !Array.isArray(value.references) ||
+    !value.references.every(validReferenceDraft)
+  ) {
+    return false;
+  }
+
+  if (value.diagnosis === UNSUPPORTED_DIAGNOSIS) {
+    return (
+      value.possibleCauses.length === 0 &&
+      value.requiredParts.length === 0 &&
+      value.references.length === 0
+    );
+  }
+  if (value.diagnosis === INSUFFICIENT_DIAGNOSIS) {
+    return (
+      value.possibleCauses.length === 0 &&
+      value.requiredParts.length === 0 &&
+      value.references.length <= 2
+    );
+  }
   return (
-    isRecord(value) &&
-    isNonEmptyString(value.diagnosis) &&
-    Array.isArray(value.possibleCauses) &&
     value.possibleCauses.length > 0 &&
-    value.possibleCauses.every(validPossibleCause) &&
-    Array.isArray(value.requiredParts) &&
-    value.requiredParts.length === 0 &&
-    Array.isArray(value.references) &&
+    value.possibleCauses.length <= 3 &&
     value.references.length > 0 &&
-    value.references.every(
-      (reference) => isRecord(reference) && isNonEmptyString(reference.knowledgeId),
-    )
+    value.references.length <= 5
   );
 }
 
-/** 最终 API 结构校验；降级响应允许原因和配件为空，但引用仍不得为空。 */
+/** 最终 API 结构校验；按 RC5，知识库无相关案例时 references 允许为空。 */
 export function isFaultDiagnosisResult(value: unknown): value is FaultDiagnosisResult {
   return (
     isRecord(value) &&
@@ -75,7 +103,6 @@ export function isFaultDiagnosisResult(value: unknown): value is FaultDiagnosisR
     Array.isArray(value.requiredParts) &&
     value.requiredParts.every(validRequiredPart) &&
     Array.isArray(value.references) &&
-    value.references.length > 0 &&
     value.references.every(validReference)
   );
 }

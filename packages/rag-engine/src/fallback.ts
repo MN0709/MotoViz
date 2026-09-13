@@ -8,9 +8,6 @@ export function buildFallbackResult(
   queryId: string,
   context: readonly KnowledgeSearchHit[],
 ): FaultDiagnosisResult {
-  if (context.length === 0) {
-    throw new Error('没有受信知识上下文，不能构造带引用的诊断响应');
-  }
   return {
     queryId,
     diagnosis: FALLBACK_DIAGNOSIS,
