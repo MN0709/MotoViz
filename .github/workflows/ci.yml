@@ -10,7 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  quality:
+  # 分支保护按此 job id 识别必需检查，必须与 required status context "ci" 一致。
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
