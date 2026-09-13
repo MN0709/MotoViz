@@ -145,36 +145,38 @@ async function callDeepSeek(messages: { role: string; content: string }[]): Prom
     throw new Error(`HTTP ${response.status}: ${text}`);
   }
 
-  const payload: any = await response.json();
-  const content = payload.choices?.[0]?.message?.content;
+  const payload: unknown = await response.json();
+  const content = (payload as { choices?: Array<{ message?: { content?: string } }> })?.choices?.[0]?.message?.content;
   if (!content) throw new Error('响应缺少content');
   return { content, latencyMs };
 }
 
-function parseJson(content: string): any {
+function parseJson(content: string): unknown {
   const withoutFence = content.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '');
   return JSON.parse(withoutFence);
 }
 
-function validateOutput(output: any, testCase: TestCase): string[] {
+function validateOutput(output: unknown, testCase: TestCase): string[] {
   const errors: string[] = [];
+  const obj = output as Record<string, unknown>;
 
   // 检查diagnosis
-  if (typeof output.diagnosis !== 'string' || output.diagnosis.trim() === '') {
+  if (typeof obj.diagnosis !== 'string' || (obj.diagnosis as string).trim() === '') {
     errors.push('diagnosis 不是非空字符串');
   }
 
   // 检查possibleCauses
-  if (!Array.isArray(output.possibleCauses)) {
+  if (!Array.isArray(obj.possibleCauses)) {
     errors.push('possibleCauses 不是数组');
   } else {
-    if (testCase.expected.shouldHaveCauses && output.possibleCauses.length === 0) {
+    const causes = obj.possibleCauses as Array<Record<string, unknown>>;
+    if (testCase.expected.shouldHaveCauses && causes.length === 0) {
       errors.push('possibleCauses 应该有内容但为空');
     }
-    if (!testCase.expected.shouldHaveCauses && output.possibleCauses.length > 0) {
-      errors.push(`possibleCauses 应该为空但有 ${output.possibleCauses.length} 条`);
+    if (!testCase.expected.shouldHaveCauses && causes.length > 0) {
+      errors.push(`possibleCauses 应该为空但有 ${causes.length} 条`);
     }
-    for (const cause of output.possibleCauses) {
+    for (const cause of causes) {
       if (typeof cause.cause !== 'string') errors.push('possibleCauses[].cause 不是字符串');
       if (typeof cause.solution !== 'string') errors.push('possibleCauses[].solution 不是字符串');
       const prob = cause.probability;
@@ -189,22 +191,23 @@ function validateOutput(output: any, testCase: TestCase): string[] {
   }
 
   // 检查requiredParts
-  if (!Array.isArray(output.requiredParts)) {
+  if (!Array.isArray(obj.requiredParts)) {
     errors.push('requiredParts 不是数组');
   }
 
   // 检查references
-  if (!Array.isArray(output.references)) {
+  if (!Array.isArray(obj.references)) {
     errors.push('references 不是数组');
   } else {
-    if (testCase.expected.shouldHaveReferences && output.references.length === 0) {
+    const refs = obj.references as Array<Record<string, unknown>>;
+    if (testCase.expected.shouldHaveReferences && refs.length === 0) {
       errors.push('references 应该有内容但为空');
     }
-    if (!testCase.expected.shouldHaveReferences && output.references.length > 0) {
-      errors.push(`references 应该为空但有 ${output.references.length} 条`);
+    if (!testCase.expected.shouldHaveReferences && refs.length > 0) {
+      errors.push(`references 应该为空但有 ${refs.length} 条`);
     }
     // 检查knowledgeId是否编造
-    for (const ref of output.references) {
+    for (const ref of refs) {
       if (typeof ref.knowledgeId !== 'string') {
         errors.push('references[].knowledgeId 不是字符串');
       } else if (testCase.expected.allowedKnowledgeIds && !testCase.expected.allowedKnowledgeIds.includes(ref.knowledgeId)) {
@@ -215,7 +218,8 @@ function validateOutput(output: any, testCase: TestCase): string[] {
 
   // 检查是否拒绝（非摩托车问题）
   if (testCase.expected.shouldReject) {
-    if (output.diagnosis && !output.diagnosis.includes('仅支持') && !output.diagnosis.includes('摩托车')) {
+    const diagnosis = obj.diagnosis as string | undefined;
+    if (diagnosis && !diagnosis.includes('仅支持') && !diagnosis.includes('摩托车')) {
       errors.push('非摩托车问题应该拒绝，但diagnosis没有拒绝提示');
     }
   }
@@ -241,8 +245,8 @@ async function runTest(testCase: TestCase, runIndex: number): Promise<TestResult
     latencyMs = result.latencyMs;
     parsedOutput = parseJson(rawOutput);
     errors.push(...validateOutput(parsedOutput, testCase));
-  } catch (e: any) {
-    errors.push(`调用或解析失败: ${e.message}`);
+  } catch (e: unknown) {
+    errors.push(`调用或解析失败: ${e instanceof Error ? e.message : String(e)}`);
   }
 
   return {
