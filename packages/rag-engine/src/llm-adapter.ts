@@ -72,6 +72,8 @@ export class MockLLMAdapter implements LLMAdapter {
   public async generateDiagnosis(
     symptom: string,
     context: readonly KnowledgeSearchHit[],
+    _motorcycleModel?: string,
+    _mileage?: number,
   ): Promise<unknown> {
     const first = context[0];
     if (!first) throw new Error('没有可用知识上下文');
@@ -97,6 +99,8 @@ export class HttpLLMAdapter implements LLMAdapter {
   public async generateDiagnosis(
     symptom: string,
     context: readonly KnowledgeSearchHit[],
+    motorcycleModel?: string,
+    mileage?: number,
   ): Promise<unknown> {
     const controller = new AbortController();
     const timeoutMs = resolveLLMTimeoutMs(this.config.timeoutMs);
@@ -113,7 +117,7 @@ export class HttpLLMAdapter implements LLMAdapter {
           temperature: this.config.temperature ?? 0.1,
           max_tokens: this.config.maxTokens ?? 1200,
           response_format: { type: 'json_object' },
-          messages: buildDiagnosisMessages(symptom, context),
+          messages: buildDiagnosisMessages(symptom, context, motorcycleModel, mileage),
         }),
         signal: controller.signal,
       });
@@ -135,6 +139,55 @@ export class HttpLLMAdapter implements LLMAdapter {
     } finally {
       clearTimeout(timeout);
     }
+  }
+}
+
+/**
+ * 多 API Key 轮询适配器（双API兜底）
+ *
+ * 主 key 调用失败（http-error 或 timeout）时，自动用备用 key 再试一次。
+ * 只有所有 key 都失败了，才抛出错误让上层降级。
+ *
+ * 产品决策：单个 API key 有失效风险（额度用完、被封禁、网络问题），
+ * 双 key 兜底能把"AI不可用"的概率降低一半，Demo 演示更稳。
+ */
+export class MultiKeyLLMAdapter implements LLMAdapter {
+  private readonly adapters: HttpLLMAdapter[];
+
+  public constructor(configs: HttpLLMConfig[]) {
+    if (configs.length === 0) {
+      throw new Error('MultiKeyLLMAdapter 至少需要一个 API key 配置');
+    }
+    this.adapters = configs.map((config) => new HttpLLMAdapter(config));
+  }
+
+  public async generateDiagnosis(
+    symptom: string,
+    context: readonly KnowledgeSearchHit[],
+    motorcycleModel?: string,
+    mileage?: number,
+  ): Promise<unknown> {
+    let lastError: unknown;
+    for (let i = 0; i < this.adapters.length; i += 1) {
+      try {
+        return await this.adapters[i].generateDiagnosis(symptom, context, motorcycleModel, mileage);
+      } catch (error) {
+        lastError = error;
+        // 只有 http-error 和 timeout 才切换下一个 key
+        // invalid-json / invalid-response 是 AI 返回内容有问题，换 key 也没用
+        const isRetryable =
+          error instanceof LLMAdapterError &&
+          (error.code === 'http-error' || error.code === 'timeout');
+        if (!isRetryable) {
+          throw error;
+        }
+        // 不是最后一个 key，继续试下一个
+        if (i < this.adapters.length - 1) {
+          continue;
+        }
+      }
+    }
+    throw lastError;
   }
 }
 

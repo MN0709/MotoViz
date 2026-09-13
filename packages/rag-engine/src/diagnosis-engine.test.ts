@@ -54,14 +54,17 @@ test('fault-case receives a 1.2 ranking boost', () => {
   assert.equal(hits[0]?.score, Number(((hits[1]?.score ?? 0) * 1.2).toFixed(4)));
 });
 
-test('prompt injects at most five knowledge IDs and constrains references', () => {
+test('prompt injects knowledge IDs and constrains references', () => {
   const context = searchKnowledge('冷车启动', diagnosisDemoKnowledge);
   const messages = buildDiagnosisMessages('冷车启动', context);
-  assert.equal(messages.length, 2);
-  assert.match(messages[0]?.content ?? '', /references 只能填写/);
-  const userPayload = JSON.parse(messages[1]?.content ?? '{}') as { CONTEXT_JSON?: unknown[] };
-  assert.equal(userPayload.CONTEXT_JSON?.length, context.length);
-  assert.match(messages[1]?.content ?? '', new RegExp(context[0]?.knowledgeId ?? 'missing'));
+  // 组长的prompt包含 system + 2轮few-shot(各2条) + 最终user，共6条消息
+  assert.equal(messages.length, 6);
+  assert.match(messages[0]?.content ?? '', /references/);
+  // 最后一条是user消息，包含references数组（注入的知识条目）
+  const lastMessage = messages[messages.length - 1];
+  const userPayload = JSON.parse(lastMessage?.content ?? '{}') as { references?: { knowledgeId: string }[] };
+  assert.equal(userPayload.references?.length, context.length);
+  assert.match(lastMessage?.content ?? '', new RegExp(context[0]?.knowledgeId ?? 'missing'));
 });
 
 test('reference binder uses trusted metadata and rejects one forged ID entirely', () => {
@@ -85,7 +88,8 @@ test('three mock symptoms produce valid complete results', async () => {
   const cases = [
     { symptom: '冷车启动困难，怠速熄火', expectedTopId: 'case-ninja400-cold-start' },
     { symptom: '刹车手感变软', expectedTopId: 'case-brake-hose-leak' },
-    { symptom: '水温过高且风扇不转', expectedTopId: 'manual-cooling-relay' },
+    // 同义词扩展后，"水温过高"匹配到"冷却风扇"案例，排到第一
+    { symptom: '水温过高且风扇不转', expectedTopId: 'case-cooling-fan' },
   ];
   for (const [index, testCase] of cases.entries()) {
     const { symptom, expectedTopId } = testCase;
@@ -104,18 +108,28 @@ test('three mock symptoms produce valid complete results', async () => {
   }
 });
 
-test('empty knowledge corpus fails explicitly instead of fabricating a reference', async () => {
-  await assert.rejects(
-    diagnoseFault('任意症状', [], new MockLLMAdapter(), { queryId: 'empty-context' }),
-    /没有可用于诊断/,
-  );
+test('empty knowledge corpus returns no-context fallback instead of fabricating', async () => {
+  const outcome = await diagnoseFault('任意症状', [], new MockLLMAdapter(), {
+    queryId: 'empty-context',
+  });
+  assert.equal(outcome.degraded, true);
+  assert.equal(outcome.fallbackReason, 'no-context');
+  assert.equal(outcome.context.length, 0);
+  assert.equal(outcome.result.references.length, 0);
+  assert.match(outcome.result.diagnosis, /未找到/);
 });
 
-test('unmatched symptom fails explicitly instead of diagnosing from zero-score evidence', async () => {
-  await assert.rejects(
-    diagnoseFault('完全未知的 xyz 症状', diagnosisDemoKnowledge, new MockLLMAdapter()),
-    /没有可用于诊断/,
+test('unmatched symptom returns no-context fallback instead of zero-score diagnosis', async () => {
+  const outcome = await diagnoseFault(
+    '完全未知的 xyz 症状',
+    diagnosisDemoKnowledge,
+    new MockLLMAdapter(),
   );
+  assert.equal(outcome.degraded, true);
+  assert.equal(outcome.fallbackReason, 'no-context');
+  assert.equal(outcome.context.length, 0);
+  assert.equal(outcome.result.references.length, 0);
+  assert.match(outcome.result.diagnosis, /未找到/);
 });
 
 test('duplicate or incomplete knowledge records are rejected', () => {

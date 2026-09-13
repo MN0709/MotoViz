@@ -10,6 +10,8 @@ import { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
 
 export interface DiagnoseOptions {
   queryId?: string;
+  motorcycleModel?: string;
+  mileage?: number;
 }
 
 function fallbackOutcome(
@@ -34,13 +36,27 @@ export async function diagnoseFault(
   const suppliedQueryId = options.queryId?.trim();
   const queryId = suppliedQueryId || `query-${randomUUID()}`;
   const context = searchKnowledge(symptom, documents);
+
+  // 搜不到资料时不报错，直接返回"资料不足"的结果
+  // 这样非摩托问题和"资料里真的没有"都会返回这个提示，用户能理解
   if (context.length === 0) {
-    throw new Error('知识库中没有可用于诊断的维修手册或故障案例');
+    return {
+      result: {
+        queryId,
+        diagnosis: '未找到与该问题相关的维修资料。请确认问题是否与摩托车故障相关，或尝试更具体的故障描述。',
+        possibleCauses: [],
+        requiredParts: [],
+        references: [],
+      },
+      degraded: true,
+      fallbackReason: 'no-context' as const,
+      context: [],
+    };
   }
 
   let draft: unknown;
   try {
-    draft = await adapter.generateDiagnosis(symptom, context);
+    draft = await adapter.generateDiagnosis(symptom, context, options.motorcycleModel, options.mileage);
   } catch (error) {
     const reason =
       error instanceof LLMAdapterError &&

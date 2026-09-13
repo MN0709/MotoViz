@@ -16,6 +16,37 @@ export interface KnowledgeSearchHit extends KnowledgeDocument {
 const DEFAULT_LIMIT = 5;
 const FAULT_CASE_WEIGHT = 1.2;
 
+/**
+ * 摩托车领域同义词词典
+ *
+ * 用户说"刹车"，资料里写"制动"；用户说"打不着火"，资料里写"启动困难"。
+ * 关键词检索不做语义理解，所以需要手动维护同义词映射。
+ */
+const SYNONYMS: Record<string, string[]> = {
+  '刹车': ['制动', '刹车'],
+  '制动': ['制动', '刹车'],
+  '启动': ['启动', '打火', '点火'],
+  '打火': ['启动', '打火', '点火'],
+  '点火': ['启动', '打火', '点火'],
+  '熄火': ['熄火', '怠速', '停机'],
+  '怠速': ['怠速', '熄火', '低速'],
+  '排气': ['排气', '消音', '排气管'],
+  '消音': ['排气', '消音', '排气管'],
+  '漏油': ['漏油', '渗漏', '渗油'],
+  '渗漏': ['漏油', '渗漏', '渗油'],
+  '异响': ['异响', '噪音', '响声', '吱吱', '嗡嗡'],
+  '噪音': ['异响', '噪音', '响声'],
+  '电瓶': ['电瓶', '蓄电池', '电池'],
+  '蓄电池': ['电瓶', '蓄电池', '电池'],
+  '电池': ['电瓶', '蓄电池', '电池'],
+  '火花塞': ['火花塞', '火嘴', '火花'],
+  '链条': ['链条', '传动链'],
+  '轮胎': ['轮胎', '车胎', '外胎'],
+  '机油': ['机油', '润滑油', '发动机油'],
+  '水温': ['水温', '温度', '过热', '高温'],
+  '过热': ['水温', '温度', '过热', '高温'],
+};
+
 function normalize(text: string): string {
   return text
     .normalize('NFKC')
@@ -24,7 +55,7 @@ function normalize(text: string): string {
     .trim();
 }
 
-/** 沿用 feasibility 的轻量 keyword-index：空格词元 + 连续中文二元词。 */
+/** 沿用 feasibility 的轻量 keyword-index：空格词元 + 连续中文二元词 + 同义词扩展。 */
 export function tokenizeKnowledge(text: string): string[] {
   const normalized = normalize(text);
   if (!normalized) return [];
@@ -33,7 +64,13 @@ export function tokenizeKnowledge(text: string): string[] {
   for (const segment of normalized.match(/[\p{Script=Han}]{3,}/gu) ?? []) {
     const characters = [...segment];
     for (let index = 0; index < characters.length - 1; index += 1) {
-      tokens.push(`${characters[index]}${characters[index + 1]}`);
+      const word = `${characters[index]}${characters[index + 1]}`;
+      tokens.push(word);
+      // 同义词扩展
+      const synonyms = SYNONYMS[word];
+      if (synonyms) {
+        tokens.push(...synonyms);
+      }
     }
   }
   return [...new Set(tokens)];

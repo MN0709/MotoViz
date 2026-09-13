@@ -13,7 +13,12 @@ export interface LLMDiagnosisDraft {
 }
 
 export interface LLMAdapter {
-  generateDiagnosis(symptom: string, context: readonly KnowledgeSearchHit[]): Promise<unknown>;
+  generateDiagnosis(
+    symptom: string,
+    context: readonly KnowledgeSearchHit[],
+    motorcycleModel?: string,
+    mileage?: number,
+  ): Promise<unknown>;
 }
 
 export interface DiagnosisOutcome {
@@ -25,6 +30,7 @@ export interface DiagnosisOutcome {
     | 'http-error'
     | 'llm-error'
     | 'invalid-structure'
-    | 'invalid-reference';
+    | 'invalid-reference'
+    | 'no-context';
   context: KnowledgeSearchHit[];
 }
