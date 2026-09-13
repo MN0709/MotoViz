@@ -16,6 +16,8 @@ import { HttpError } from '../http-error.js';
 
 const router = Router();
 const feedbackRecords: FeedbackRequest[] = [];
+/** 当前 Mock 进程内已产生的故障诊断查询；用于校验 feedback.queryId。 */
+const diagnosisQueryIds = new Set<string>();
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
@@ -125,8 +127,9 @@ router.post('/search/fault', (request, response) => {
     throw new HttpError(404, 'RAG_DIAGNOSIS_ERROR', '请求参数不合法或诊断失败');
   }
 
+  const queryId = `query-${randomUUID()}`;
   const result: FaultDiagnosisResult = {
-    queryId: `query-${randomUUID()}`,
+    queryId,
     diagnosis:
       best.score > 0
         ? best.faultCase.diagnosis
@@ -135,6 +138,7 @@ router.post('/search/fault', (request, response) => {
     requiredParts: best.faultCase.requiredParts,
     references: best.faultCase.references,
   };
+  diagnosisQueryIds.add(queryId);
   response.json(result);
 });
 
@@ -157,8 +161,12 @@ router.post('/feedback', (request, response) => {
   if (body.comment !== undefined && typeof body.comment !== 'string') {
     throw new HttpError(400, 'INVALID_COMMENT', 'comment 必须是字符串');
   }
+  const queryId = body.queryId.trim();
+  if (!diagnosisQueryIds.has(queryId)) {
+    throw new HttpError(404, 'QUERY_NOT_FOUND', `诊断记录 ${queryId} 不存在`);
+  }
   feedbackRecords.push({
-    queryId: body.queryId,
+    queryId,
     rating: body.rating,
     comment: typeof body.comment === 'string' ? body.comment : undefined,
   });

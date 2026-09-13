@@ -69,6 +69,7 @@ export interface Part {
   price: number;
   source: string;
   sourceUrl: string;
+  thumbnailUrl: string;
 }
 
 /** 可展示的车型，是装配场景的主体。 */

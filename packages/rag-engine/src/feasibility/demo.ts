@@ -3,7 +3,12 @@ import { once } from 'node:events';
 import { createServer } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { performance } from 'node:perf_hooks';
-import type { FaultDiagnosisResult, FeedbackRequest, FeedbackResponse, KnowledgeEntry } from '@motorcycle-ai/shared';
+import type {
+  FaultDiagnosisResult,
+  FeedbackRequest,
+  FeedbackResponse,
+  KnowledgeEntry,
+} from '@motorcycle-ai/shared';
 import { searchParts, textOverlapScore } from './keyword-search.js';
 import { HttpLLMAdapter, selectAdapter } from './llm-adapter.js';
 import { sampleKnowledge, sampleParts } from './sample-data.js';
@@ -22,7 +27,10 @@ const faultQueries = ['冷车启动困难且怠速熄火', '高转顿挫并且�
 
 function selectContexts(query: string, limit = 2): KnowledgeSnippet[] {
   return sampleKnowledge
-    .map((snippet) => ({ snippet, score: textOverlapScore(query, `${snippet.title} ${snippet.content}`) }))
+    .map((snippet) => ({
+      snippet,
+      score: textOverlapScore(query, `${snippet.title} ${snippet.content}`),
+    }))
     .filter((item) => item.score > 0)
     .sort((left, right) => right.score - left.score)
     .slice(0, limit)
@@ -44,7 +52,9 @@ async function verifyMalformedJsonFallback(): Promise<{ degraded: boolean; schem
       model: 'malformed-json-fixture',
       timeoutMs: 1000,
     });
-    const generated = await adapter.generateDiagnosis('冷车启动困难', [sampleKnowledge[0] as KnowledgeSnippet]);
+    const generated = await adapter.generateDiagnosis('冷车启动困难', [
+      sampleKnowledge[0] as KnowledgeSnippet,
+    ]);
     const payload: FaultDiagnosisResult = {
       queryId: 'fallback-test',
       diagnosis: generated.diagnosis,
@@ -84,6 +94,7 @@ async function main(): Promise<void> {
     content: firstKnowledge.content,
     sourceType: firstKnowledge.sourceType,
     sourceUrl: firstKnowledge.sourceUrl,
+    models: [],
     updatedAt: '2026-09-12T09:00:00.000Z',
   };
   const knowledgeFormatValid = isKnowledgeEntry(knowledgeEntry);
@@ -108,7 +119,9 @@ async function main(): Promise<void> {
     };
     const schemaValid = isFaultDiagnosisResult(payload);
     const trustedIds = new Set(context.map((item) => item.knowledgeId));
-    const referencesTraceable = payload.references.every((reference) => trustedIds.has(reference.knowledgeId));
+    const referencesTraceable = payload.references.every((reference) =>
+      trustedIds.has(reference.knowledgeId),
+    );
     assert.equal(schemaValid, true, `${symptom} 结构校验失败`);
     assert.equal(referencesTraceable, true, `${symptom} 存在上下文外引用`);
     diagnosisResults.push({

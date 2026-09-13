@@ -9,7 +9,9 @@ function validReference(value: unknown): value is Reference {
     isRecord(value) &&
     typeof value.knowledgeId === 'string' &&
     typeof value.title === 'string' &&
-    (value.sourceType === 'manual' || value.sourceType === 'fault-case' || value.sourceType === 'part-catalog') &&
+    (value.sourceType === 'manual' ||
+      value.sourceType === 'fault-case' ||
+      value.sourceType === 'part-catalog') &&
     typeof value.excerpt === 'string' &&
     typeof value.url === 'string'
   );
@@ -50,8 +52,12 @@ export function isKnowledgeEntry(value: unknown): value is KnowledgeEntry {
     typeof value.id === 'string' &&
     typeof value.title === 'string' &&
     typeof value.content === 'string' &&
-    (value.sourceType === 'manual' || value.sourceType === 'fault-case' || value.sourceType === 'part-catalog') &&
+    (value.sourceType === 'manual' ||
+      value.sourceType === 'fault-case' ||
+      value.sourceType === 'part-catalog') &&
     typeof value.sourceUrl === 'string' &&
+    Array.isArray(value.models) &&
+    value.models.every((model) => typeof model === 'string') &&
     typeof value.updatedAt === 'string' &&
     !Number.isNaN(Date.parse(value.updatedAt))
   );

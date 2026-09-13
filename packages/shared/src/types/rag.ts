@@ -78,6 +78,8 @@ export interface KnowledgeEntry {
   content: string;
   sourceType: Reference['sourceType'];
   sourceUrl: string;
+  /** 与该知识条目关联的车型名称。 */
+  models: string[];
   updatedAt: string;
 }
 
