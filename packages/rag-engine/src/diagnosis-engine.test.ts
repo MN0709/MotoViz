@@ -116,13 +116,48 @@ test('three mock symptoms produce valid complete results', async () => {
 });
 
 test('empty knowledge corpus returns the formal insufficient-evidence response', async () => {
-  const outcome = await diagnoseFault('任意症状', [], new MockLLMAdapter(), {
+  let adapterCalls = 0;
+  const adapter: LLMAdapter = {
+    async generateDiagnosis() {
+      adapterCalls += 1;
+      throw new Error('空召回时不应调用模型');
+    },
+  };
+  const outcome = await diagnoseFault('任意症状', [], adapter, {
     queryId: 'empty-context',
   });
+  assert.equal(adapterCalls, 0);
   assert.equal(outcome.degraded, false);
   assert.equal(outcome.result.diagnosis, INSUFFICIENT_DIAGNOSIS);
   assert.deepEqual(outcome.result.references, []);
   assert.equal(isFaultDiagnosisResult(outcome.result), true);
+});
+
+test('empty recall skips HTTP adapters even when they would timeout or fail', async () => {
+  for (const responseMode of ['timeout', 'http-error'] as const) {
+    let fetchCalls = 0;
+    const fetchImpl = (async () => {
+      fetchCalls += 1;
+      if (responseMode === 'http-error') return new Response(null, { status: 503 });
+      throw new DOMException('Aborted', 'AbortError');
+    }) as typeof fetch;
+    const adapter = new HttpLLMAdapter({
+      baseUrl: 'https://local.invalid/v1',
+      apiKey: 'test',
+      model: responseMode,
+      fetchImpl,
+    });
+
+    const outcome = await diagnoseFault('没有可召回资料的症状', [], adapter, {
+      queryId: `empty-${responseMode}`,
+    });
+
+    assert.equal(fetchCalls, 0);
+    assert.equal(outcome.degraded, false);
+    assert.equal(outcome.fallbackReason, undefined);
+    assert.equal(outcome.result.diagnosis, INSUFFICIENT_DIAGNOSIS);
+    assert.deepEqual(outcome.result.references, []);
+  }
 });
 
 test('unmatched symptom returns insufficient evidence instead of using zero-score documents', async () => {
@@ -270,6 +305,64 @@ test('trusted part metadata is filled by the server instead of trusting LLM fiel
   assert.deepEqual(outcome.result.requiredParts, [
     { partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 3 },
   ]);
+});
+
+test('identical cross-document part snapshots deduplicate safely', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  const second = diagnosisDemoKnowledge[1];
+  assert.ok(first && second);
+  const trustedPart = { partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 3 };
+  const documents: KnowledgeDocument[] = [
+    { ...first, content: `${first.content} 冷车`, parts: [trustedPart] },
+    { ...second, content: `${second.content} 冷车`, parts: [{ ...trustedPart }] },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '按资料检查并更换配件',
+        possibleCauses: [{ cause: '火花塞异常', probability: 0.8, solution: '检查火花塞' }],
+        requiredParts: [{ partId: trustedPart.partId }, { partId: trustedPart.partId }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+
+  const outcome = await diagnoseFault('冷车启动困难', documents, adapter);
+
+  assert.equal(outcome.degraded, false);
+  assert.deepEqual(outcome.result.requiredParts, [trustedPart]);
+});
+
+test('conflicting cross-document part snapshots cause whole-result fallback', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  const second = diagnosisDemoKnowledge[1];
+  assert.ok(first && second);
+  const documents: KnowledgeDocument[] = [
+    {
+      ...first,
+      content: `${first.content} 冷车`,
+      parts: [{ partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 3 }],
+    },
+    {
+      ...second,
+      content: `${second.content} 冷车`,
+      parts: [{ partId: 'spark-001', name: '火花塞', brand: 'Trusted', stock: 99 }],
+    },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '不应返回的诊断',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: 'spark-001' }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+
+  const outcome = await diagnoseFault('冷车启动困难', documents, adapter);
+
+  assertFallback(outcome, 'invalid-part');
 });
 
 test('formal safe responses allow empty causes and references without weakening normal diagnosis', async () => {

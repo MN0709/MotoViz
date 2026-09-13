@@ -6,6 +6,7 @@ import type { KnowledgeDocument } from './knowledge-search.js';
 import { searchKnowledge } from './knowledge-search.js';
 import { LLMAdapterError } from './llm-adapter.js';
 import { bindRequiredParts } from './part-binder.js';
+import { INSUFFICIENT_DIAGNOSIS } from './prompts.js';
 import { bindReferences } from './reference-binder.js';
 import { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
 
@@ -35,6 +36,20 @@ export async function diagnoseFault(
   const suppliedQueryId = options.queryId?.trim();
   const queryId = suppliedQueryId || `query-${randomUUID()}`;
   const context = searchKnowledge(symptom, documents);
+
+  if (context.length === 0) {
+    return {
+      result: {
+        queryId,
+        diagnosis: INSUFFICIENT_DIAGNOSIS,
+        possibleCauses: [],
+        requiredParts: [],
+        references: [],
+      },
+      degraded: false,
+      context,
+    };
+  }
 
   let draft: unknown;
   try {

@@ -12,7 +12,18 @@ export function bindRequiredParts(
 ): RequiredPart[] {
   const trustedParts = new Map<string, RequiredPart>();
   for (const hit of context) {
-    for (const part of hit.parts ?? []) trustedParts.set(part.partId, part);
+    for (const part of hit.parts ?? []) {
+      const existing = trustedParts.get(part.partId);
+      if (
+        existing &&
+        (existing.name !== part.name ||
+          existing.brand !== part.brand ||
+          existing.stock !== part.stock)
+      ) {
+        throw new Error(`上下文中的配件快照冲突：${part.partId}`);
+      }
+      if (!existing) trustedParts.set(part.partId, { ...part });
+    }
   }
 
   return [...new Set(drafts.map((draft) => draft.partId))].map((partId) => {
