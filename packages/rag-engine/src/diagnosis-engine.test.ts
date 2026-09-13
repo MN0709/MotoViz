@@ -6,6 +6,7 @@ import { FALLBACK_DIAGNOSIS } from './fallback.js';
 import {
   HttpLLMAdapter,
   MockLLMAdapter,
+  MultiKeyLLMAdapter,
   resolveLLMTimeoutMs,
   selectLLMAdapter,
 } from './llm-adapter.js';
@@ -56,6 +57,14 @@ test('fault-case receives a 1.2 ranking boost', () => {
   const hits = searchKnowledge('冷车启动困难', documents);
   assert.equal(hits[0]?.knowledgeId, 'case-b');
   assert.equal(hits[0]?.score, Number(((hits[1]?.score ?? 0) * 1.2).toFixed(4)));
+});
+
+test('controlled symptom synonym expansion retrieves evidence', () => {
+  const hits = searchKnowledge('电瓶亏电', diagnosisDemoKnowledge);
+  assert.equal(
+    hits.some((hit) => /蓄电池/u.test(`${hit.title}${hit.content}`)),
+    true,
+  );
 });
 
 test('prompt injects at most five knowledge IDs and constrains references', () => {
@@ -307,6 +316,59 @@ test('trusted part metadata is filled by the server instead of trusting LLM fiel
   ]);
 });
 
+test('catalog rejects an unknown part ID even when a document snapshot contains it', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  assert.ok(first);
+  const documents: KnowledgeDocument[] = [
+    { ...first, parts: [{ partId: 'legacy-part', name: '旧配件', brand: 'Trusted', stock: 1 }] },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '按资料更换配件',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: 'legacy-part' }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+  const outcome = await diagnoseFault('冷车启动困难', documents, adapter, { partsCatalog: [] });
+  assertFallback(outcome, 'invalid-part');
+});
+
+test('catalog fitment hard-filter removes a mismatched recommended part', async () => {
+  const first = diagnosisDemoKnowledge[0];
+  assert.ok(first);
+  const trustedPart = { partId: 'fit-part', name: '配件', brand: 'Trusted', stock: 1 };
+  const documents: KnowledgeDocument[] = [{ ...first, parts: [trustedPart] }];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '按资料检查',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: trustedPart.partId }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+  const outcome = await diagnoseFault('冷车启动困难', documents, adapter, {
+    motorcycleModel: '车型A',
+    partsCatalog: [
+      {
+        ...trustedPart,
+        partType: 'other',
+        fitModels: ['车型B'],
+        price: 1,
+        source: '目录',
+        sourceUrl: 'https://example.com/part',
+        thumbnailUrl: 'https://example.com/part.png',
+      },
+    ],
+  });
+  assert.equal(outcome.degraded, false);
+  assert.deepEqual(outcome.result.requiredParts, []);
+});
+
 test('identical cross-document part snapshots deduplicate safely', async () => {
   const first = diagnosisDemoKnowledge[0];
   const second = diagnosisDemoKnowledge[1];
@@ -438,6 +500,107 @@ test('HTTP adapter sends json_object request and accepts valid JSON', async () =
   assert.deepEqual(requestBody?.response_format, { type: 'json_object' });
 });
 
+test('model and mileage travel through diagnosis into the HTTP prompt', async () => {
+  let payload: { messages?: Array<{ content: string }> } = {};
+  const context = searchKnowledge('冷车启动', diagnosisDemoKnowledge);
+  const fetchImpl = (async (_input: unknown, init?: RequestInit) => {
+    payload = JSON.parse(String(init?.body)) as typeof payload;
+    return new Response(
+      JSON.stringify({
+        choices: [
+          {
+            message: {
+              content: JSON.stringify({
+                diagnosis: '结构化诊断',
+                possibleCauses: [{ cause: '原因', probability: 0.5, solution: '方案' }],
+                requiredParts: [],
+                references: [{ knowledgeId: context[0]?.knowledgeId }],
+              }),
+            },
+          },
+        ],
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
+    );
+  }) as typeof fetch;
+  const outcome = await diagnoseFault(
+    '冷车启动',
+    diagnosisDemoKnowledge,
+    new HttpLLMAdapter({
+      baseUrl: 'https://local.invalid/v1',
+      apiKey: 'test',
+      model: 'test',
+      fetchImpl,
+    }),
+    { motorcycleModel: '车型A', mileage: 12345 },
+  );
+  assert.equal(outcome.degraded, false);
+  const currentPrompt = JSON.parse(payload.messages?.at(-1)?.content ?? '{}') as Record<
+    string,
+    unknown
+  >;
+  assert.equal(currentPrompt.motorcycleModel, '车型A');
+  assert.equal(currentPrompt.mileage, 12345);
+});
+
+test('dual API keys share one bounded timeout and both failures degrade safely', async () => {
+  let calls = 0;
+  const fetchImpl = (async (_input: unknown, init?: RequestInit) => {
+    calls += 1;
+    return new Promise<Response>((_resolve, reject) => {
+      const abort = (): void => reject(new DOMException('Aborted', 'AbortError'));
+      if (init?.signal?.aborted) abort();
+      init?.signal?.addEventListener('abort', abort, { once: true });
+    });
+  }) as typeof fetch;
+  const adapter = new MultiKeyLLMAdapter(
+    [
+      { baseUrl: 'https://local.invalid/v1', apiKey: 'primary', model: 'test', fetchImpl },
+      { baseUrl: 'https://local.invalid/v1', apiKey: 'backup', model: 'test', fetchImpl },
+    ],
+    80,
+  );
+  const started = Date.now();
+  const outcome = await diagnoseFault('冷车启动', diagnosisDemoKnowledge, adapter);
+  assert.equal(calls, 2);
+  assert.ok(Date.now() - started < 250);
+  assertFallback(outcome, 'timeout');
+});
+
+test('dual API keys use the backup after a retryable primary HTTP failure', async () => {
+  const context = searchKnowledge('冷车启动', diagnosisDemoKnowledge);
+  const authorizations: string[] = [];
+  const fetchImpl = (async (_input: unknown, init?: RequestInit) => {
+    const authorization = new Headers(init?.headers).get('Authorization') ?? '';
+    authorizations.push(authorization);
+    if (authorization === 'Bearer primary') return new Response(null, { status: 503 });
+    return new Response(
+      JSON.stringify({
+        choices: [
+          {
+            message: {
+              content: JSON.stringify({
+                diagnosis: '备用 key 返回的结构化诊断',
+                possibleCauses: [{ cause: '原因', probability: 0.5, solution: '方案' }],
+                requiredParts: [],
+                references: [{ knowledgeId: context[0]?.knowledgeId }],
+              }),
+            },
+          },
+        ],
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
+    );
+  }) as typeof fetch;
+  const adapter = new MultiKeyLLMAdapter([
+    { baseUrl: 'https://local.invalid/v1', apiKey: 'primary', model: 'test', fetchImpl },
+    { baseUrl: 'https://local.invalid/v1', apiKey: 'backup', model: 'test', fetchImpl },
+  ]);
+  const outcome = await diagnoseFault('冷车启动', diagnosisDemoKnowledge, adapter);
+  assert.equal(outcome.degraded, false);
+  assert.deepEqual(authorizations, ['Bearer primary', 'Bearer backup']);
+});
+
 test('LLM_MODE selects mock or configured HTTP safely', () => {
   assert.equal(selectLLMAdapter({}).mode, 'mock');
   assert.equal(selectLLMAdapter({ LLM_MODE: 'http' }).mode, 'mock');
@@ -446,6 +609,16 @@ test('LLM_MODE selects mock or configured HTTP safely', () => {
       LLM_MODE: 'http',
       LLM_BASE_URL: 'https://example.com/v1',
       LLM_API_KEY: 'key',
+      LLM_MODEL: 'model',
+    }).mode,
+    'http',
+  );
+  assert.equal(
+    selectLLMAdapter({
+      LLM_MODE: 'http',
+      LLM_BASE_URL: 'https://example.com/v1',
+      LLM_API_KEY: 'primary',
+      LLM_API_KEY_BACKUP: 'backup',
       LLM_MODEL: 'model',
     }).mode,
     'http',

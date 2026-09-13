@@ -5,12 +5,16 @@ export {
   HttpLLMAdapter,
   LLMAdapterError,
   MockLLMAdapter,
+  MultiKeyLLMAdapter,
   resolveLLMTimeoutMs,
   selectLLMAdapter,
 } from './llm-adapter.js';
 export { searchKnowledge, tokenizeKnowledge } from './knowledge-search.js';
 export type { KnowledgeDocument, KnowledgeSearchHit } from './knowledge-search.js';
 export { bindRequiredParts } from './part-binder.js';
+export { loadPartsFromCsv } from './parts-loader.js';
+export { matchesMotorcycleModel, searchParts } from './parts-search.js';
+export type { PartSearchRequest, PartSearchResult } from './parts-search.js';
 export {
   buildDiagnosisMessages,
   DIAGNOSIS_FEW_SHOT_MESSAGES,

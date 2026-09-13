@@ -3,6 +3,7 @@ import type { KnowledgeSearchHit } from './knowledge-search.js';
 import { buildDiagnosisMessages, INSUFFICIENT_DIAGNOSIS } from './prompts.js';
 
 const HARD_TIMEOUT_MS = 4500;
+const TOTAL_TIMEOUT_MS = 4500;
 
 export type LLMAdapterErrorCode = 'timeout' | 'invalid-json' | 'http-error' | 'invalid-response';
 
@@ -104,9 +105,27 @@ export class HttpLLMAdapter implements LLMAdapter {
   public async generateDiagnosis(
     symptom: string,
     context: readonly KnowledgeSearchHit[],
+    motorcycleModel?: string,
+    mileage?: number,
+  ): Promise<unknown> {
+    return this.generateDiagnosisWithin(
+      symptom,
+      context,
+      resolveLLMTimeoutMs(this.config.timeoutMs),
+      motorcycleModel,
+      mileage,
+    );
+  }
+
+  public async generateDiagnosisWithin(
+    symptom: string,
+    context: readonly KnowledgeSearchHit[],
+    budgetMs: number,
+    motorcycleModel?: string,
+    mileage?: number,
   ): Promise<unknown> {
     const controller = new AbortController();
-    const timeoutMs = resolveLLMTimeoutMs(this.config.timeoutMs);
+    const timeoutMs = Math.max(1, Math.min(resolveLLMTimeoutMs(this.config.timeoutMs), budgetMs));
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
     try {
       const response = await (this.config.fetchImpl ?? fetch)(completionUrl(this.config.baseUrl), {
@@ -120,7 +139,7 @@ export class HttpLLMAdapter implements LLMAdapter {
           temperature: this.config.temperature ?? 0.1,
           max_tokens: this.config.maxTokens ?? 1200,
           response_format: { type: 'json_object' },
-          messages: buildDiagnosisMessages(symptom, context),
+          messages: buildDiagnosisMessages(symptom, context, motorcycleModel, mileage),
         }),
         signal: controller.signal,
       });
@@ -145,6 +164,54 @@ export class HttpLLMAdapter implements LLMAdapter {
   }
 }
 
+/** 多 key 顺序兜底；所有尝试共享 4.5 秒总预算，并为余下 key 预留时间。 */
+export class MultiKeyLLMAdapter implements LLMAdapter {
+  private readonly adapters: HttpLLMAdapter[];
+
+  public constructor(
+    configs: readonly HttpLLMConfig[],
+    private readonly totalTimeoutMs = TOTAL_TIMEOUT_MS,
+  ) {
+    if (configs.length === 0 || configs.length > 2)
+      throw new Error('只允许配置一个主 key 和一个备用 key');
+    if (totalTimeoutMs < 1 || totalTimeoutMs > TOTAL_TIMEOUT_MS)
+      throw new Error('LLM 总超时预算必须在 1-4500ms');
+    this.adapters = configs.map((config) => new HttpLLMAdapter(config));
+  }
+
+  public async generateDiagnosis(
+    symptom: string,
+    context: readonly KnowledgeSearchHit[],
+    motorcycleModel?: string,
+    mileage?: number,
+  ): Promise<unknown> {
+    const deadline = Date.now() + this.totalTimeoutMs;
+    let lastError: unknown;
+    for (let index = 0; index < this.adapters.length; index += 1) {
+      const remaining = deadline - Date.now();
+      if (remaining <= 0) break;
+      const keysLeft = this.adapters.length - index;
+      const attemptBudget = Math.max(1, Math.floor(remaining / keysLeft));
+      try {
+        return await this.adapters[index].generateDiagnosisWithin(
+          symptom,
+          context,
+          attemptBudget,
+          motorcycleModel,
+          mileage,
+        );
+      } catch (error) {
+        lastError = error;
+        const retryable =
+          error instanceof LLMAdapterError &&
+          (error.code === 'timeout' || error.code === 'http-error');
+        if (!retryable) throw error;
+      }
+    }
+    throw lastError ?? new LLMAdapterError('timeout', 'LLM 总请求预算已耗尽');
+  }
+}
+
 export interface AdapterSelection {
   adapter: LLMAdapter;
   mode: 'mock' | 'http';
@@ -156,7 +223,12 @@ export function selectLLMAdapter(environment: NodeJS.ProcessEnv): AdapterSelecti
   if (environment.LLM_MODE !== 'http') {
     return { adapter: new MockLLMAdapter(), mode: 'mock', note: '默认 Mock 模式' };
   }
-  const { LLM_BASE_URL: baseUrl, LLM_API_KEY: apiKey, LLM_MODEL: model } = environment;
+  const {
+    LLM_BASE_URL: baseUrl,
+    LLM_API_KEY: apiKey,
+    LLM_API_KEY_BACKUP: backupApiKey,
+    LLM_MODEL: model,
+  } = environment;
   if (!baseUrl || !apiKey || !model) {
     return {
       adapter: new MockLLMAdapter(),
@@ -165,8 +237,15 @@ export function selectLLMAdapter(environment: NodeJS.ProcessEnv): AdapterSelecti
     };
   }
   return {
-    adapter: new HttpLLMAdapter({ baseUrl, apiKey, model }),
+    adapter: backupApiKey
+      ? new MultiKeyLLMAdapter([
+          { baseUrl, apiKey, model },
+          { baseUrl, apiKey: backupApiKey, model },
+        ])
+      : new HttpLLMAdapter({ baseUrl, apiKey, model }),
     mode: 'http',
-    note: 'OpenAI 兼容 HTTP 模式，4.5 秒硬超时',
+    note: backupApiKey
+      ? 'OpenAI 兼容 HTTP 模式，双 key 共享 4.5 秒总预算'
+      : 'OpenAI 兼容 HTTP 模式，4.5 秒硬超时',
   };
 }

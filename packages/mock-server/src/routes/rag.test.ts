@@ -6,6 +6,9 @@ import express from 'express';
 import type { ErrorRequestHandler } from 'express';
 import { HttpError } from '../http-error.js';
 import { ragRouter } from './rag.js';
+import { partModelRegistrations } from '../data/part-models.js';
+import { parts } from '../data/parts.js';
+import { models } from '../data/models.js';
 
 interface JsonResponse {
   status: number;
@@ -50,6 +53,26 @@ test('feedback accepts query IDs from both part and fault searches', async () =>
     const partSearch = await postJson(baseUrl, '/api/rag/search/parts', { query: '排气' });
     assert.equal(partSearch.status, 200);
     assert.equal(typeof partSearch.body.queryId, 'string');
+    const partResults = partSearch.body.results as Array<Record<string, unknown>>;
+    assert.equal(
+      partResults.every(
+        (part) => typeof part.partId === 'string' && typeof part.thumbnailUrl === 'string',
+      ),
+      true,
+    );
+
+    const mismatched = await postJson(baseUrl, '/api/rag/search/parts', {
+      query: '排气',
+      motorcycleModel: '宝马 R 1250 GS 2019-2024',
+    });
+    assert.equal(mismatched.status, 200);
+    assert.deepEqual(mismatched.body.results, []);
+
+    const unrelated = await postJson(baseUrl, '/api/rag/search/parts', {
+      query: '完全不存在的商品',
+    });
+    assert.equal(unrelated.status, 200);
+    assert.deepEqual(unrelated.body.results, []);
 
     const partFeedback = await postJson(baseUrl, '/api/rag/feedback', {
       queryId: partSearch.body.queryId,
@@ -79,4 +102,17 @@ test('feedback accepts query IDs from both part and fault searches', async () =>
     server.close();
     await once(server, 'close');
   }
+});
+
+test('3D registration references existing part and model IDs only', () => {
+  const partIds = new Set(parts.map((part) => part.partId));
+  const modelIds = new Set(models.map((model) => model.modelId));
+  assert.equal(
+    partModelRegistrations.every((item) => partIds.has(item.partId) && modelIds.has(item.modelId)),
+    true,
+  );
+  assert.equal(
+    new Set(partModelRegistrations.map((item) => item.partId)).size,
+    partModelRegistrations.length,
+  );
 });

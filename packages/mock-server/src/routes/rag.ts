@@ -69,32 +69,53 @@ function inferPartType(query: string): string | undefined {
   return undefined;
 }
 
+function normalize(value: string): string {
+  return value
+    .normalize('NFKC')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+}
+
+function modelMatches(candidate: string, requested: string): boolean {
+  const canonical = (value: string): string =>
+    value
+      .normalize('NFKC')
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, '');
+  const withoutYearRange = (value: string): string =>
+    value.replace(/(?:19|20)\d{2}(?:(?:19|20)\d{2})?$/u, '');
+  const fit = canonical(candidate);
+  const model = canonical(requested);
+  return fit === model || withoutYearRange(fit) === model;
+}
+
 router.post('/search/parts', (request, response) => {
   const input = parseSearchRequest(request.body as unknown);
   const query = input.query.toLowerCase();
   const inferredType = inferPartType(query);
   const scored: SearchResult[] = parts
     .map((part) => {
-      const searchable =
-        `${part.name} ${part.brand} ${part.source} ${part.fitModels.join(' ')}`.toLowerCase();
+      const searchable = normalize(
+        `${part.name} ${part.brand} ${part.source} ${part.fitModels.join(' ')}`,
+      );
       const typeMatch = inferredType === part.partType;
-      const textMatch = searchable.includes(query);
+      const textMatch = searchable.includes(normalize(query));
       const modelMatch = input.motorcycleModel
-        ? part.fitModels.some((model) =>
-            model.toLowerCase().includes(input.motorcycleModel?.toLowerCase() ?? ''),
-          )
+        ? part.fitModels.some((model) => modelMatches(model, input.motorcycleModel ?? ''))
         : false;
       const score = Math.min(
         0.99,
-        0.45 + (typeMatch ? 0.25 : 0) + (textMatch ? 0.15 : 0) + (modelMatch ? 0.14 : 0),
+        (typeMatch ? 0.45 : 0) + (textMatch ? 0.4 : 0) + (modelMatch ? 0.14 : 0),
       );
       return { ...part, score };
     })
     .filter((part) => inferredType === undefined || part.partType === inferredType)
+    .filter((part) => part.score > 0)
     .filter(
       (part) =>
         !input.motorcycleModel ||
-        part.fitModels.some((model) => model.includes(input.motorcycleModel ?? '')),
+        part.fitModels.some((model) => modelMatches(model, input.motorcycleModel ?? '')),
     )
     .sort((left, right) => right.score - left.score);
 

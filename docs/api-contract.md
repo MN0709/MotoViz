@@ -249,7 +249,7 @@ interface SearchResult {
   price: number;
   source: string;
   sourceUrl: string;
-  thumbnailUrl?: string;
+  thumbnailUrl: string;
   score: number;
 }
 ```
@@ -267,12 +267,15 @@ interface SearchResult {
       "price": 5980,
       "source": "Akrapovič 2025 适配目录",
       "sourceUrl": "https://akrapovic.com/en/fitting/kawasaki-ninja-400-2018-2023",
+      "thumbnailUrl": "http://localhost:3001/mock-assets/thumbnails/akrapovic-exhaust.webp",
       "score": 0.84
     }
   ],
   "total": 1
 }
 ```
+
+`partId` 是源数据持久化且不可变的 ID，加载器拒绝空值或重复值。CSV 的 `imageUrl` 映射为 API/共享类型的 `thumbnailUrl`。`fitModels` 只记录有来源证据的适配车型；数据未覆盖时返回空数组，不能推断兼容。3D 能力不由 `fitModels` 推断，只以独立的 `partId → modelId` 登记为准。
 
 错误：
 

@@ -10,7 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "feasibility": "npm run build && node --enable-source-maps dist/feasibility/demo.js",
     "demo:diagnose": "npm run build && node --enable-source-maps dist/demo/diagnose-demo.js",
-    "test": "npm run build && node --test dist/diagnosis-engine.test.js"
+    "demo:interactive": "npm run build && node --enable-source-maps dist/demo/interactive-diagnose.js",
+    "test": "npm run build && node --test dist/*.test.js"
   },
   "dependencies": {
     "@motorcycle-ai/shared": "0.1.0"

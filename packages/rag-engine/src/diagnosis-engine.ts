@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { FaultDiagnosisResult } from '@motorcycle-ai/shared';
+import type { Part } from '@motorcycle-ai/shared';
 import type { DiagnosisOutcome, LLMAdapter } from './diagnosis-types.js';
 import { buildFallbackResult } from './fallback.js';
 import type { KnowledgeDocument } from './knowledge-search.js';
@@ -12,6 +13,9 @@ import { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
 
 export interface DiagnoseOptions {
   queryId?: string;
+  motorcycleModel?: string;
+  mileage?: number;
+  partsCatalog?: readonly Part[];
 }
 
 function fallbackOutcome(
@@ -53,7 +57,12 @@ export async function diagnoseFault(
 
   let draft: unknown;
   try {
-    draft = await adapter.generateDiagnosis(symptom, context);
+    draft = await adapter.generateDiagnosis(
+      symptom,
+      context,
+      options.motorcycleModel,
+      options.mileage,
+    );
   } catch (error) {
     const reason =
       error instanceof LLMAdapterError &&
@@ -75,7 +84,12 @@ export async function diagnoseFault(
 
   let requiredParts: FaultDiagnosisResult['requiredParts'];
   try {
-    requiredParts = bindRequiredParts(draft.requiredParts, context);
+    requiredParts = bindRequiredParts(
+      draft.requiredParts,
+      context,
+      options.partsCatalog,
+      options.motorcycleModel,
+    );
   } catch {
     return fallbackOutcome(queryId, context, 'invalid-part');
   }

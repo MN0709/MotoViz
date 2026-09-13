@@ -17,6 +17,15 @@ export interface KnowledgeSearchHit extends KnowledgeDocument {
 
 const DEFAULT_LIMIT = 5;
 const FAULT_CASE_WEIGHT = 1.2;
+const SYNONYM_GROUPS = [
+  ['刹车', '制动'],
+  ['启动', '打火', '点火'],
+  ['熄火', '灭车'],
+  ['异响', '噪音', '响声'],
+  ['电瓶', '蓄电池', '电池'],
+  ['过热', '高温', '水温'],
+  ['漏油', '渗油'],
+] as const;
 
 function isTrustedPart(part: RequiredPart): boolean {
   return (
@@ -49,6 +58,14 @@ export function tokenizeKnowledge(text: string): string[] {
     }
   }
   return [...new Set(tokens)];
+}
+
+function expandSynonyms(query: string): string {
+  const normalized = normalize(query);
+  const additions = SYNONYM_GROUPS.flatMap((group) =>
+    group.some((term) => normalized.includes(term)) ? [...group] : [],
+  );
+  return additions.length > 0 ? `${query} ${additions.join(' ')}` : query;
 }
 
 function overlapScore(query: string, document: KnowledgeDocument): number {
@@ -92,16 +109,19 @@ export function searchKnowledge(
     seenIds.add(document.knowledgeId);
   }
 
-  return eligibleDocuments
-    .map((document) => {
-      const baseScore = overlapScore(query, document);
-      const score = baseScore * (document.sourceType === 'fault-case' ? FAULT_CASE_WEIGHT : 1);
-      return { ...document, score: Number(score.toFixed(4)) };
-    })
-    .filter((document) => document.score > 0)
-    .sort(
-      (left, right) =>
-        right.score - left.score || left.knowledgeId.localeCompare(right.knowledgeId),
-    )
-    .slice(0, safeLimit);
+  const rank = (searchQuery: string): KnowledgeSearchHit[] =>
+    eligibleDocuments
+      .map((document) => {
+        const baseScore = overlapScore(searchQuery, document);
+        const score = baseScore * (document.sourceType === 'fault-case' ? FAULT_CASE_WEIGHT : 1);
+        return { ...document, score: Number(score.toFixed(4)) };
+      })
+      .filter((document) => document.score > 0)
+      .sort(
+        (left, right) =>
+          right.score - left.score || left.knowledgeId.localeCompare(right.knowledgeId),
+      )
+      .slice(0, safeLimit);
+  const direct = rank(query);
+  return direct.length > 0 ? direct : rank(expandSynonyms(query));
 }
