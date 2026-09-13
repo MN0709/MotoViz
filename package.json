@@ -11,6 +11,7 @@
     "dev": "npm run dev --workspace=@motorcycle-ai/web",
     "dev:mock": "npm run dev --workspace=@motofit/mock-server",
     "demo:diagnose": "npm run build --workspace=@motorcycle-ai/shared && npm run demo:diagnose --workspace=@motorcycle-ai/rag-engine",
+    "test:mock": "npm run build --workspace=@motorcycle-ai/shared && npm run test --workspace=@motofit/mock-server",
     "test:rag": "npm run build --workspace=@motorcycle-ai/shared && npm run test --workspace=@motorcycle-ai/rag-engine",
     "build": "npm run build --workspace=@motorcycle-ai/shared && npm run build --workspaces --if-present",
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0",

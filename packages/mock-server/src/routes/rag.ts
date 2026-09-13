@@ -16,8 +16,8 @@ import { HttpError } from '../http-error.js';
 
 const router = Router();
 const feedbackRecords: FeedbackRequest[] = [];
-/** 当前 Mock 进程内已产生的故障诊断查询；用于校验 feedback.queryId。 */
-const diagnosisQueryIds = new Set<string>();
+/** 当前 Mock 进程内已产生的配件或故障查询；用于校验 feedback.queryId。 */
+const queryIds = new Set<string>();
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
@@ -99,11 +99,13 @@ router.post('/search/parts', (request, response) => {
     .sort((left, right) => right.score - left.score);
 
   const limit = input.limit ?? 10;
+  const queryId = `query-${randomUUID()}`;
   const result: SearchResponse = {
-    queryId: `query-${randomUUID()}`,
+    queryId,
     results: scored.slice(0, limit),
     total: scored.length,
   };
+  queryIds.add(queryId);
   response.json(result);
 });
 
@@ -138,7 +140,7 @@ router.post('/search/fault', (request, response) => {
     requiredParts: best.faultCase.requiredParts,
     references: best.faultCase.references,
   };
-  diagnosisQueryIds.add(queryId);
+  queryIds.add(queryId);
   response.json(result);
 });
 
@@ -162,8 +164,8 @@ router.post('/feedback', (request, response) => {
     throw new HttpError(400, 'INVALID_COMMENT', 'comment 必须是字符串');
   }
   const queryId = body.queryId.trim();
-  if (!diagnosisQueryIds.has(queryId)) {
-    throw new HttpError(404, 'QUERY_NOT_FOUND', `诊断记录 ${queryId} 不存在`);
+  if (!queryIds.has(queryId)) {
+    throw new HttpError(404, 'QUERY_NOT_FOUND', `查询记录 ${queryId} 不存在`);
   }
   feedbackRecords.push({
     queryId,

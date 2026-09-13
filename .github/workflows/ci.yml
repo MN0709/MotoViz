@@ -29,3 +29,5 @@ jobs:
         run: npm run typecheck
       - name: Build
         run: npm run build
+      - name: Test Mock RAG feedback contract
+        run: npm run test:mock
