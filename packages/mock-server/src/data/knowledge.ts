@@ -8,7 +8,7 @@ export const knowledgeEntries: KnowledgeEntry[] = faultCases.map((faultCase) => 
   }
 
   return {
-    id: faultCase.id,
+    id: reference.knowledgeId,
     title: reference.title,
     content: [faultCase.diagnosis, ...faultCase.possibleCauses.map((item) => `${item.cause}：${item.solution}`)].join('\n'),
     sourceType: reference.sourceType,
