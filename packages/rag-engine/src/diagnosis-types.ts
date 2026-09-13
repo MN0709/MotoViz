@@ -31,6 +31,7 @@ export interface DiagnosisOutcome {
     | 'llm-error'
     | 'invalid-structure'
     | 'invalid-reference'
+    | 'invalid-part'
     | 'no-context';
   context: KnowledgeSearchHit[];
 }

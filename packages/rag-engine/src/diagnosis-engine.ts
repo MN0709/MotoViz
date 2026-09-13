@@ -1,10 +1,11 @@
 import { randomUUID } from 'node:crypto';
-import type { FaultDiagnosisResult } from '@motorcycle-ai/shared';
+import type { FaultDiagnosisResult, Part } from '@motorcycle-ai/shared';
 import type { DiagnosisOutcome, LLMAdapter } from './diagnosis-types.js';
 import { buildFallbackResult } from './fallback.js';
 import type { KnowledgeDocument } from './knowledge-search.js';
 import { searchKnowledge } from './knowledge-search.js';
 import { LLMAdapterError } from './llm-adapter.js';
+import { bindRequiredParts } from './part-binder.js';
 import { bindReferences } from './reference-binder.js';
 import { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
 
@@ -12,6 +13,8 @@ export interface DiagnoseOptions {
   queryId?: string;
   motorcycleModel?: string;
   mileage?: number;
+  /** 配件库数据，用于校验AI返回的配件是否真实存在 */
+  partsCatalog?: readonly Part[];
 }
 
 function fallbackOutcome(
@@ -71,11 +74,23 @@ export async function diagnoseFault(
 
   let result: FaultDiagnosisResult;
   try {
+    // 校验并绑定配件：AI返回的partId必须在配件库中真实存在
+    // 如果有非法配件（编造的型号），判为invalid-part并降级
+    const partsCatalog = options.partsCatalog ?? [];
+    const bindResult = bindRequiredParts(
+      draft.requiredParts,
+      partsCatalog,
+      options.motorcycleModel,
+    );
+    if (bindResult.hasInvalidPart) {
+      return fallbackOutcome(queryId, context, 'invalid-part');
+    }
+
     result = {
       queryId,
       diagnosis: draft.diagnosis.trim(),
       possibleCauses: draft.possibleCauses,
-      requiredParts: draft.requiredParts,
+      requiredParts: bindResult.parts,
       references: bindReferences(draft.references, context),
     };
   } catch {

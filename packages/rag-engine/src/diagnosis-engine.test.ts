@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import type { Part } from '@motorcycle-ai/shared';
 import type { LLMAdapter } from './diagnosis-types.js';
 import { diagnoseFault } from './diagnosis-engine.js';
 import { FALLBACK_DIAGNOSIS } from './fallback.js';
@@ -197,9 +198,9 @@ test('AbortController timeout causes whole-result fallback', async () => {
   assertFallback(outcome, 'timeout');
 });
 
-test('HTTP timeout is always capped at 4500ms', () => {
-  assert.equal(resolveLLMTimeoutMs(), 4500);
-  assert.equal(resolveLLMTimeoutMs(9000), 4500);
+test('HTTP timeout is always capped at 2000ms', () => {
+  assert.equal(resolveLLMTimeoutMs(), 2000);
+  assert.equal(resolveLLMTimeoutMs(9000), 2000);
   assert.equal(resolveLLMTimeoutMs(20), 20);
 });
 
@@ -296,4 +297,85 @@ test('LLM_MODE selects mock or configured HTTP safely', () => {
     }).mode,
     'http',
   );
+});
+
+// 大组长实测发现的问题：编造配件也能通过（stock=0但partId不存在）
+test('forged partId causes invalid-part fallback', async () => {
+  const partsCatalog: Part[] = [
+    {
+      partId: 'part-1',
+      name: '真实排气',
+      brand: '真实品牌',
+      partType: 'exhaust',
+      fitModels: ['春风250SR'],
+      price: 1000,
+      source: '测试',
+      sourceUrl: 'https://example.com/part-1',
+    },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '包含伪造配件的诊断',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [{ partId: 'fake-part', name: '伪造配件', brand: '伪造品牌', stock: 0 }],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+  const outcome = await diagnoseFault('冷车启动困难', diagnosisDemoKnowledge, adapter, {
+    partsCatalog,
+  });
+  assert.equal(outcome.degraded, true);
+  assert.equal(outcome.fallbackReason, 'invalid-part');
+});
+
+// 大组长实测发现的问题：车型不匹配仍推荐
+test('parts not fitting motorcycle model are filtered out', async () => {
+  const partsCatalog: Part[] = [
+    {
+      partId: 'part-1',
+      name: '适配春风250SR的排气',
+      brand: '品牌A',
+      partType: 'exhaust',
+      fitModels: ['春风250SR'],
+      price: 1000,
+      source: '测试',
+      sourceUrl: 'https://example.com/part-1',
+    },
+    {
+      partId: 'part-2',
+      name: '适配雅马哈R3的排气',
+      brand: '品牌B',
+      partType: 'exhaust',
+      fitModels: ['雅马哈R3'],
+      price: 2000,
+      source: '测试',
+      sourceUrl: 'https://example.com/part-2',
+    },
+  ];
+  const adapter: LLMAdapter = {
+    async generateDiagnosis(_symptom, context) {
+      return {
+        diagnosis: '推荐两个配件',
+        possibleCauses: [{ cause: '原因', probability: 0.8, solution: '方案' }],
+        requiredParts: [
+          { partId: 'part-1', name: '随便写', brand: '随便写', stock: 0 },
+          { partId: 'part-2', name: '随便写', brand: '随便写', stock: 0 },
+        ],
+        references: [{ knowledgeId: context[0]?.knowledgeId }],
+      };
+    },
+  };
+  const outcome = await diagnoseFault('冷车启动困难', diagnosisDemoKnowledge, adapter, {
+    partsCatalog,
+    motorcycleModel: '春风250SR',
+  });
+  assert.equal(outcome.degraded, false);
+  // 只返回适配春风250SR的配件，雅马哈R3的被过滤掉
+  assert.equal(outcome.result.requiredParts.length, 1);
+  assert.equal(outcome.result.requiredParts[0]?.partId, 'part-1');
+  // 用配件库真实数据替换AI返回的数据
+  assert.equal(outcome.result.requiredParts[0]?.name, '适配春风250SR的排气');
+  assert.equal(outcome.result.requiredParts[0]?.brand, '品牌A');
 });

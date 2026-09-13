@@ -2,7 +2,7 @@ import type { LLMAdapter } from './diagnosis-types.js';
 import type { KnowledgeSearchHit } from './knowledge-search.js';
 import { buildDiagnosisMessages } from './prompts.js';
 
-const HARD_TIMEOUT_MS = 4500;
+const HARD_TIMEOUT_MS = 2000;
 
 export type LLMAdapterErrorCode = 'timeout' | 'invalid-json' | 'http-error' | 'invalid-response';
 
@@ -213,6 +213,6 @@ export function selectLLMAdapter(environment: NodeJS.ProcessEnv): AdapterSelecti
   return {
     adapter: new HttpLLMAdapter({ baseUrl, apiKey, model }),
     mode: 'http',
-    note: 'OpenAI 兼容 HTTP 模式，4.5 秒硬超时',
+    note: 'OpenAI 兼容 HTTP 模式，2 秒硬超时（双key兜底累计4秒，符合5秒目标）',
   };
 }

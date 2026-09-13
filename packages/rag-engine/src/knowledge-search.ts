@@ -15,6 +15,8 @@ export interface KnowledgeSearchHit extends KnowledgeDocument {
 
 const DEFAULT_LIMIT = 5;
 const FAULT_CASE_WEIGHT = 1.2;
+/** 最低相关度阈值：匹配率低于这个值的资料不算命中，避免完全无关的搜索也返回结果 */
+const MIN_SCORE = 0.1;
 
 /**
  * 摩托车领域同义词词典
@@ -116,7 +118,7 @@ export function searchKnowledge(
       const score = baseScore * (document.sourceType === 'fault-case' ? FAULT_CASE_WEIGHT : 1);
       return { ...document, score: Number(score.toFixed(4)) };
     })
-    .filter((document) => document.score > 0)
+    .filter((document) => document.score >= MIN_SCORE)
     .sort(
       (left, right) =>
         right.score - left.score || left.knowledgeId.localeCompare(right.knowledgeId),
