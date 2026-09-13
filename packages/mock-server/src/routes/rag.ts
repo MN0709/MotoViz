@@ -107,13 +107,14 @@ router.post('/search/fault', (request, response) => {
     .sort((left, right) => right.score - left.score);
   const best = matches[0];
   if (!best) {
-    throw new HttpError(500, 'MOCK_DATA_EMPTY', 'Mock 故障案例为空');
+    throw new HttpError(404, 'RAG_DIAGNOSIS_ERROR', '请求参数不合法或诊断失败');
   }
 
   const result: FaultDiagnosisResult = {
     queryId: `query-${randomUUID()}`,
     diagnosis: best.score > 0 ? best.faultCase.diagnosis : '未精确命中症状，以下为通用安全排查建议，请由专业技师复核。',
     possibleCauses: best.faultCase.possibleCauses,
+    requiredParts: best.faultCase.requiredParts,
     references: best.faultCase.references,
   };
   response.json(result);
@@ -133,7 +134,7 @@ router.post('/feedback', (request, response) => {
     throw new HttpError(400, 'QUERY_ID_REQUIRED', 'queryId 不能为空');
   }
   if (body.rating !== 'up' && body.rating !== 'down') {
-    throw new HttpError(400, 'INVALID_RATING', 'rating 只能是 up 或 down');
+    throw new HttpError(400, 'INVALID_RATING', 'rating 必须是 up 或 down');
   }
   if (body.comment !== undefined && typeof body.comment !== 'string') {
     throw new HttpError(400, 'INVALID_COMMENT', 'comment 必须是字符串');

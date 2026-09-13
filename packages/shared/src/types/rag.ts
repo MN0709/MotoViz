@@ -28,8 +28,9 @@ export interface FaultDiagnosisRequest {
 
 /** 知识来源引用；每条诊断结论都必须能追溯到至少一个引用。 */
 export interface Reference {
+  knowledgeId: string;
   title: string;
-  sourceType: 'manual' | 'case' | 'catalog';
+  sourceType: 'manual' | 'fault-case' | 'part-catalog';
   excerpt: string;
   url: string;
 }
@@ -41,11 +42,20 @@ export interface PossibleCause {
   solution: string;
 }
 
+/** 诊断建议更换的配件；stock 为当前库存数量，无库存时为 0。 */
+export interface RequiredPart {
+  partId: string;
+  name: string;
+  brand: string;
+  stock: number;
+}
+
 /** 故障诊断响应；references 不得为空。 */
 export interface FaultDiagnosisResult {
   queryId: string;
   diagnosis: string;
   possibleCauses: PossibleCause[];
+  requiredParts: RequiredPart[];
   references: Reference[];
 }
 

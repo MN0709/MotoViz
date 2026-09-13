@@ -68,6 +68,7 @@ export interface Part {
   fitModels: string[];
   price: number;
   source: string;
+  sourceUrl: string;
 }
 
 /** 可展示的车型，是装配场景的主体。 */
