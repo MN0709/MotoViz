@@ -1,0 +1,76 @@
+[
+  {
+    "file": "motoviz-case-03-v36.jpg",
+    "source": "https://kikasdesign.com/dportfolio/wrc-kalle-rovanpera-bmw-s1000rr/",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "displayOrder": 1,
+    "artworkId": 3
+  },
+  {
+    "file": "motoviz-case-01-v36.jpg",
+    "source": "user supplied",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "displayOrder": 2,
+    "artworkId": 1
+  },
+  {
+    "file": "motoviz-case-04-v36.jpg",
+    "source": "User supplied: 微信图片_2026-09-14_103552_418.png",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "attribution": "用户提供 / 车型与改装方待核实",
+    "displayOrder": 3,
+    "artworkId": 4
+  },
+  {
+    "file": "motoviz-case-06-v36.jpg",
+    "source": "User supplied: 0.jpeg",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "attribution": "用户提供 / 车型与改装方待核实",
+    "displayOrder": 4,
+    "artworkId": 6
+  },
+  {
+    "file": "motoviz-case-08-v36.jpg",
+    "source": "User supplied: 微信图片_2026-09-14_103722_883.jpg",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "attribution": "用户提供 / 车型与改装方待核实",
+    "displayOrder": 5,
+    "artworkId": 8
+  },
+  {
+    "file": "motoviz-case-10-v36.jpg",
+    "source": "User supplied: 微信图片_2026-09-14_104327_890.jpg",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "attribution": "用户提供 / 车型与改装方待核实",
+    "displayOrder": 6,
+    "artworkId": 10
+  },
+  {
+    "file": "motoviz-case-07-v36.jpg",
+    "source": "https://kikasdesign.com/dportfolio/custom-ducati-streetfighter-v4s-blu-sideris/",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "displayOrder": 7,
+    "artworkId": 7
+  },
+  {
+    "file": "motoviz-case-09-v36.jpg",
+    "source": "https://www.bikeexif.com/aprilia-rsv4-rough-crafts",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "displayOrder": 8,
+    "artworkId": 9
+  },
+  {
+    "file": "motoviz-case-02-v36.jpg",
+    "source": "user supplied",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "displayOrder": 9,
+    "artworkId": 2
+  },
+  {
+    "file": "motoviz-case-05-v36.jpg",
+    "source": "https://kikasdesign.com/dportfolio/25-panigale-v4s-red/",
+    "usage": "Local visual prototype; external case, not a MotoViz customer or supported-model claim.",
+    "displayOrder": 10,
+    "artworkId": 5
+  }
+]

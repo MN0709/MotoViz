@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#edf0f2" />
+    <title>MotoViz</title>
+    <link rel="preload" href="./assets/display.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="./style.css?v=37" />
+  </head>
+  <body>
+    <main id="home" class="home" inert aria-hidden="true">
+      <header class="home-nav">
+        <a href="#home-title" class="brand">Moto<span>Viz</span></a>
+        <nav aria-label="首页导航"><a href="#capabilities">工作入口</a><a href="#recent">最近使用</a></nav>
+      </header>
+      <section class="home-hero">
+        <div class="home-copy">
+          <h1 id="home-title" tabindex="-1">你的改装想法，<br />从这里开始。</h1>
+          <p>MotoViz，把效果展示、故障线索和配件信息<br class="desktop-break" />放在同一个工作台。</p>
+          <a class="home-cta" href="#customize">开始探索改装 <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="home-photo">
+          <img src="./assets/motorcycle.jpg" alt="骑手驾驶摩托车行驶在公路上" width="900" height="600" fetchpriority="high" />
+          <figcaption>改装，从看见可能开始。<small>概念照片 · 不代表已支持车型</small></figcaption>
+        </figure>
+      </section>
+      <section id="capabilities" class="capabilities" aria-labelledby="tools-title">
+        <div class="section-heading"><h2 id="tools-title">今天，想先做什么？</h2><span>选择一个工作入口</span></div>
+        <div class="tools">
+          <details id="customize" class="tool tool-primary">
+            <summary><span class="tool-type">VISUALIZE</span><span class="tool-heading">改装展示 <span aria-hidden="true">↗</span></span><span class="tool-description">把改装方案展示出来，让沟通更直观。</span></summary>
+            <div class="tool-content"><p>从车辆图片或预设模型开始，探索外观和配件搭配。</p><p class="availability">效果展示入口正在准备中。</p></div>
+          </details>
+          <details class="tool">
+            <summary><span class="tool-type">DIAGNOSE</span><span class="tool-heading">故障诊断 <span aria-hidden="true">↗</span></span><span class="tool-description">描述故障现象，查找相关线索与参考。</span></summary>
+            <div class="tool-content"><p>整理出现的现象、发生条件和已做的检查，更清楚地定位查询方向。</p><p class="availability">诊断查询入口正在准备中。</p></div>
+          </details>
+          <details class="tool">
+            <summary><span class="tool-type">FIND PARTS</span><span class="tool-heading">配件查询 <span aria-hidden="true">↗</span></span><span class="tool-description">查找配件信息，了解车型适配条件。</span></summary>
+            <div class="tool-content"><p>按配件名称与车辆信息查找，先确认适配条件，再讨论改装方案。</p><p class="availability">配件查询入口正在准备中。</p></div>
+          </details>
+        </div>
+      </section>
+      <section id="recent" class="recent" aria-labelledby="recent-title">
+        <div class="section-heading"><h2 id="recent-title">最近使用</h2><span>接着上一次的想法</span></div>
+        <div class="empty-state"><div><h3>还没有使用记录</h3><p>完成第一次改装展示或查询后，从这里继续。</p></div><a href="#capabilities">选择工作入口 <span aria-hidden="true">↗</span></a></div>
+      </section>
+      <footer class="home-footer"><span>MotoViz</span><button id="replay" class="text-button" type="button">重播开场 <span aria-hidden="true">↗</span></button><a href="./sources.html" target="_blank" rel="noopener">图片来源</a><span>界面预览 · 工作入口尚未开放</span></footer>
+    </main>
+    <section id="opening" class="opening" aria-label="MotoViz飘带开场动画">
+      <div id="curtain-left" class="curtain curtain-left" aria-hidden="true"></div>
+      <div id="curtain-right" class="curtain curtain-right" aria-hidden="true"></div>
+      <canvas id="gallery" aria-hidden="true"></canvas>
+      <div id="text-fallback" class="text-fallback" aria-hidden="true">
+        <span>MOTOVIZ</span><span>AI STUDIO</span>
+      </div>
+      <header class="opening-nav">
+        <span>MOTOVIZ / AI STUDIO</span
+        ><button id="skip" class="text-button" type="button">
+          跳过
+        </button>
+      </header>
+      <footer class="opening-footer" hidden>
+        <span id="phase-label" hidden>正在准备开场</span>
+        <div>
+          <button hidden id="pause" class="text-button" type="button" aria-pressed="false">暂停</button
+          ><button hidden id="restart" class="text-button" type="button">从头播放</button>
+        </div>
+        <a href="./sources.html" target="_blank" rel="noopener">图片来源</a>
+      </footer>
+    </section>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+    <script type="module" src="./gallery.js?v=37"></script>
+  </body>
+</html>
