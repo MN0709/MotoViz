@@ -4,6 +4,7 @@ import type { AddressInfo } from 'node:net';
 import { test } from 'node:test';
 import express from 'express';
 import type { ErrorRequestHandler } from 'express';
+import type { KnowledgeEntry } from '@motorcycle-ai/shared';
 import { HttpError } from '../http-error.js';
 import { ragRouter } from './rag.js';
 import { partModelRegistrations } from '../data/part-models.js';
@@ -25,6 +26,14 @@ async function postJson(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
+  return {
+    status: response.status,
+    body: (await response.json()) as Record<string, unknown>,
+  };
+}
+
+async function getJson(baseUrl: string, path: string): Promise<JsonResponse> {
+  const response = await fetch(`${baseUrl}${path}`);
   return {
     status: response.status,
     body: (await response.json()) as Record<string, unknown>,
@@ -143,6 +152,51 @@ test('part search HTTP keeps controlled synonyms and model year ranges aligned',
       });
       assert.deepEqual(outside.body.results, []);
     }
+  } finally {
+    server.close();
+    await once(server, 'close');
+  }
+});
+
+test('knowledge detail HTTP matches the documented KnowledgeEntry contract', async () => {
+  const app = express();
+  app.use('/api/rag', ragRouter);
+  const errorHandler: ErrorRequestHandler = (error: unknown, _request, response, _next) => {
+    if (error instanceof HttpError) {
+      response.status(error.status).json({ code: error.code, message: error.message });
+      return;
+    }
+    response.status(500).json({ code: 'INTERNAL_ERROR', message: '测试服务内部错误' });
+  };
+  app.use(errorHandler);
+
+  const server = app.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const { port } = server.address() as AddressInfo;
+  const baseUrl = `http://127.0.0.1:${port}`;
+
+  try {
+    const documentedId = 'kn-manual-ninja400-fuel';
+    const detail = await getJson(baseUrl, `/api/rag/knowledge/${documentedId}`);
+    const expected: KnowledgeEntry = {
+      id: documentedId,
+      title: 'Ninja 400 服务手册：燃油系统',
+      content: [
+        '优先检查蓄电池静态电压、怠速控制通道和火花塞状态。',
+        '蓄电池电压偏低：静置后测量电压；低于维修手册阈值时充电并做负载测试。',
+        '节气门体或怠速空气通道积碳：按手册拆检并清洁节气门体，完成怠速学习。',
+      ].join('\n'),
+      sourceType: 'manual',
+      sourceUrl: 'https://example.com/manuals/ninja400/fuel-system#cold-start',
+      models: ['川崎 Ninja 400 2018-2023'],
+      updatedAt: '2026-09-12T09:00:00.000Z',
+    };
+    assert.equal(detail.status, 200);
+    assert.deepEqual(detail.body, expected);
+
+    const missing = await getJson(baseUrl, '/api/rag/knowledge/knowledge-does-not-exist');
+    assert.equal(missing.status, 404);
+    assert.equal(missing.body.code, 'KNOWLEDGE_NOT_FOUND');
   } finally {
     server.close();
     await once(server, 'close');

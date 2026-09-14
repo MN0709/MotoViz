@@ -395,9 +395,9 @@ interface Reference {
 
 ```json
 {
-  "id": "fault-001",
+  "id": "kn-manual-ninja400-fuel",
   "title": "Ninja 400 服务手册：燃油系统",
-  "content": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。",
+  "content": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。\n蓄电池电压偏低：静置后测量电压；低于维修手册阈值时充电并做负载测试。\n节气门体或怠速空气通道积碳：按手册拆检并清洁节气门体，完成怠速学习。",
   "sourceType": "manual",
   "sourceUrl": "https://example.com/manuals/ninja400/fuel-system#cold-start",
   "models": ["川崎 Ninja 400 2018-2023"],
