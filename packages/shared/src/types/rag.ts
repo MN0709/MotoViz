@@ -26,10 +26,11 @@ export interface FaultDiagnosisRequest {
   mileage?: number;
 }
 
-/** 知识来源引用；每条诊断结论都必须能追溯到至少一个引用。 */
+/** 知识来源引用；存在诊断证据时必须能追溯到本次召回上下文。 */
 export interface Reference {
+  knowledgeId: string;
   title: string;
-  sourceType: 'manual' | 'case' | 'catalog';
+  sourceType: 'manual' | 'fault-case' | 'part-catalog';
   excerpt: string;
   url: string;
 }
@@ -41,11 +42,20 @@ export interface PossibleCause {
   solution: string;
 }
 
-/** 故障诊断响应；references 不得为空。 */
+/** 诊断建议更换的配件；stock 为当前库存数量，无库存时为 0。 */
+export interface RequiredPart {
+  partId: string;
+  name: string;
+  brand: string;
+  stock: number;
+}
+
+/** 故障诊断响应；知识库无相关案例或问题无关时 references 允许为空。 */
 export interface FaultDiagnosisResult {
   queryId: string;
   diagnosis: string;
   possibleCauses: PossibleCause[];
+  requiredParts: RequiredPart[];
   references: Reference[];
 }
 
@@ -68,6 +78,8 @@ export interface KnowledgeEntry {
   content: string;
   sourceType: Reference['sourceType'];
   sourceUrl: string;
+  /** 与该知识条目关联的车型名称。 */
+  models: string[];
   updatedAt: string;
 }
 

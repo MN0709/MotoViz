@@ -68,6 +68,14 @@ export interface Part {
   fitModels: string[];
   price: number;
   source: string;
+  sourceUrl: string;
+  thumbnailUrl: string;
+}
+
+/** 只有登记在此映射中的配件才具备可挂载的 3D 模型；与 fitModels 车型适配证据分离。 */
+export interface PartModelRegistration {
+  partId: Part['partId'];
+  modelId: Model3D['modelId'];
 }
 
 /** 可展示的车型，是装配场景的主体。 */

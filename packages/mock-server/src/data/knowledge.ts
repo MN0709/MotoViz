@@ -8,11 +8,15 @@ export const knowledgeEntries: KnowledgeEntry[] = faultCases.map((faultCase) => 
   }
 
   return {
-    id: faultCase.id,
+    id: reference.knowledgeId,
     title: reference.title,
-    content: [faultCase.diagnosis, ...faultCase.possibleCauses.map((item) => `${item.cause}：${item.solution}`)].join('\n'),
+    content: [
+      faultCase.diagnosis,
+      ...faultCase.possibleCauses.map((item) => `${item.cause}：${item.solution}`),
+    ].join('\n'),
     sourceType: reference.sourceType,
     sourceUrl: reference.url,
+    models: [...faultCase.motorcycleModels],
     updatedAt: '2026-09-12T09:00:00.000Z',
   };
 });

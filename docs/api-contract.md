@@ -35,12 +35,12 @@ interface ApiError {
 }
 ```
 
-| HTTP | 使用场景 |
-| --- | --- |
-| `400 Bad Request` | 字段缺失、格式或枚举不合法 |
-| `404 Not Found` | ID 对应资源不存在 |
-| `413 Payload Too Large` | 单张上传文件超过限制 |
-| `500 Internal Server Error` | 服务内部处理失败 |
+| HTTP                        | 使用场景                   |
+| --------------------------- | -------------------------- |
+| `400 Bad Request`           | 字段缺失、格式或枚举不合法 |
+| `404 Not Found`             | ID 对应资源不存在          |
+| `413 Payload Too Large`     | 单张上传文件超过限制       |
+| `500 Internal Server Error` | 服务内部处理失败           |
 
 ## 2. 3D 组 API
 
@@ -52,9 +52,9 @@ interface ApiError {
 
 请求：`multipart/form-data`
 
-| 字段 | 类型 | 必填 | 规则 |
-| --- | --- | --- | --- |
-| `images` | `File[]` | 是 | 1-4 张；MIME 为 `image/jpeg` 或 `image/png`；单张 ≤ 5MB |
+| 字段     | 类型     | 必填 | 规则                                                    |
+| -------- | -------- | ---- | ------------------------------------------------------- |
+| `images` | `File[]` | 是   | 1-4 张；MIME 为 `image/jpeg` 或 `image/png`；单张 ≤ 5MB |
 
 逻辑类型为 `UploadRequest`，其中只描述服务端解析后的文件元数据；二进制不进入 JSON。
 
@@ -76,12 +76,12 @@ interface UploadResponse {
 
 错误：
 
-| HTTP | code | 条件 |
-| --- | --- | --- |
-| 400 | `IMAGES_REQUIRED` | 没有上传图片或字段名不是 `images` |
-| 400 | `UNSUPPORTED_FILE_TYPE` | 文件不是 JPEG/PNG |
-| 400 | `UPLOAD_VALIDATION_ERROR` | 图片数量等 multipart 约束不合法 |
-| 413 | `FILE_TOO_LARGE` | 任意单张图片超过 5MB |
+| HTTP | code                      | 条件                              |
+| ---- | ------------------------- | --------------------------------- |
+| 400  | `IMAGES_REQUIRED`         | 没有上传图片或字段名不是 `images` |
+| 400  | `UNSUPPORTED_FILE_TYPE`   | 文件不是 JPEG/PNG                 |
+| 400  | `UPLOAD_VALIDATION_ERROR` | 图片数量等 multipart 约束不合法   |
+| 413  | `FILE_TOO_LARGE`          | 任意单张图片超过 5MB              |
 
 ```bash
 curl -X POST http://localhost:3001/api/3d/upload \
@@ -97,10 +97,10 @@ curl -X POST http://localhost:3001/api/3d/upload \
 
 请求：`application/json`、`GenerateRequest`
 
-| 字段 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
-| `uploadId` | `string` | 是 | 由上传接口返回 |
-| `partType` | `'exhaust' \| 'windshield' \| 'saddlebag' \| 'other'` | 是 | 稳定枚举，不接收中文值 |
+| 字段       | 类型                                                  | 必填 | 说明                   |
+| ---------- | ----------------------------------------------------- | ---- | ---------------------- |
+| `uploadId` | `string`                                              | 是   | 由上传接口返回         |
+| `partType` | `'exhaust' \| 'windshield' \| 'saddlebag' \| 'other'` | 是   | 稳定枚举，不接收中文值 |
 
 ```json
 {
@@ -131,11 +131,11 @@ interface GenerateResponse {
 
 错误：
 
-| HTTP | code | 条件 |
-| --- | --- | --- |
-| 400 | `INVALID_GENERATE_REQUEST` | 缺少字段或 `partType` 非法 |
-| 404 | `UPLOAD_NOT_FOUND` | `uploadId` 不存在或已失效 |
-| 500 | `MODEL_GENERATION_FAILED` | 生成失败且没有可用降级模型 |
+| HTTP | code                       | 条件                       |
+| ---- | -------------------------- | -------------------------- |
+| 400  | `INVALID_GENERATE_REQUEST` | 缺少字段或 `partType` 非法 |
+| 404  | `UPLOAD_NOT_FOUND`         | `uploadId` 不存在或已失效  |
+| 500  | `MODEL_GENERATION_FAILED`  | 生成失败且没有可用降级模型 |
 
 ### 2.3 获取预设模型列表
 
@@ -143,9 +143,9 @@ interface GenerateResponse {
 
 查询参数：
 
-| 参数 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
-| `partType` | `PartType` | 否 | 不传时返回全部预设模型 |
+| 参数       | 类型       | 必填 | 说明                   |
+| ---------- | ---------- | ---- | ---------------------- |
+| `partType` | `PartType` | 否   | 不传时返回全部预设模型 |
 
 响应：`200 OK`
 
@@ -177,9 +177,9 @@ interface ModelListResponse {
 
 路径参数：
 
-| 参数 | 类型 | 必填 | 说明 |
-| --- | --- | --- | --- |
-| `modelId` | `string` | 是 | 预设或生成模型 ID |
+| 参数      | 类型     | 必填 | 说明              |
+| --------- | -------- | ---- | ----------------- |
+| `modelId` | `string` | 是   | 预设或生成模型 ID |
 
 响应：`200 OK`
 
@@ -217,11 +217,11 @@ interface ModelDetailResponse {
 
 请求：`SearchRequest`
 
-| 字段 | 类型 | 必填 | 规则 |
-| --- | --- | --- | --- |
-| `query` | `string` | 是 | 去除首尾空格后不能为空 |
-| `motorcycleModel` | `string` | 否 | 推荐使用“品牌 + 车型 + 年款” |
-| `limit` | `number` | 否 | 1-20 的整数，默认 10 |
+| 字段              | 类型     | 必填 | 规则                         |
+| ----------------- | -------- | ---- | ---------------------------- |
+| `query`           | `string` | 是   | 去除首尾空格后不能为空       |
+| `motorcycleModel` | `string` | 否   | 推荐使用“品牌 + 车型 + 年款” |
+| `limit`           | `number` | 否   | 1-20 的整数，默认 10         |
 
 ```json
 {
@@ -248,6 +248,8 @@ interface SearchResult {
   fitModels: string[];
   price: number;
   source: string;
+  sourceUrl: string;
+  thumbnailUrl: string;
   score: number;
 }
 ```
@@ -264,6 +266,8 @@ interface SearchResult {
       "fitModels": ["川崎 Ninja 400 2018-2023", "川崎 Z400 2019-2023"],
       "price": 5980,
       "source": "Akrapovič 2025 适配目录",
+      "sourceUrl": "https://akrapovic.com/en/fitting/kawasaki-ninja-400-2018-2023",
+      "thumbnailUrl": "http://localhost:3001/mock-assets/thumbnails/akrapovic-exhaust.webp",
       "score": 0.84
     }
   ],
@@ -271,13 +275,16 @@ interface SearchResult {
 }
 ```
 
+`partId` 是源数据持久化且不可变的 ID，加载器拒绝空值或重复值。CSV 的 `imageUrl` 映射为 API/共享类型的 `thumbnailUrl`。`fitModels` 只记录有来源证据的适配车型；数据未覆盖时返回空数组，不能推断兼容。3D 能力不由 `fitModels` 推断，只以独立的 `partId → modelId` 登记为准。
+
 错误：
 
-| HTTP | code | 条件 |
-| --- | --- | --- |
-| 400 | `QUERY_REQUIRED` | `query` 缺失或为空 |
-| 400 | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串 |
-| 400 | `INVALID_LIMIT` | `limit` 不是 1-20 的整数 |
+| HTTP | code                       | 条件                     |
+| ---- | -------------------------- | ------------------------ |
+| 400  | `QUERY_REQUIRED`           | `query` 缺失或为空       |
+| 400  | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串           |
+| 400  | `INVALID_LIMIT`            | `limit` 不是 1-20 的整数 |
+| 500  | `RAG_SEARCH_ERROR`         | 检索内部失败             |
 
 ### 3.2 故障诊断检索
 
@@ -285,11 +292,11 @@ interface SearchResult {
 
 请求：`FaultDiagnosisRequest`
 
-| 字段 | 类型 | 必填 | 规则 |
-| --- | --- | --- | --- |
-| `symptom` | `string` | 是 | 去除首尾空格后不能为空 |
-| `motorcycleModel` | `string` | 否 | 车型与年款 |
-| `mileage` | `number` | 否 | 公里数，不得为负数 |
+| 字段              | 类型     | 必填 | 规则                   |
+| ----------------- | -------- | ---- | ---------------------- |
+| `symptom`         | `string` | 是   | 去除首尾空格后不能为空 |
+| `motorcycleModel` | `string` | 否   | 车型与年款             |
+| `mileage`         | `number` | 否   | 公里数，不得为负数     |
 
 ```json
 {
@@ -310,11 +317,27 @@ interface FaultDiagnosisResult {
     probability: number;
     solution: string;
   }>;
+  requiredParts: RequiredPart[];
   references: Reference[];
+}
+
+interface RequiredPart {
+  partId: string;
+  name: string;
+  brand: string;
+  stock: number;
+}
+
+interface Reference {
+  knowledgeId: string;
+  title: string;
+  sourceType: 'manual' | 'fault-case' | 'part-catalog';
+  excerpt: string;
+  url: string;
 }
 ```
 
-`probability` 范围为 0-1。`references` 必须至少有一项；真实 RAG 服务必须保证每条诊断结论能映射到引用证据，不允许仅生成格式合法但无法溯源的答案。
+`probability` 范围为 0-1。`references` **允许为空**（知识库无相关案例时返回空数组，不造假引用）；非空时真实 RAG 服务必须保证每个引用能映射到本次召回上下文，不允许仅生成格式合法但无法溯源的答案。`requiredParts` 为诊断建议更换的配件列表，`stock` 为当前库存数量，无库存时返回 0；无建议配件时返回空数组。`references[].knowledgeId` 对应知识库条目 ID，前端可通过 `GET /api/rag/knowledge/{knowledgeId}` 获取完整原文；`references[].url` 为该条目的原始来源链接，来自 F09 采集时记录的 sourceUrl。
 
 ```json
 {
@@ -327,8 +350,23 @@ interface FaultDiagnosisResult {
       "solution": "静置后测量电压；低于维修手册阈值时充电并做负载测试。"
     }
   ],
+  "requiredParts": [
+    {
+      "partId": "part-battery-ytz10s",
+      "name": "YTZ10S 蓄电池",
+      "brand": "Yuasa",
+      "stock": 3
+    },
+    {
+      "partId": "part-spark-cr8e",
+      "name": "CR8E 火花塞",
+      "brand": "NGK",
+      "stock": 12
+    }
+  ],
   "references": [
     {
+      "knowledgeId": "kn-manual-ninja400-fuel",
       "title": "Ninja 400 服务手册：燃油系统",
       "sourceType": "manual",
       "excerpt": "冷启动异常应先确认电池状态，再检查怠速控制与点火系统。",
@@ -340,11 +378,12 @@ interface FaultDiagnosisResult {
 
 错误：
 
-| HTTP | code | 条件 |
-| --- | --- | --- |
-| 400 | `SYMPTOM_REQUIRED` | `symptom` 缺失或为空 |
-| 400 | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串 |
-| 400 | `INVALID_MILEAGE` | 里程不是非负数 |
+| HTTP | code                       | 条件                 |
+| ---- | -------------------------- | -------------------- |
+| 400  | `SYMPTOM_REQUIRED`         | `symptom` 缺失或为空 |
+| 400  | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串       |
+| 400  | `INVALID_MILEAGE`          | 里程不是非负数       |
+| 500  | `RAG_DIAGNOSIS_ERROR`      | 诊断内部失败         |
 
 ### 3.3 获取知识库条目详情
 
@@ -356,11 +395,12 @@ interface FaultDiagnosisResult {
 
 ```json
 {
-  "id": "fault-001",
+  "id": "kn-manual-ninja400-fuel",
   "title": "Ninja 400 服务手册：燃油系统",
-  "content": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。",
+  "content": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。\n蓄电池电压偏低：静置后测量电压；低于维修手册阈值时充电并做负载测试。\n节气门体或怠速空气通道积碳：按手册拆检并清洁节气门体，完成怠速学习。",
   "sourceType": "manual",
   "sourceUrl": "https://example.com/manuals/ninja400/fuel-system#cold-start",
+  "models": ["川崎 Ninja 400 2018-2023"],
   "updatedAt": "2026-09-12T09:00:00.000Z"
 }
 ```
@@ -373,11 +413,11 @@ interface FaultDiagnosisResult {
 
 请求：`FeedbackRequest`
 
-| 字段 | 类型 | 必填 | 规则 |
-| --- | --- | --- | --- |
-| `queryId` | `string` | 是 | 来自配件或故障检索响应 |
-| `rating` | `'up' \| 'down'` | 是 | 点赞或点踩 |
-| `comment` | `string` | 否 | 可选补充说明 |
+| 字段      | 类型             | 必填 | 规则                   |
+| --------- | ---------------- | ---- | ---------------------- |
+| `queryId` | `string`         | 是   | 来自配件或故障检索响应 |
+| `rating`  | `'up' \| 'down'` | 是   | 点赞或点踩             |
+| `comment` | `string`         | 否   | 可选补充说明           |
 
 ```json
 {
@@ -397,25 +437,28 @@ interface FaultDiagnosisResult {
 
 错误：
 
-| HTTP | code | 条件 |
-| --- | --- | --- |
-| 400 | `QUERY_ID_REQUIRED` | `queryId` 缺失或为空 |
-| 400 | `INVALID_RATING` | `rating` 不是 `up/down` |
-| 400 | `INVALID_COMMENT` | `comment` 不是字符串 |
+| HTTP | code                 | 条件                         |
+| ---- | -------------------- | ---------------------------- |
+| 400  | `QUERY_ID_REQUIRED`  | `queryId` 缺失或为空         |
+| 400  | `INVALID_RATING`     | `rating` 不是 `up/down`      |
+| 400  | `INVALID_COMMENT`    | `comment` 不是字符串         |
+| 404  | `QUERY_NOT_FOUND`    | `queryId` 在查询日志中不存在 |
+| 500  | `RAG_FEEDBACK_ERROR` | 反馈落盘失败                 |
 
 ## 4. 共享类型与字段所有权
 
 共享类型统一从 `packages/shared/src/index.ts` 导出，禁止各包复制同名接口。
 
-| 类型 | 所有者 | 用途 |
-| --- | --- | --- |
-| `Model3D` | 3D 组 | 模型列表和挂载详情 |
-| `Part` | RAG 组维护、双方消费 | 配件主数据 |
-| `UploadRequest/UploadResponse` | 3D 组 | 图片上传 |
-| `GenerateRequest/GenerateResponse` | 3D 组 | 模型生成与降级 |
-| `SearchRequest/SearchResult/SearchResponse` | RAG 组 | 配件检索 |
-| `FaultDiagnosisRequest/FaultDiagnosisResult` | RAG 组 | 故障诊断 |
-| `Reference` | RAG 组 | 证据引用 |
+| 类型                                         | 所有者               | 用途               |
+| -------------------------------------------- | -------------------- | ------------------ |
+| `Model3D`                                    | 3D 组                | 模型列表和挂载详情 |
+| `Part`                                       | RAG 组维护、双方消费 | 配件主数据         |
+| `UploadRequest/UploadResponse`               | 3D 组                | 图片上传           |
+| `GenerateRequest/GenerateResponse`           | 3D 组                | 模型生成与降级     |
+| `SearchRequest/SearchResult/SearchResponse`  | RAG 组               | 配件检索           |
+| `FaultDiagnosisRequest/FaultDiagnosisResult` | RAG 组               | 故障诊断           |
+| `RequiredPart`                               | RAG 组               | 诊断建议配件       |
+| `Reference`                                  | RAG 组               | 证据引用           |
 
 ## 5. Mock Server 约定
 
@@ -428,6 +471,9 @@ interface FaultDiagnosisResult {
 
 ## 6. 变更记录
 
-| 日期 | 版本 | 变更 | 提出人 | 3D 确认 | RAG 确认 |
-| --- | --- | --- | --- | --- | --- |
-| 2026-09-12 | 1.0.0-rc1 | 冻结 8 个 API、共享枚举、错误响应和 Mock 示例 | Codex | 待 `@siguadht` 审核 | 待 `@MN0709` 审核 |
+| 日期       | 版本      | 变更                                                                                                                                                                                                                                                                                                                                                                                      | 提出人    | 3D 确认             | RAG 确认            |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------- | ------------------- |
+| 2026-09-12 | 1.0.0-rc1 | 冻结 8 个 API、共享枚举、错误响应和 Mock 示例                                                                                                                                                                                                                                                                                                                                             | Codex     | 待 `@siguadht` 审核 | 待 `@MN0709` 审核   |
+| 2026-09-12 | 1.0.0-rc2 | RAG 组字段补齐：配件检索加 `sourceUrl`、故障诊断加 `requiredParts`、`references` 加 `knowledgeId`；对齐 F09 采集 sourceUrl                                                                                                                                                                                                                                                                | `@MN0709` | 待 `@siguadht` 确认 | —                   |
+| 2026-09-12 | 1.0.0-rc3 | **RAG 组长签字确认**：可行性验证完成（`docs/rag-feasibility.md`）——关键词检索 Top-1 受控 5/5；DeepSeek `deepseek-chat` 实测 20/20 结构率 100%、0 降级、延迟 P95=1.63s（≤5s 红线）。附带交付条件：① F12 开发期补车型/类型硬过滤 + 最低分阈值 + 50 条正式测试集；② F13 开发期用真实数据复测延迟并评测诊断合理率（≥70% 待标注数据评测）；③ `possibleCauses` 逐条 `referenceIds` 列为 P1 优化 | `@MN0709` | 待 `@siguadht` 确认 | ✅ 已确认 `@MN0709` |
+| 2026-09-13 | 1.0.0-rc5 | **组长拍板修正（对齐 Codex 开工审核）**：① 撤销 404 单码，改回标准 REST——400 参数错误 / 404 资源不存在 / 500 内部失败；② 配件检索响应增加 `thumbnailUrl`（`Part` 同步增加，`SearchResult` 继承）；③ `references` 允许为空（空召回不造假引用）；④ 知识条目增加 `models` 车型打标字段。Mock Server 同步更新                                                                                 | `@MN0709` | 待 `@siguadht` 确认 | ✅ 已确认 `@MN0709` |
