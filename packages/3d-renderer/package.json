@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "@motorcycle-ai/shared": "0.1.0"
+  },
+  "devDependencies": {
+    "three": "^0.180.0"
   }
 }

@@ -1,0 +1,194 @@
+[
+  {
+    "modelId": "preset-exhaust-compact",
+    "name": "Compact exhaust",
+    "partType": "exhaust",
+    "file": "exhaust-compact.glb",
+    "format": "glb",
+    "sizeBytes": 69020,
+    "sha256": "a126a141bbf0ea22c6aee40997fcd5d2786cda8b65b499127d018a9b05349b4f",
+    "dimensionsMeters": {
+      "x": 0.12309999763965607,
+      "y": 0.16204999867081643,
+      "z": 0.3360000007599592
+    },
+    "defaultPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "defaultRotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "source": "Procedural geometry from scripts/generate-presets.mjs",
+    "license": "MIT (see LICENSE.txt)",
+    "usage": "Generic preset illustration; no product or vehicle compatibility claim"
+  },
+  {
+    "modelId": "preset-exhaust-long",
+    "name": "Long exhaust",
+    "partType": "exhaust",
+    "file": "exhaust-long.glb",
+    "format": "glb",
+    "sizeBytes": 69032,
+    "sha256": "89b52ddf76e18ea157dc141e189aeda4cf1f5c9d5daf025d025c5fdee9e887d2",
+    "dimensionsMeters": {
+      "x": 0.14329999685287476,
+      "y": 0.18214999827742578,
+      "z": 0.47600000075995924
+    },
+    "defaultPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "defaultRotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "source": "Procedural geometry from scripts/generate-presets.mjs",
+    "license": "MIT (see LICENSE.txt)",
+    "usage": "Generic preset illustration; no product or vehicle compatibility claim"
+  },
+  {
+    "modelId": "preset-windshield-short",
+    "name": "Short windshield",
+    "partType": "windshield",
+    "file": "windshield-short.glb",
+    "format": "glb",
+    "sizeBytes": 28036,
+    "sha256": "0ba48499fe82d797e9c2a21a5bd936af3502ff83a61a0cf304f3720a20a6daae",
+    "dimensionsMeters": {
+      "x": 0.30000001192092896,
+      "y": 0.30000001192092896,
+      "z": 0.010000000189989807
+    },
+    "defaultPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "defaultRotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "source": "Procedural geometry from scripts/generate-presets.mjs",
+    "license": "MIT (see LICENSE.txt)",
+    "usage": "Generic preset illustration; no product or vehicle compatibility claim"
+  },
+  {
+    "modelId": "preset-windshield-touring",
+    "name": "Touring windshield",
+    "partType": "windshield",
+    "file": "windshield-touring.glb",
+    "format": "glb",
+    "sizeBytes": 28092,
+    "sha256": "80191900a1e90b29606e732bfede927d902e723f2fd6b3ac3f2a12c4a079eb9f",
+    "dimensionsMeters": {
+      "x": 0.36000001430511475,
+      "y": 0.46000000834465027,
+      "z": 0.010000000189989807
+    },
+    "defaultPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "defaultRotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "source": "Procedural geometry from scripts/generate-presets.mjs",
+    "license": "MIT (see LICENSE.txt)",
+    "usage": "Generic preset illustration; no product or vehicle compatibility claim"
+  },
+  {
+    "modelId": "preset-saddlebag-compact",
+    "name": "Compact saddlebag",
+    "partType": "saddlebag",
+    "file": "saddlebag-compact.glb",
+    "format": "glb",
+    "sizeBytes": 26524,
+    "sha256": "440ea6e460da9d6d0809fd029d62f5d3e40d3589fb423d440c21df29c63004ad",
+    "dimensionsMeters": {
+      "x": 0.36000001430511475,
+      "y": 0.3060000008642674,
+      "z": 0.2120000015422702
+    },
+    "defaultPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "defaultRotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "source": "Procedural geometry from scripts/generate-presets.mjs",
+    "license": "MIT (see LICENSE.txt)",
+    "usage": "Generic preset illustration; no product or vehicle compatibility claim"
+  },
+  {
+    "modelId": "preset-saddlebag-large",
+    "name": "Large saddlebag",
+    "partType": "saddlebag",
+    "file": "saddlebag-large.glb",
+    "format": "glb",
+    "sizeBytes": 26440,
+    "sha256": "309a097e13b861751c5c08f0022587c6b0b87d47ec23ab2c1dfdd1977853ae9a",
+    "dimensionsMeters": {
+      "x": 0.46000000834465027,
+      "y": 0.37599999728798866,
+      "z": 0.26200000005215407
+    },
+    "defaultPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "defaultRotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "source": "Procedural geometry from scripts/generate-presets.mjs",
+    "license": "MIT (see LICENSE.txt)",
+    "usage": "Generic preset illustration; no product or vehicle compatibility claim"
+  }
+]
