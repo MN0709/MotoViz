@@ -35,7 +35,9 @@ Updated: 2026-09-15
 
 ## Remaining / next
 
-- Complete final verification, commit and push assets, create a draft PR with evidence.
+- Asset commit 4dc24e9 pushed; Draft PR https://github.com/MN0709/MotoViz/pull/29 created.
+- PR quality CI passed for 4dc24e9. Technical/product acceptance remains pending.
+- Integration decision requested at https://github.com/MN0709/MotoViz/issues/20#issuecomment-5677017804.
 - Ask F05 to validate supplied assets and hosting boundary; coordinate production mode switch.
 - Finish approved integration, rerun tests and obtain technical/product acceptance.
 - Do not close Issue #8 or claim end-to-end completion on asset delivery alone.
