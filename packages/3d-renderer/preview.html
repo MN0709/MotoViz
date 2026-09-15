@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>F08 预设资产检查</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          14px system-ui,
+          sans-serif;
+        color: #24292e;
+        background: #edf0f1;
+      }
+      header {
+        padding: 14px 18px;
+        background: #fff;
+        border-bottom: 1px solid #ccd2d5;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0 0 12px;
+      }
+      .controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      label {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      select,
+      input,
+      button {
+        min-height: 32px;
+        font: inherit;
+      }
+      input {
+        width: 70px;
+      }
+      fieldset {
+        margin: 12px 0 0;
+        padding: 8px;
+        border: 1px solid #ccd2d5;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      #stage {
+        height: max(360px, calc(100dvh - 230px));
+        position: relative;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      #status {
+        padding: 8px 18px;
+        background: #fff;
+        min-height: 38px;
+        overflow-wrap: anywhere;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three/addons/": "/node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>预设效果示意</h1>
+      <div class="controls">
+        <label
+          >类型
+          <select id="type">
+            <option value="all">全部</option>
+            <option value="exhaust">排气</option>
+            <option value="windshield">风挡</option>
+            <option value="saddlebag">边箱</option>
+          </select></label
+        >
+        <label
+          >模型
+          <select id="model"></select
+        ></label>
+        <button id="reset" title="重置变换和视角">重置</button>
+      </div>
+      <fieldset id="transforms"><legend>模型变换</legend></fieldset>
+    </header>
+    <main id="stage"></main>
+    <div id="status" role="status">加载中</div>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+      const stage = document.querySelector('#stage');
+      const status = document.querySelector('#status');
+      const picker = document.querySelector('#model');
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xedf0f1);
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 30);
+      let renderer;
+      try {
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+      } catch {
+        status.textContent = 'WebGL 不可用';
+        throw new Error('WebGL unavailable');
+      }
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      stage.append(renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x53616a, 3));
+      const light = new THREE.DirectionalLight(0xffffff, 4);
+      light.position.set(2, 4, 3);
+      scene.add(light);
+      const grid = new THREE.GridHelper(2, 20, 0xb1babe, 0xd5dadd);
+      grid.position.y = -0.3;
+      scene.add(grid);
+      let current;
+      let request = 0;
+      const inputs = {};
+      for (const [key, title, value, step, min, max] of [
+        ['x', 'X (m)', 0, 0.01, -0.5, 0.5],
+        ['y', 'Y (m)', 0, 0.01, -0.5, 0.5],
+        ['z', 'Z (m)', 0, 0.01, -0.5, 0.5],
+        ['rx', 'RX (°)', 0, 1, -45, 45],
+        ['ry', 'RY (°)', 0, 1, -45, 45],
+        ['rz', 'RZ (°)', 0, 1, -45, 45],
+        ['scale', '倍率', 1, 0.05, 0.25, 3],
+      ]) {
+        const label = document.createElement('label');
+        label.textContent = title;
+        const input = document.createElement('input');
+        Object.assign(input, { type: 'number', value, step, min, max, id: key });
+        inputs[key] = input;
+        label.append(input);
+        document.querySelector('#transforms').append(label);
+        input.addEventListener('input', () => {
+          if (
+            !current ||
+            Object.values(inputs).some((item) => !item.validity.valid || item.value === '')
+          )
+            return;
+          current.position.set(+inputs.x.value, +inputs.y.value, +inputs.z.value);
+          current.rotation.set(
+            ...['rx', 'ry', 'rz'].map((k) => THREE.MathUtils.degToRad(+inputs[k].value)),
+          );
+          current.scale.setScalar(+inputs.scale.value);
+        });
+      }
+      function reset() {
+        for (const [key, input] of Object.entries(inputs)) input.value = key === 'scale' ? 1 : 0;
+        if (current) {
+          current.position.set(0, 0, 0);
+          current.rotation.set(0, 0, 0);
+          current.scale.setScalar(1);
+        }
+        camera.position.set(0.72, 0.48, 0.9);
+        controls.target.set(0, 0, 0);
+        controls.update();
+      }
+      function dispose(object) {
+        object.traverse((node) => {
+          node.geometry?.dispose();
+          if (node.material) for (const material of [node.material].flat()) material.dispose();
+        });
+      }
+      async function load() {
+        const ticket = ++request;
+        if (current) {
+          scene.remove(current);
+          dispose(current);
+          current = undefined;
+        }
+        status.textContent = '加载中';
+        delete status.dataset.loaded;
+        const model = manifest.find((item) => item.modelId === picker.value);
+        try {
+          const result = await new GLTFLoader().loadAsync(`./assets/presets/${model.file}`);
+          if (ticket !== request) {
+            dispose(result.scene);
+            return;
+          }
+          current = result.scene;
+          scene.add(current);
+          reset();
+          status.textContent = `${model.name} · ${model.sizeBytes} bytes · 预设效果示意`;
+          status.dataset.loaded = model.modelId;
+        } catch (error) {
+          if (ticket === request) {
+            status.textContent = '模型加载失败';
+            delete status.dataset.loaded;
+          }
+        }
+      }
+      const manifest = await fetch('./assets/presets/manifest.json')
+        .then((response) => {
+          if (!response.ok) throw new Error('Manifest unavailable');
+          return response.json();
+        })
+        .catch((error) => {
+          status.textContent = '模型目录加载失败';
+          throw error;
+        });
+      function filter() {
+        picker.replaceChildren();
+        const type = document.querySelector('#type').value;
+        for (const model of manifest.filter((item) => type === 'all' || item.partType === type))
+          picker.add(new Option(model.name, model.modelId));
+        load();
+      }
+      document.querySelector('#type').addEventListener('change', filter);
+      picker.addEventListener('change', load);
+      document.querySelector('#reset').addEventListener('click', reset);
+      new ResizeObserver(() => {
+        renderer.setSize(stage.clientWidth, stage.clientHeight);
+        camera.aspect = stage.clientWidth / stage.clientHeight;
+        camera.updateProjectionMatrix();
+      }).observe(stage);
+      renderer.setAnimationLoop(() => {
+        controls.update();
+        renderer.render(scene, camera);
+      });
+      filter();
+    </script>
+  </body>
+</html>
