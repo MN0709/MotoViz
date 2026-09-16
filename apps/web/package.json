@@ -11,6 +11,10 @@
   "dependencies": {
     "@motorcycle-ai/shared": "0.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0"
   }
 }
