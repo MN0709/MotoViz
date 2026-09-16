@@ -4,4 +4,4 @@
 # RAG组代码：RAG组长 + 大组长 都必须批准
 /packages/rag-engine/**    @MN0709
 # 所有代码：大组长必须批准（公共/前端文件只匹配这一行）
-*                         @Ethan-hy
+*                         @moronfranklyn-lab

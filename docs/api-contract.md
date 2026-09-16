@@ -1,49 +1,433 @@
-# MotoFit AI 接口约定
+# MotoFit AI HTTP API 契约
 
-> 状态：模板；F20 完成后冻结。所有接口使用 JSON（文件上传除外），时间为 ISO 8601，ID 为非空字符串。
+> 版本：1.0.0（Day1 冻结候选）
+>
+> Base URL：`http://localhost:3001`（Mock）
+>
+> 代码类型源：`@motorcycle-ai/shared`
+>
+> 审核人：3D 组长 `@siguadht`、RAG 组长 `@MN0709`
 
-## 3D 组 API
+本文档是 3D 组、RAG 组和前端之间的接口单一事实来源。路径、字段名、枚举或状态码发生变化时，必须同步修改共享类型、本文档、Mock Server 和调用方，并在变更记录中登记。
 
-| 方法 | 路径 | 用途 | 请求类型 | 响应类型 | 状态 |
-| --- | --- | --- | --- | --- | --- |
-| POST | `/api/3d/uploads` | 上传与预处理图片 | `multipart/form-data` | `UploadResult` | 待定义 |
-| POST | `/api/3d/generations` | 创建模型生成任务 | `CreateModelRequest` | `GenerationJob` | 待定义 |
-| GET | `/api/3d/generations/:jobId` | 查询生成状态 | Path Params | `GenerationJob` | 待定义 |
-| PUT | `/api/3d/scenes/:sceneId` | 保存装配场景状态 | `SceneState` | `SceneState` | 待定义 |
+## 1. 通用约定
 
-### 3D 错误码模板
+- 除文件上传外，请求和响应均为 `application/json; charset=utf-8`。
+- JSON 字段使用 `camelCase`；ID 是非空字符串；时间使用 ISO 8601 UTC。
+- 金额 `price` 的单位为人民币元；里程 `mileage` 的单位为公里。
+- 列表没有匹配项时返回 `200` 和空数组，不用 `404`。
+- 未特别说明的成功查询返回 `200 OK`；资源/记录创建返回 `201 Created`。
+- Mock 中的 `queryId` 是反馈接口的关联键；真实服务必须让它在可观测周期内唯一。
 
-| code | HTTP | 含义 | 客户端动作 |
+### 1.1 统一错误响应
+
+```ts
+interface ApiError {
+  code: string;
+  message: string;
+}
+```
+
+```json
+{
+  "code": "QUERY_REQUIRED",
+  "message": "query 不能为空"
+}
+```
+
+| HTTP | 使用场景 |
+| --- | --- |
+| `400 Bad Request` | 字段缺失、格式或枚举不合法 |
+| `404 Not Found` | ID 对应资源不存在 |
+| `413 Payload Too Large` | 单张上传文件超过限制 |
+| `500 Internal Server Error` | 服务内部处理失败 |
+
+## 2. 3D 组 API
+
+### 2.1 上传配件图片
+
+`POST /api/3d/upload`
+
+上传 1-4 张图片并创建上传记录。每张最大 5MB，格式仅支持 JPEG/PNG。
+
+请求：`multipart/form-data`
+
+| 字段 | 类型 | 必填 | 规则 |
 | --- | --- | --- | --- |
-| `3D_VALIDATION_ERROR` | 400 | 输入不合法 | 展示字段提示 |
-| `3D_GENERATION_TIMEOUT` | 504 | 生成超时 | 切换预设模型 |
+| `images` | `File[]` | 是 | 1-4 张；MIME 为 `image/jpeg` 或 `image/png`；单张 ≤ 5MB |
 
-## RAG 组 API
+逻辑类型为 `UploadRequest`，其中只描述服务端解析后的文件元数据；二进制不进入 JSON。
 
-| 方法 | 路径 | 用途 | 请求类型 | 响应类型 | 状态 |
-| --- | --- | --- | --- | --- | --- |
-| POST | `/api/rag/parts/search` | 配件匹配 | `SearchRequest` | `SearchResponse` | 待定义 |
-| POST | `/api/rag/faults/diagnose` | 故障诊断 | `FaultDiagnosisRequest` | `FaultDiagnosis` | 待定义 |
-| POST | `/api/rag/documents` | 导入知识文档 | 待定义 | 待定义 | 待定义 |
-| GET | `/api/rag/documents` | 查询知识文档 | Query Params | 待定义 | 待定义 |
+响应：`201 Created`、`UploadResponse`
 
-### RAG 错误码模板
+```ts
+interface UploadResponse {
+  uploadId: string;
+  status: 'processing' | 'done' | 'failed';
+}
+```
 
-| code | HTTP | 含义 | 客户端动作 |
+```json
+{
+  "uploadId": "upload-765927de-680d-42db-b468-c368163dfa81",
+  "status": "done"
+}
+```
+
+错误：
+
+| HTTP | code | 条件 |
+| --- | --- | --- |
+| 400 | `IMAGES_REQUIRED` | 没有上传图片或字段名不是 `images` |
+| 400 | `UNSUPPORTED_FILE_TYPE` | 文件不是 JPEG/PNG |
+| 400 | `UPLOAD_VALIDATION_ERROR` | 图片数量等 multipart 约束不合法 |
+| 413 | `FILE_TOO_LARGE` | 任意单张图片超过 5MB |
+
+```bash
+curl -X POST http://localhost:3001/api/3d/upload \
+  -F 'images=@./exhaust-front.jpg;type=image/jpeg' \
+  -F 'images=@./exhaust-side.png;type=image/png'
+```
+
+### 2.2 生成 3D 模型
+
+`POST /api/3d/generate`
+
+根据已上传图片生成 GLB；生成链路不可用时返回同类型预设模型，并将 `status` 标记为 `fallback`。
+
+请求：`application/json`、`GenerateRequest`
+
+| 字段 | 类型 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `RAG_VALIDATION_ERROR` | 400 | 输入不合法 | 展示字段提示 |
-| `RAG_NO_EVIDENCE` | 422 | 无可靠依据 | 提示人工确认 |
+| `uploadId` | `string` | 是 | 由上传接口返回 |
+| `partType` | `'exhaust' \| 'windshield' \| 'saddlebag' \| 'other'` | 是 | 稳定枚举，不接收中文值 |
 
-## 共享类型
+```json
+{
+  "uploadId": "upload-765927de-680d-42db-b468-c368163dfa81",
+  "partType": "exhaust"
+}
+```
 
-共享类型由 `@motorcycle-ai/shared` 导出，以代码定义为唯一来源。接口冻结时需补充 JSON 示例，并确保前后端不得复制出第二份同名类型。
+响应：`200 OK`、`GenerateResponse`
 
-- `VehicleModel`、`Part`、`MountPoint`、`Model3D`、`SceneState`
-- `SearchRequest`、`SearchResponse`、`FaultDiagnosisRequest`、`FaultDiagnosis`
-- 统一错误：`{ code: string; message: string; requestId: string }`
+```ts
+interface GenerateResponse {
+  modelId: string;
+  modelUrl: string;
+  format: 'glb';
+  status: 'success' | 'fallback';
+}
+```
 
-## 变更记录
+```json
+{
+  "modelId": "model-exhaust-akrapovic",
+  "modelUrl": "http://localhost:3001/mock-assets/models/akrapovic-exhaust.glb",
+  "format": "glb",
+  "status": "fallback"
+}
+```
+
+错误：
+
+| HTTP | code | 条件 |
+| --- | --- | --- |
+| 400 | `INVALID_GENERATE_REQUEST` | 缺少字段或 `partType` 非法 |
+| 404 | `UPLOAD_NOT_FOUND` | `uploadId` 不存在或已失效 |
+| 500 | `MODEL_GENERATION_FAILED` | 生成失败且没有可用降级模型 |
+
+### 2.3 获取预设模型列表
+
+`GET /api/3d/models`
+
+查询参数：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `partType` | `PartType` | 否 | 不传时返回全部预设模型 |
+
+响应：`200 OK`
+
+```ts
+interface ModelListResponse {
+  models: Array<Pick<Model3D, 'modelId' | 'name' | 'partType' | 'modelUrl' | 'thumbnailUrl'>>;
+}
+```
+
+```json
+{
+  "models": [
+    {
+      "modelId": "model-exhaust-akrapovic",
+      "name": "Akrapovič 碳纤维尾段排气",
+      "partType": "exhaust",
+      "modelUrl": "http://localhost:3001/mock-assets/models/akrapovic-exhaust.glb",
+      "thumbnailUrl": "http://localhost:3001/mock-assets/thumbnails/akrapovic-exhaust.webp"
+    }
+  ]
+}
+```
+
+错误：`400 INVALID_PART_TYPE`，表示筛选枚举不合法。
+
+### 2.4 获取单个模型详情
+
+`GET /api/3d/model/{modelId}`
+
+路径参数：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `modelId` | `string` | 是 | 预设或生成模型 ID |
+
+响应：`200 OK`
+
+```ts
+interface ModelDetailResponse {
+  modelId: string;
+  name: string;
+  partType: PartType;
+  modelUrl: string;
+  scale: Vector3;
+  defaultPosition: Vector3;
+  defaultRotation: Vector3;
+}
+```
+
+```json
+{
+  "modelId": "model-windshield-touring",
+  "name": "Puig Touring 加高风挡",
+  "partType": "windshield",
+  "modelUrl": "http://localhost:3001/mock-assets/models/puig-touring-windshield.glb",
+  "scale": { "x": 1, "y": 1, "z": 1 },
+  "defaultPosition": { "x": 0, "y": 1.08, "z": 0.55 },
+  "defaultRotation": { "x": -18, "y": 0, "z": 0 }
+}
+```
+
+错误：`404 MODEL_NOT_FOUND`，表示 `modelId` 不存在。
+
+## 3. RAG 组 API
+
+### 3.1 配件匹配检索
+
+`POST /api/rag/search/parts`
+
+请求：`SearchRequest`
+
+| 字段 | 类型 | 必填 | 规则 |
+| --- | --- | --- | --- |
+| `query` | `string` | 是 | 去除首尾空格后不能为空 |
+| `motorcycleModel` | `string` | 否 | 推荐使用“品牌 + 车型 + 年款” |
+| `limit` | `number` | 否 | 1-20 的整数，默认 10 |
+
+```json
+{
+  "query": "排气",
+  "motorcycleModel": "川崎 Ninja 400",
+  "limit": 5
+}
+```
+
+响应：`200 OK`、`SearchResponse`
+
+```ts
+interface SearchResponse {
+  queryId: string;
+  results: SearchResult[];
+  total: number;
+}
+
+interface SearchResult {
+  partId: string;
+  name: string;
+  brand: string;
+  partType: PartType;
+  fitModels: string[];
+  price: number;
+  source: string;
+  score: number;
+}
+```
+
+```json
+{
+  "queryId": "query-c179dd0c-cb70-4b73-82ee-3ba586139baa",
+  "results": [
+    {
+      "partId": "part-001",
+      "name": "碳纤维尾段排气",
+      "brand": "Akrapovič",
+      "partType": "exhaust",
+      "fitModels": ["川崎 Ninja 400 2018-2023", "川崎 Z400 2019-2023"],
+      "price": 5980,
+      "source": "Akrapovič 2025 适配目录",
+      "score": 0.84
+    }
+  ],
+  "total": 1
+}
+```
+
+错误：
+
+| HTTP | code | 条件 |
+| --- | --- | --- |
+| 400 | `QUERY_REQUIRED` | `query` 缺失或为空 |
+| 400 | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串 |
+| 400 | `INVALID_LIMIT` | `limit` 不是 1-20 的整数 |
+
+### 3.2 故障诊断检索
+
+`POST /api/rag/search/fault`
+
+请求：`FaultDiagnosisRequest`
+
+| 字段 | 类型 | 必填 | 规则 |
+| --- | --- | --- | --- |
+| `symptom` | `string` | 是 | 去除首尾空格后不能为空 |
+| `motorcycleModel` | `string` | 否 | 车型与年款 |
+| `mileage` | `number` | 否 | 公里数，不得为负数 |
+
+```json
+{
+  "symptom": "冷车启动困难，怠速容易熄火",
+  "motorcycleModel": "川崎 Ninja 400",
+  "mileage": 18500
+}
+```
+
+响应：`200 OK`、`FaultDiagnosisResult`
+
+```ts
+interface FaultDiagnosisResult {
+  queryId: string;
+  diagnosis: string;
+  possibleCauses: Array<{
+    cause: string;
+    probability: number;
+    solution: string;
+  }>;
+  references: Reference[];
+}
+```
+
+`probability` 范围为 0-1。`references` 必须至少有一项；真实 RAG 服务必须保证每条诊断结论能映射到引用证据，不允许仅生成格式合法但无法溯源的答案。
+
+```json
+{
+  "queryId": "query-eb2f63bc-c1b1-4690-a086-0d49752d18da",
+  "diagnosis": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。",
+  "possibleCauses": [
+    {
+      "cause": "蓄电池电压偏低",
+      "probability": 0.72,
+      "solution": "静置后测量电压；低于维修手册阈值时充电并做负载测试。"
+    }
+  ],
+  "references": [
+    {
+      "title": "Ninja 400 服务手册：燃油系统",
+      "sourceType": "manual",
+      "excerpt": "冷启动异常应先确认电池状态，再检查怠速控制与点火系统。",
+      "url": "https://example.com/manuals/ninja400/fuel-system#cold-start"
+    }
+  ]
+}
+```
+
+错误：
+
+| HTTP | code | 条件 |
+| --- | --- | --- |
+| 400 | `SYMPTOM_REQUIRED` | `symptom` 缺失或为空 |
+| 400 | `INVALID_MOTORCYCLE_MODEL` | 车型不是字符串 |
+| 400 | `INVALID_MILEAGE` | 里程不是非负数 |
+
+### 3.3 获取知识库条目详情
+
+`GET /api/rag/knowledge/{id}`
+
+路径参数 `id: string` 为引用对应的知识条目 ID。
+
+响应：`200 OK`、`KnowledgeEntry`
+
+```json
+{
+  "id": "fault-001",
+  "title": "Ninja 400 服务手册：燃油系统",
+  "content": "优先检查蓄电池静态电压、怠速控制通道和火花塞状态。",
+  "sourceType": "manual",
+  "sourceUrl": "https://example.com/manuals/ninja400/fuel-system#cold-start",
+  "updatedAt": "2026-09-12T09:00:00.000Z"
+}
+```
+
+错误：`404 KNOWLEDGE_NOT_FOUND`，表示条目不存在。
+
+### 3.4 提交检索结果反馈
+
+`POST /api/rag/feedback`
+
+请求：`FeedbackRequest`
+
+| 字段 | 类型 | 必填 | 规则 |
+| --- | --- | --- | --- |
+| `queryId` | `string` | 是 | 来自配件或故障检索响应 |
+| `rating` | `'up' \| 'down'` | 是 | 点赞或点踩 |
+| `comment` | `string` | 否 | 可选补充说明 |
+
+```json
+{
+  "queryId": "query-eb2f63bc-c1b1-4690-a086-0d49752d18da",
+  "rating": "up",
+  "comment": "与实际检查结果一致"
+}
+```
+
+响应：`201 Created`、`FeedbackResponse`
+
+```json
+{
+  "success": true
+}
+```
+
+错误：
+
+| HTTP | code | 条件 |
+| --- | --- | --- |
+| 400 | `QUERY_ID_REQUIRED` | `queryId` 缺失或为空 |
+| 400 | `INVALID_RATING` | `rating` 不是 `up/down` |
+| 400 | `INVALID_COMMENT` | `comment` 不是字符串 |
+
+## 4. 共享类型与字段所有权
+
+共享类型统一从 `packages/shared/src/index.ts` 导出，禁止各包复制同名接口。
+
+| 类型 | 所有者 | 用途 |
+| --- | --- | --- |
+| `Model3D` | 3D 组 | 模型列表和挂载详情 |
+| `Part` | RAG 组维护、双方消费 | 配件主数据 |
+| `UploadRequest/UploadResponse` | 3D 组 | 图片上传 |
+| `GenerateRequest/GenerateResponse` | 3D 组 | 模型生成与降级 |
+| `SearchRequest/SearchResult/SearchResponse` | RAG 组 | 配件检索 |
+| `FaultDiagnosisRequest/FaultDiagnosisResult` | RAG 组 | 故障诊断 |
+| `Reference` | RAG 组 | 证据引用 |
+
+## 5. Mock Server 约定
+
+- 启动：`npm run dev:mock`
+- 端口：`3001`
+- 上传记录和反馈仅保存在进程内，重启后清空。
+- `/api/3d/generate` 固定走预设模型降级并返回 `status: fallback`，不代表真实生成服务结果。
+- 模型和缩略图 URL 是前端字段联调用占位地址；本任务不提供 GLB/图片二进制素材。
+- Mock 数据不得用于真实维修决策、报价或配件订购。
+
+## 6. 变更记录
 
 | 日期 | 版本 | 变更 | 提出人 | 3D 确认 | RAG 确认 |
 | --- | --- | --- | --- | --- | --- |
-| 待填写 | 0.1 | 初始模板 | 待填写 | 待确认 | 待确认 |
+| 2026-09-12 | 1.0.0-rc1 | 冻结 8 个 API、共享枚举、错误响应和 Mock 示例 | Codex | 待 `@siguadht` 审核 | 待 `@MN0709` 审核 |
