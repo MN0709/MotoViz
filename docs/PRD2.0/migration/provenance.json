@@ -66,7 +66,7 @@
       "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
     },
     {
-      "destination": "migration/v1/modeling/F02-原选型记录.md",
+      "destination": "reports/research/F02-原选型记录.md",
       "source_commit": "189226590df462897e04c5dd3c0660e069203127",
       "source_path": "docs/3d-solution-evaluation.md",
       "sha256": "39ca9c3fb1c465fb4e3e76290703741d92d5104be102c6b02545f1e902a19fac",
@@ -80,14 +80,14 @@
       "usage": "历史原文；现行范围和评审限制见迁移清单"
     },
     {
-      "destination": "migration/v1/modeling/F03-原上传PRD.md",
+      "destination": "reports/requirements/F03-原上传PRD.md",
       "source_commit": "280b64a9fdb73428c845192eca9b1403f78b3a58",
       "source_path": "docs/prd/image-upload-preprocessing.md",
       "sha256": "6f0434b4bf29121929090bb17bc20050b9d580fa09c80ca4cac6064d0338f9e1",
       "usage": "历史原文；现行范围和评审限制见迁移清单"
     },
     {
-      "destination": "migration/v1/modeling/F07-原对比PRD.md",
+      "destination": "reports/requirements/F07-原对比PRD.md",
       "source_commit": "7dadf76324482246e6cfacccf69ac3ec5e217e4d",
       "source_path": "docs/prd/before-after-comparison.md",
       "sha256": "586d171ce2fc002d9e9fad5231142947cdb35ed3ede1639769f6cca8d675dbe8",
@@ -99,6 +99,20 @@
       "source_path": "docs/api-contract.md",
       "sha256": "f63376c8fd113f96f987098e489f039dc61375504e641c9e418cb279cd25c365",
       "usage": "历史原文；现行范围和评审限制见迁移清单"
+    },
+    {
+      "destination": "reports/testing/PR23-PR29-review.md",
+      "source_path": "reviews/2026-09-16/PR23-PR29-review.md",
+      "source_commit": null,
+      "sha256": "d877994a7b0082573526c352051fd04ecb5c772d049369cd1b36cba75433cbec",
+      "usage": "此前已执行的本地评审原文副本；原评审链接与精确被审提交见正文，不代表2.0功能通过"
+    },
+    {
+      "destination": "reports/testing/PR31-PR32-review.md",
+      "source_path": "reviews/2026-09-16/PR31-PR32-review.md",
+      "source_commit": null,
+      "sha256": "3854391473c7634ef32f4e002cbc1d4bf50c1a23be87c51ee3a4ccbb4aae2791",
+      "usage": "此前已执行的本地评审原文副本；原评审链接与精确被审提交见正文，不代表2.0功能通过"
     }
   ]
 }
