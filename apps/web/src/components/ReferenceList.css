@@ -1,0 +1,74 @@
+.reference-list {
+  max-width: 760px;
+  color: #243a4a;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+.reference-list h2 {
+  font-size: 20px;
+  font-weight: 650;
+}
+.reference-card {
+  margin: 12px 0;
+  border: 1px solid #cbd6df;
+  border-left: 4px solid #326791;
+  border-radius: 6px;
+  background: #f7fafc;
+}
+.reference-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.reference-toggle small {
+  display: block;
+  margin-bottom: 6px;
+  color: #536878;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 12px;
+}
+.reference-toggle strong {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.reference-body {
+  padding: 0 16px 16px;
+  overflow-wrap: anywhere;
+}
+.reference-body blockquote {
+  margin: 0;
+  padding: 12px;
+  border-left: 2px solid #9bb3c6;
+  background: #fff;
+  line-height: 1.7;
+}
+.reference-body p {
+  font-size: 13px;
+  color: #536878;
+}
+.reference-body a {
+  color: #225b86;
+  display: inline-block;
+  margin-top: 12px;
+}
+.reference-body pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  line-height: 1.7;
+}
+.reference-body button {
+  margin-left: 12px;
+}
+.reference-list button:focus-visible,
+.reference-list a:focus-visible,
+.reference-list summary:focus-visible {
+  outline: 3px solid #c78225;
+  outline-offset: 3px;
+}

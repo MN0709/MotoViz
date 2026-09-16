@@ -334,6 +334,10 @@ interface Reference {
   sourceType: 'manual' | 'fault-case' | 'part-catalog';
   excerpt: string;
   url: string;
+  documentId?: string;
+  pageStart?: number;
+  pageEnd?: number;
+  section?: string;
 }
 ```
 
@@ -406,6 +410,8 @@ interface Reference {
 ```
 
 错误：`404 KNOWLEDGE_NOT_FOUND`，表示条目不存在。
+
+F14 提议的向后兼容扩展（需组长确认）：`Reference` 和 `KnowledgeEntry` 可包含 `documentId`、`pageStart`、`pageEnd`、`section`。PDF 页码从 1 开始，`pageEnd >= pageStart`；元数据缺失时省略，不得编造。配件检索的每条 `SearchResult` 可增加 `references: Reference[]`，只关联可信数据中的配件 ID，无证据时返回空数组。引用片段随响应返回，前端点击先展开片段，同时调用详情接口核查；404 显示“来源已失效”，网络失败显示“暂时无法核查来源”，不能混淆。该扩展尚未改变已冻结接口版本，合并时由两组确认。
 
 ### 3.4 提交检索结果反馈
 

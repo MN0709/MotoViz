@@ -1,4 +1,6 @@
-import type { Part, PartType } from '@motorcycle-ai/shared';
+import type { Part, PartType, Reference } from '@motorcycle-ai/shared';
+import type { KnowledgeDocument } from './knowledge-search.js';
+import { bindPartReferences } from './reference-binder.js';
 import {
   expandControlledPartQueryTerms,
   inferPartTypeFromQuery,
@@ -8,6 +10,7 @@ import {
 
 export interface PartSearchResult extends Part {
   score: number;
+  references?: Reference[];
 }
 export interface PartSearchRequest {
   query: string;
@@ -25,6 +28,7 @@ function fitsModel(part: Part, requested: string): boolean {
 export function searchParts(
   parts: readonly Part[],
   request: PartSearchRequest,
+  documents: readonly KnowledgeDocument[] = [],
 ): PartSearchResult[] {
   const query = request.query.trim();
   if (!query) return [];
@@ -44,7 +48,11 @@ export function searchParts(
         0.99,
         (matched / Math.max(terms.length, 1)) * 0.7 + (typeMatch ? 0.29 : 0),
       );
-      return { ...part, score: Number(score.toFixed(4)) };
+      return {
+        ...part,
+        score: Number(score.toFixed(4)),
+        references: bindPartReferences(part.partId, documents),
+      };
     })
     .filter((part) => part.score > 0)
     .filter((part) => inferredType === undefined || part.partType === inferredType)

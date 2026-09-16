@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, feat/F13-knowledge-diagnosis]
 
 permissions:
   contents: read
@@ -34,3 +34,5 @@ jobs:
         run: npm run test:rag
       - name: Test Mock RAG feedback contract
         run: npm run test:mock
+      - name: Test reference panel interactions
+        run: npm run test:references

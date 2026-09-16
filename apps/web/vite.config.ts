@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// 仅配置 React 编译；代理和后端地址由 F20 接口约定后再添加。
+// 引用联调使用同源 API；生产部署仍需由网关转发 /api。
 export default defineConfig({
   plugins: [react()],
+  server: { proxy: { '/api': 'http://127.0.0.1:3001' } },
 });

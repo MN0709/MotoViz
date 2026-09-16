@@ -86,7 +86,23 @@ router.post('/search/parts', (request, response) => {
         0.99,
         (typeMatch ? 0.45 : 0) + (textMatch ? 0.4 : 0) + (modelMatch ? 0.14 : 0),
       );
-      return { ...part, score };
+      const entry = knowledgeEntries.find((item) => item.id === `kn-catalog-${part.partId}`);
+      return {
+        ...part,
+        score,
+        references: entry
+          ? [
+              {
+                knowledgeId: entry.id,
+                title: entry.title,
+                sourceType: entry.sourceType,
+                excerpt: entry.content.slice(0, 200),
+                url: entry.sourceUrl,
+                documentId: entry.documentId,
+              },
+            ]
+          : [],
+      };
     })
     .filter((part) => inferredType === undefined || part.partType === inferredType)
     .filter((part) => part.score > 0)

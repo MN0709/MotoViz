@@ -69,6 +69,20 @@ test('feedback accepts query IDs from both part and fault searches', async () =>
       ),
       true,
     );
+    for (const part of partResults) {
+      const references = part.references as Array<{
+        knowledgeId: string;
+        excerpt: string;
+        url: string;
+      }>;
+      assert.ok(references.length > 0);
+      for (const reference of references) {
+        const detail = await getJson(baseUrl, `/api/rag/knowledge/${reference.knowledgeId}`);
+        assert.equal(detail.status, 200);
+        assert.equal(detail.body.sourceUrl, reference.url);
+        assert.ok(String(detail.body.content).includes(reference.excerpt));
+      }
+    }
 
     const mismatched = await postJson(baseUrl, '/api/rag/search/parts', {
       query: '排气',

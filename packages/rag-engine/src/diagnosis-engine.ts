@@ -13,6 +13,8 @@ import { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
 
 export interface DiagnoseOptions {
   queryId?: string;
+  /** 接入知识库时提供实时快照，防止 LLM 调用期间删除的 chunk 被回填。 */
+  getCurrentDocuments?: () => readonly KnowledgeDocument[];
   motorcycleModel?: string;
   mileage?: number;
   partsCatalog?: readonly Part[];
@@ -23,6 +25,20 @@ function fallbackOutcome(
   context: DiagnosisOutcome['context'],
   fallbackReason: NonNullable<DiagnosisOutcome['fallbackReason']>,
 ): DiagnosisOutcome {
+  if (context.length === 0) {
+    return {
+      result: {
+        queryId,
+        diagnosis: INSUFFICIENT_DIAGNOSIS,
+        possibleCauses: [],
+        requiredParts: [],
+        references: [],
+      },
+      degraded: true,
+      fallbackReason,
+      context,
+    };
+  }
   const result = buildFallbackResult(queryId, context);
   if (!isFaultDiagnosisResult(result)) {
     throw new Error('知识数据不完整，无法构造合法的降级诊断响应');
@@ -40,6 +56,19 @@ export async function diagnoseFault(
   const suppliedQueryId = options.queryId?.trim();
   const queryId = suppliedQueryId || `query-${randomUUID()}`;
   const context = searchKnowledge(symptom, documents);
+  const fallback = (reason: NonNullable<DiagnosisOutcome['fallbackReason']>) => {
+    const current = options.getCurrentDocuments?.() ?? documents;
+    const validContext = context.flatMap((hit) => {
+      try {
+        bindReferences([{ knowledgeId: hit.knowledgeId }], [hit], current);
+        const document = current.find((item) => item.knowledgeId === hit.knowledgeId)!;
+        return [{ ...document, score: hit.score }];
+      } catch {
+        return [];
+      }
+    });
+    return fallbackOutcome(queryId, validContext, reason);
+  };
 
   if (context.length === 0) {
     return {
@@ -69,17 +98,21 @@ export async function diagnoseFault(
       (error.code === 'timeout' || error.code === 'invalid-json' || error.code === 'http-error')
         ? error.code
         : 'llm-error';
-    return fallbackOutcome(queryId, context, reason);
+    return fallback(reason);
   }
   if (!isLLMDiagnosisDraft(draft)) {
-    return fallbackOutcome(queryId, context, 'invalid-structure');
+    return fallback('invalid-structure');
   }
 
   let references: FaultDiagnosisResult['references'];
   try {
-    references = bindReferences(draft.references, context);
+    references = bindReferences(
+      draft.references,
+      context,
+      options.getCurrentDocuments?.() ?? documents,
+    );
   } catch {
-    return fallbackOutcome(queryId, context, 'invalid-reference');
+    return fallback('invalid-reference');
   }
 
   let requiredParts: FaultDiagnosisResult['requiredParts'];
@@ -91,7 +124,7 @@ export async function diagnoseFault(
       options.motorcycleModel,
     );
   } catch {
-    return fallbackOutcome(queryId, context, 'invalid-part');
+    return fallback('invalid-part');
   }
 
   const result: FaultDiagnosisResult = {
@@ -103,7 +136,7 @@ export async function diagnoseFault(
   };
 
   if (!isFaultDiagnosisResult(result)) {
-    return fallbackOutcome(queryId, context, 'invalid-structure');
+    return fallback('invalid-structure');
   }
   return { result, degraded: false, context };
 }

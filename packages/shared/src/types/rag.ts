@@ -10,6 +10,8 @@ export interface SearchRequest {
 /** 单条配件检索结果，score 范围为 0-1，越大越相关。 */
 export interface SearchResult extends Part {
   score: number;
+  /** 仅包含服务端确认与该配件关联的证据；无资料时为空。 */
+  references?: Reference[];
 }
 
 /** 配件检索响应；queryId 用于后续提交结果反馈。 */
@@ -27,7 +29,15 @@ export interface FaultDiagnosisRequest {
 }
 
 /** 知识来源引用；存在诊断证据时必须能追溯到本次召回上下文。 */
-export interface Reference {
+export interface SourceLocation {
+  documentId?: string;
+  /** PDF 页码从 1 开始；采集数据缺失时不得编造。 */
+  pageStart?: number;
+  pageEnd?: number;
+  section?: string;
+}
+
+export interface Reference extends SourceLocation {
   knowledgeId: string;
   title: string;
   sourceType: 'manual' | 'fault-case' | 'part-catalog';
@@ -72,7 +82,7 @@ export interface FeedbackResponse {
 }
 
 /** 知识库条目详情。 */
-export interface KnowledgeEntry {
+export interface KnowledgeEntry extends SourceLocation {
   id: string;
   title: string;
   content: string;
