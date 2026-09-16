@@ -1,6 +1,6 @@
-import type { Reference, RequiredPart } from '@motorcycle-ai/shared';
+import type { Reference, RequiredPart, SourceLocation } from '@motorcycle-ai/shared';
 
-export interface KnowledgeDocument {
+export interface KnowledgeDocument extends SourceLocation {
   knowledgeId: string;
   title: string;
   sourceType: Reference['sourceType'];

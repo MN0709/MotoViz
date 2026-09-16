@@ -22,6 +22,6 @@ export {
   INSUFFICIENT_DIAGNOSIS,
   UNSUPPORTED_DIAGNOSIS,
 } from './prompts.js';
-export { bindReferences } from './reference-binder.js';
+export { bindReferences, bindPartReferences } from './reference-binder.js';
 export type { RagHealth, RagMode } from './types.js';
 export { isFaultDiagnosisResult, isLLMDiagnosisDraft } from './validate.js';
