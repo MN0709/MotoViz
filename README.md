@@ -14,7 +14,7 @@
 | --- | --- |
 | 3D 组长 | @siguadht |
 | 3D 组员 A | @20050202ys-sketch |
-| 3D 组员 B | @1105qianhao-oss |
+| 3D 组员 B | @Freya-Qian |
 | 3D 组员 C | @kevin-long26 |
 | RAG 组长 | @MN0709 |
 | RAG 组员 A | @zooxz7c-cyber |
