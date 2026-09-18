@@ -1,0 +1,118 @@
+{
+  "exported_at": "2026-09-16T15:50:45+08:00",
+  "policy": "copy-preserve-original; no runtime import",
+  "files": [
+    {
+      "destination": "migration/v1/rag/候选配件-357.csv",
+      "source_commit": "4611f58f77c84c243ee90101addbb2eeaaacedfd",
+      "source_path": "packages/rag-engine/data/parts/改装配件.csv",
+      "sha256": "74040c725632ebffc7abb3cff0e62b5de47f012559cc7fd1d23b01f698d830d5",
+      "usage": "候选资料；不是可信生产数据或已验证适配"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/exhaust-long.glb",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/exhaust-long.glb",
+      "sha256": "89b52ddf76e18ea157dc141e189aeda4cf1f5c9d5daf025d025c5fdee9e887d2",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/windshield-touring.glb",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/windshield-touring.glb",
+      "sha256": "80191900a1e90b29606e732bfede927d902e723f2fd6b3ac3f2a12c4a079eb9f",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/saddlebag-large.glb",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/saddlebag-large.glb",
+      "sha256": "309a097e13b861751c5c08f0022587c6b0b87d47ec23ab2c1dfdd1977853ae9a",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/manifest.json",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/manifest.json",
+      "sha256": "38152e3f31f669a5ab1ae83b84a29b93dac0ef7bf310b01f8aa6bc504f271a2f",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/windshield-short.glb",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/windshield-short.glb",
+      "sha256": "0ba48499fe82d797e9c2a21a5bd936af3502ff83a61a0cf304f3720a20a6daae",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/exhaust-compact.glb",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/exhaust-compact.glb",
+      "sha256": "a126a141bbf0ea22c6aee40997fcd5d2786cda8b65b499127d018a9b05349b4f",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/LICENSE.txt",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/LICENSE.txt",
+      "sha256": "0e2dd7e15b4f543f2ce498149aa607723e594401c82f791d280168cf16d2359a",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "migration/v1/modeling/presets/saddlebag-compact.glb",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "packages/3d-renderer/assets/presets/saddlebag-compact.glb",
+      "sha256": "440ea6e460da9d6d0809fd029d62f5d3e40d3589fb423d440c21df29c63004ad",
+      "usage": "通用示意资产；边箱仅储备，非450SR具体商品模型"
+    },
+    {
+      "destination": "reports/research/F02-原选型记录.md",
+      "source_commit": "189226590df462897e04c5dd3c0660e069203127",
+      "source_path": "docs/3d-solution-evaluation.md",
+      "sha256": "39ca9c3fb1c465fb4e3e76290703741d92d5104be102c6b02545f1e902a19fac",
+      "usage": "历史原文；现行范围和评审限制见迁移清单"
+    },
+    {
+      "destination": "migration/v1/modeling/F08-原资产说明.md",
+      "source_commit": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "source_path": "docs/F08-preset-assets.md",
+      "sha256": "e905e64ee6cf392ba05f9a24056bc2a0fdd1d734fe8d0a6b901907d38e0b6226",
+      "usage": "历史原文；现行范围和评审限制见迁移清单"
+    },
+    {
+      "destination": "reports/requirements/F03-原上传PRD.md",
+      "source_commit": "280b64a9fdb73428c845192eca9b1403f78b3a58",
+      "source_path": "docs/prd/image-upload-preprocessing.md",
+      "sha256": "6f0434b4bf29121929090bb17bc20050b9d580fa09c80ca4cac6064d0338f9e1",
+      "usage": "历史原文；现行范围和评审限制见迁移清单"
+    },
+    {
+      "destination": "reports/requirements/F07-原对比PRD.md",
+      "source_commit": "7dadf76324482246e6cfacccf69ac3ec5e217e4d",
+      "source_path": "docs/prd/before-after-comparison.md",
+      "sha256": "586d171ce2fc002d9e9fad5231142947cdb35ed3ede1639769f6cca8d675dbe8",
+      "usage": "历史原文；现行范围和评审限制见迁移清单"
+    },
+    {
+      "destination": "migration/v1/shared/原API契约.md",
+      "source_commit": "438b2b6fd3b46503906d9070251631e7cfb76551",
+      "source_path": "docs/api-contract.md",
+      "sha256": "f63376c8fd113f96f987098e489f039dc61375504e641c9e418cb279cd25c365",
+      "usage": "历史原文；现行范围和评审限制见迁移清单"
+    },
+    {
+      "destination": "reports/testing/PR23-PR29-review.md",
+      "source_path": "reviews/2026-09-16/PR23-PR29-review.md",
+      "source_commit": null,
+      "sha256": "d877994a7b0082573526c352051fd04ecb5c772d049369cd1b36cba75433cbec",
+      "usage": "此前已执行的本地评审原文副本；原评审链接与精确被审提交见正文，不代表2.0功能通过"
+    },
+    {
+      "destination": "reports/testing/PR31-PR32-review.md",
+      "source_path": "reviews/2026-09-16/PR31-PR32-review.md",
+      "source_commit": null,
+      "sha256": "3854391473c7634ef32f4e002cbc1d4bf50c1a23be87c51ee3a4ccbb4aae2791",
+      "usage": "此前已执行的本地评审原文副本；原评审链接与精确被审提交见正文，不代表2.0功能通过"
+    }
+  ]
+}
