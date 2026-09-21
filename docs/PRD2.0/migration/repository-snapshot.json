@@ -1,0 +1,686 @@
+{
+  "checked_at": "2026-09-16T15:50:45+08:00",
+  "main_sha": "438b2b6fd3b46503906d9070251631e7cfb76551",
+  "prs": [
+    {
+      "headRefOid": "98a6bc9cdc47acf634fe5a5f1f714e067f68df41",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 34,
+      "reviewDecision": "REVIEW_REQUIRED",
+      "state": "OPEN",
+      "title": "feat: add scoped F05/F18 3D display demo",
+      "updatedAt": "2026-09-16T06:56:15Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/34"
+    },
+    {
+      "headRefOid": "31cb6c218012fe0ad15f048363ffe2b648d64677",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 33,
+      "reviewDecision": "REVIEW_REQUIRED",
+      "state": "OPEN",
+      "title": "draft: F10 PDF 解析选型与中文抽取 Demo",
+      "updatedAt": "2026-09-16T05:01:22Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/33"
+    },
+    {
+      "headRefOid": "7dadf76324482246e6cfacccf69ac3ec5e217e4d",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 32,
+      "reviewDecision": "CHANGES_REQUESTED",
+      "state": "OPEN",
+      "title": "docs: 改装前后对比视图 PRD（#7）",
+      "updatedAt": "2026-09-16T02:41:09Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/32"
+    },
+    {
+      "headRefOid": "280b64a9fdb73428c845192eca9b1403f78b3a58",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 31,
+      "reviewDecision": "APPROVED",
+      "state": "OPEN",
+      "title": "docs: 配件图片上传与预处理 PRD（#3）",
+      "updatedAt": "2026-09-16T02:40:57Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/31"
+    },
+    {
+      "headRefOid": "a54359d9c2c4f98c13aaaa789375f565319a7f08",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 30,
+      "reviewDecision": "",
+      "state": "OPEN",
+      "title": "feat: F14 检索引用溯源与原文展开（待浏览器验收）",
+      "updatedAt": "2026-09-16T02:15:34Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/30"
+    },
+    {
+      "headRefOid": "04d821362199bd9ea8f880d4a212086442bc63a2",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 29,
+      "reviewDecision": "APPROVED",
+      "state": "OPEN",
+      "title": "feat(F08): 提供六件通用预设 GLB 与加载验证（待接入）",
+      "updatedAt": "2026-09-16T05:05:45Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/29"
+    },
+    {
+      "headRefOid": "ec0740700451dd556feafded928772e443be2ff8",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 28,
+      "reviewDecision": "REVIEW_REQUIRED",
+      "state": "OPEN",
+      "title": "feat: 保存 MotoViz 飘带开场原型（主页待调整）",
+      "updatedAt": "2026-09-14T07:11:22Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/28"
+    },
+    {
+      "headRefOid": "509580512cf3cbbd1de7c553fe5e06447838e1fe",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 27,
+      "reviewDecision": "REVIEW_REQUIRED",
+      "state": "CLOSED",
+      "title": "docs: 新增 rag-work-summary 工作流 Skill",
+      "updatedAt": "2026-09-13T11:39:39Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/27"
+    },
+    {
+      "headRefOid": "101b91f96a039ce2ca34de1f111a490e2d0683df",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 26,
+      "reviewDecision": "CHANGES_REQUESTED",
+      "state": "OPEN",
+      "title": "feat: #13故障诊断API + #12配件检索API（RAG组长拍板版）",
+      "updatedAt": "2026-09-14T16:15:08Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/26"
+    },
+    {
+      "headRefOid": "8e523b4fa5983eff85b1a1ea8a73cc5f93ee3f44",
+      "isDraft": false,
+      "mergedAt": "2026-09-13T09:07:22Z",
+      "number": 24,
+      "reviewDecision": "APPROVED",
+      "state": "MERGED",
+      "title": "docs: 将产品负责人账号更新为 @moronfranklyn-lab",
+      "updatedAt": "2026-09-13T09:07:22Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/24"
+    },
+    {
+      "headRefOid": "10e395cd8b02439919aa7fabc863707fa9680a78",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 23,
+      "reviewDecision": "CHANGES_REQUESTED",
+      "state": "OPEN",
+      "title": "feat(F13): 打通知识检索与 LLM 诊断链路",
+      "updatedAt": "2026-09-16T06:21:55Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/23"
+    },
+    {
+      "headRefOid": "189226590df462897e04c5dd3c0660e069203127",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 22,
+      "reviewDecision": "REVIEW_REQUIRED",
+      "state": "OPEN",
+      "title": "docs(F02): 3D 方案选型证据与 GLB HTTP 测评",
+      "updatedAt": "2026-09-15T10:09:49Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/22"
+    },
+    {
+      "headRefOid": "ff0937c5a15b112bbfd5aaba2f8e3699f2f7927f",
+      "isDraft": false,
+      "mergedAt": null,
+      "number": 21,
+      "reviewDecision": "CHANGES_REQUESTED",
+      "state": "OPEN",
+      "title": "docs: RAG组长签字确认接口约定（可行性验证通过）+ 验证资产入库",
+      "updatedAt": "2026-09-14T16:15:05Z",
+      "url": "https://github.com/MN0709/MotoViz/pull/21"
+    }
+  ],
+  "issues": [
+    {
+      "assignees": [],
+      "body": "@MN0709 请协助将仓库名称从 motorcycle-ai 改为 MotoViz，项目中文展示名为「MotoViz 摩视」。这是 Ethan 确认的项目更名方向。\n\n当前 @moronfranklyn-lab 只有写入权限，没有管理员权限，无法操作仓库重命名。请在 Settings → General → Repository name 中修改；完成后请在这里回复，便于同步本地 remote、项目文档及开发任务中的仓库链接。\n",
+      "number": 25,
+      "state": "CLOSED",
+      "title": "chore: 请将仓库更名为 MotoViz（摩视）",
+      "url": "https://github.com/MN0709/MotoViz/issues/25"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDODNL_4A",
+          "login": "siguadht",
+          "name": "千泷QAQ",
+          "databaseId": 215154656
+        },
+        {
+          "id": "U_kgDOEqaKNg",
+          "login": "MN0709",
+          "name": "MN0709",
+          "databaseId": 312904246
+        }
+      ],
+      "body": "## 任务描述\n\n两组在 Day1 冻结跨模块接口、共享类型、错误码和 Mock 响应，支撑并行开发。\n\n## 验收标准\n\n- [ ] 3D 组 4 个 API 定义完成\n- [ ] RAG 组 4 个 API 定义完成\n- [ ] Mock Server 可返回模拟数据\n\n## 技术要点\n\n以 docs/api-contract.md 和 @motorcycle-ai/shared 为单一事实来源；变更必须记录并由两组确认。\n\n## 预计工时\n\n8h\n\n## 依赖 Issue\n\n无\n",
+      "number": 20,
+      "state": "OPEN",
+      "title": "[feat] 文档 - 接口约定与 Mock Server",
+      "url": "https://github.com/MN0709/MotoViz/issues/20"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEzJ9pA",
+          "login": "moronfranklyn-lab",
+          "name": "Ethan-hy",
+          "databaseId": 322076068
+        }
+      ],
+      "body": "## 任务描述\n\n实现故障诊断与配件查询模式切换、流式结果占位和引用展开。\n\n## 验收标准\n\n- [ ] 完整走通故障诊断流程\n- [ ] 完整走通配件查询流程\n\n## 技术要点\n\n先接 F20 Mock；结果类型直接复用 shared；引用失效需有明确状态。\n\n## 预计工时\n\n20h\n\n## 依赖 Issue\n\n#12 #13 \n",
+      "number": 19,
+      "state": "OPEN",
+      "title": "[feat] 前端 - 检索对话页集成",
+      "url": "https://github.com/MN0709/MotoViz/issues/19"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOE0PRFw",
+          "login": "Freya-Qian",
+          "name": "Freya Qian",
+          "databaseId": 323211543
+        }
+      ],
+      "body": "## 任务描述\n\n整合车型/配件选择、图片上传、3D 画布和 RAG 配件信息面板。\n\n## 验收标准\n\n- [ ] 完整走通 3D 展示流程无报错\n\n## 技术要点\n\n先接 F20 Mock，D6 再替换真接口；保留 3D 降级模式入口。\n\n## 预计工时\n\n20h\n\n## 依赖 Issue\n\n#5 #6 \n",
+      "number": 18,
+      "state": "OPEN",
+      "title": "[feat] 前端 - 3D 展示页集成",
+      "url": "https://github.com/MN0709/MotoViz/issues/18"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEzJ9pA",
+          "login": "moronfranklyn-lab",
+          "name": "Ethan-hy",
+          "databaseId": 322076068
+        }
+      ],
+      "body": "## 任务描述\n\n提供改装展示、故障诊断、配件查询三个入口和最近使用区域。\n\n## 验收标准\n\n- [ ] 首屏加载 ≤ 2 秒\n- [ ] 平板横屏布局正常\n\n## 技术要点\n\n优先确保现场演示路径清晰；避免引入非必要 UI 依赖。\n\n## 预计工时\n\n8h\n\n## 依赖 Issue\n\n#1 \n",
+      "number": 17,
+      "state": "OPEN",
+      "title": "[feat] 前端 - 首页与导航",
+      "url": "https://github.com/MN0709/MotoViz/issues/17"
+    },
+    {
+      "assignees": [],
+      "body": "## 任务描述\n\n展示文档名称、类型、分块数、导入时间，并提供上传和删除入口。\n\n## 验收标准\n\n- [ ] 文档列表字段完整\n- [ ] 可上传并看到处理状态\n- [ ] 删除前二次确认，结果与列表一致\n\n## 技术要点\n\nMVP 不做权限体系；仅在 P0 通过后启动。\n\n## 预计工时\n\n12h\n\n## 依赖 Issue\n\n#9 \n",
+      "number": 16,
+      "state": "OPEN",
+      "title": "[feat] 前端 - 知识库管理页简化版",
+      "url": "https://github.com/MN0709/MotoViz/issues/16"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOExlHWg",
+          "login": "khu016",
+          "name": "胡轲羽",
+          "databaseId": 320423770
+        }
+      ],
+      "body": "## 任务描述\n\n建立固定测试集和可复现评估脚本，输出检索命中率、诊断合理率和响应耗时。\n\n## 验收标准\n\n- [ ] 固定 50 条配件查询与 20 条故障描述测试集\n- [ ] 自动输出 Top-5 命中率、引用覆盖率与延迟统计\n- [ ] 结果可在同一数据版本上复现\n\n## 技术要点\n\n指标计算由确定性代码完成；仅在 P0 通过后启动。\n\n## 预计工时\n\n12h\n\n## 依赖 Issue\n\n#12 #13 \n",
+      "number": 15,
+      "state": "OPEN",
+      "title": "[feat] RAG - 检索质量评估脚本与测试集",
+      "url": "https://github.com/MN0709/MotoViz/issues/15"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOExlHWg",
+          "login": "khu016",
+          "name": "胡轲羽",
+          "databaseId": 320423770
+        }
+      ],
+      "body": "## 任务描述\n\n让诊断和匹配结论关联原始文档、页码与原文片段，并支持前端展开。\n\n## 验收标准\n\n- [ ] 所有 AI 结论都有可点击引用\n- [ ] 点击后 200ms 内展开原文片段\n\n## 技术要点\n\n引用 chunk 删除时显示来源失效；服务端必须验证结论引用指向有效证据。\n\n## 预计工时\n\n12h\n\n## 依赖 Issue\n\n#12 #13 \n",
+      "number": 14,
+      "state": "OPEN",
+      "title": "[feat] RAG - 检索结果引用溯源",
+      "url": "https://github.com/MN0709/MotoViz/issues/14"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEqaKNg",
+          "login": "MN0709",
+          "name": "MN0709",
+          "databaseId": 312904246
+        }
+      ],
+      "body": "## 任务描述\n\n检索故障案例和手册证据，通过 LLM HTTP API 生成结构化原因、步骤和所需配件。\n\n## 验收标准\n\n- [ ] 20 条故障描述诊断合理率 ≥ 70%\n- [ ] 每条结论 100% 带引用\n- [ ] 响应 ≤ 5 秒\n\n## 技术要点\n\n模型只能依据召回证据；无证据明确返回不足；LLM 超时展示召回原文。\n\n## 预计工时\n\n28h\n\n## 依赖 Issue\n\n#11 \n",
+      "number": 13,
+      "state": "OPEN",
+      "title": "[feat] RAG - 故障诊断检索 API",
+      "url": "https://github.com/MN0709/MotoViz/issues/13"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEqaKNg",
+          "login": "MN0709",
+          "name": "MN0709",
+          "databaseId": 312904246
+        }
+      ],
+      "body": "## 任务描述\n\n车型归一化后先做结构化兼容过滤，再做语义排序，返回配件、库存、价格与依据。\n\n## 验收标准\n\n- [ ] 50 条测试查询 Top-5 命中率 ≥ 80%\n- [ ] 响应 ≤ 3 秒\n\n## 技术要点\n\n精确匹配优先；语义结果须标待人工确认；无法归一化时返回相似车型。\n\n## 预计工时\n\n28h\n\n## 依赖 Issue\n\n#11 \n",
+      "number": 12,
+      "state": "OPEN",
+      "title": "[feat] RAG - 配件匹配检索 API",
+      "url": "https://github.com/MN0709/MotoViz/issues/12"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOExlHWg",
+          "login": "khu016",
+          "name": "胡轲羽",
+          "databaseId": 320423770
+        }
+      ],
+      "body": "## 任务描述\n\n基于关键词重叠打分的轻量检索索引，不使用向量库。支持中文二元分词 + 摩托车领域同义词扩展，故障案例权重1.2倍。\n\n## 验收标准\n\n- [x] 中文二元分词（连续中文提取二元词）\n- [x] 20组摩托车领域同义词扩展（刹车=制动、启动=打火、排气=消音等）\n- [x] 故障案例(sourceType=fault-case)排名权重1.2倍\n- [x] 最多返回5条相关资料\n- [x] 无命中时返回空结果（不报错，由上层返回'资料不足'提示）\n- [x] 单元测试通过\n\n## 技术要点\n\n- 全内存架构，无数据库/无向量库（数据量小：90配件+10手册+20案例）\n- 关键词重叠打分：匹配词元数/总词元数\n- 不调用Embedding API，不本地运行Python模型\n- 检索结果只返回knowledgeId，引用元数据由服务端回填（防止AI编造引用）\n\n## 预计工时\n\n20h（实际已完成，包含在#13故障诊断API中）\n\n## 依赖 Issue\n\n#10\n\n## 实际实现文件\n\n- packages/rag-engine/src/knowledge-search.ts\n- packages/rag-engine/src/parts-search.ts（配件检索）\n- packages/rag-engine/src/parts-loader.ts（配件数据加载）",
+      "number": 11,
+      "state": "OPEN",
+      "title": "[feat] RAG - 关键词检索与索引构建",
+      "url": "https://github.com/MN0709/MotoViz/issues/11"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOExlHWg",
+          "login": "khu016",
+          "name": "胡轲羽",
+          "databaseId": 320423770
+        }
+      ],
+      "body": "## 任务描述\n\n解析维修资料，按章节或案例分块，并保留来源、页码、章节、车型、类目元数据。\n\n## 验收标准\n\n- [ ] 随机抽 20 个分块，文本完整无乱码率 ≥ 95%\n- [ ] 每块元数据齐全\n\n## 技术要点\n\n建议 300-500 token、重叠 50 token；扫描件走外部 OCR API，低置信度标记并降权。\n\n## 预计工时\n\n28h\n\n## 依赖 Issue\n\n#9 \n",
+      "number": 10,
+      "state": "OPEN",
+      "title": "[feat] RAG - 文档解析与清洗分块",
+      "url": "https://github.com/MN0709/MotoViz/issues/10"
+    },
+    {
+      "assignees": [],
+      "body": "## 任务描述\n\n整理配件 CSV、维修手册 PDF 和故障案例，输出逐条可追踪的导入报告。\n\n## 验收标准\n\n- [ ] 导入 500 条配件 CSV ≤ 30 秒\n- [ ] 30 份 PDF 全部解析入队列\n- [ ] 所有失败条目均记录原因\n\n## 技术要点\n\n必填字段缺失拒绝单条；按品牌 + 型号 + 适配车型去重；失败不得阻断批次。\n\n## 预计工时\n\n32h\n\n## 依赖 Issue\n\n无\n",
+      "number": 9,
+      "state": "OPEN",
+      "title": "[feat] RAG - 初始数据采集与整理",
+      "url": "https://github.com/MN0709/MotoViz/issues/9"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEvkyOg",
+          "login": "kevin-long26",
+          "name": "",
+          "databaseId": 318321210
+        }
+      ],
+      "body": "## 任务描述\n\n准备 3D 生成不可用时的现场演示保底模型库和配置开关。\n\n## 验收标准\n\n- [ ] 准备 5-8 个预设配件模型（排气、风挡、边箱等）\n- [x] 可按类型匹配\n- [ ] 支持手动调整位置、旋转、缩放\n\n## 技术要点\n\n使用 3D_MODE=generated 或 3D_MODE=preset；确认模型许可证与资源体积。\n\n## 预计工时\n\n16h\n\n## 依赖 Issue\n\n#5 \n",
+      "number": 8,
+      "state": "OPEN",
+      "title": "[feat] 3D - 预设配件 3D 模型库降级方案",
+      "url": "https://github.com/MN0709/MotoViz/issues/8"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEyDE_Q",
+          "login": "20050202ys-sketch",
+          "name": "爽仔",
+          "databaseId": 320914685
+        }
+      ],
+      "body": "## 任务描述\n\n提供改装前后分屏同步相机，性能不足时降级为单场景切换。\n\n## 验收标准\n\n- [ ] 拖动一侧视角时两侧相机同步\n- [ ] 对比切换响应 ≤ 200ms\n\n## 技术要点\n\n仅在 P0 全部验收且剩余人力充足时启动。\n\n## 预计工时\n\n12h\n\n## 依赖 Issue\n\n#5 \n",
+      "number": 7,
+      "state": "OPEN",
+      "title": "[feat] 3D - 改装前后对比视图",
+      "url": "https://github.com/MN0709/MotoViz/issues/7"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEvkyOg",
+          "login": "kevin-long26",
+          "name": "",
+          "databaseId": 318321210
+        },
+        {
+          "id": "U_kgDOE0PRFw",
+          "login": "Freya-Qian",
+          "name": "Freya Qian",
+          "databaseId": 323211543
+        }
+      ],
+      "body": "## 任务描述\n\n按车型和配件类型读取挂载点，自动装配并支持有限范围的位置、旋转、缩放微调与保存。\n\n## 验收标准\n\n- [ ] 选择车型 + 配件后自动出现在正确位置，无悬浮穿模\n- [ ] 微调后保存并重新打开，状态一致\n\n## 技术要点\n\n挂载位冲突需提示替换；位移限制 ±0.5m、旋转限制 ±45°；无配置时放展示位。\n\n## 预计工时\n\n28h\n\n## 依赖 Issue\n\n#5 \n",
+      "number": 6,
+      "state": "OPEN",
+      "title": "[feat] 3D - 车型适配与配件挂载",
+      "url": "https://github.com/MN0709/MotoViz/issues/6"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOE0PRFw",
+          "login": "Freya-Qian",
+          "name": "Freya Qian",
+          "databaseId": 323211543
+        }
+      ],
+      "body": "## 任务描述\n\n加载车型与配件 GLB，支持旋转、缩放、平移、PBR 材质、基础光照和加载反馈。\n\n## 验收标准\n\n- [ ] 1080p Chrome 下帧率 ≥ 30fps\n- [ ] 车型 + 3 个配件加载 ≤ 5 秒\n\n## 技术要点\n\n建议 React Three Fiber/Three.js；低性能设备降画质；WebGL 不可用时展示降级页。\n\n## 预计工时\n\n32h\n\n## 依赖 Issue\n\n#1 \n",
+      "number": 5,
+      "state": "OPEN",
+      "title": "[feat] 3D - 3D 场景渲染与交互",
+      "url": "https://github.com/MN0709/MotoViz/issues/5"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDODNL_4A",
+          "login": "siguadht",
+          "name": "千泷QAQ",
+          "databaseId": 215154656
+        }
+      ],
+      "body": "## 任务描述\n\n封装选定的开源 3D 生成能力，返回异步任务与 GLB；失败或超时时切换预设模型。\n\n## 验收标准\n\n- [ ] 上传一张排气照片，60 秒内生成 GLB 并可加载，或降级模式即时加载预设模型\n- [ ] 模型比例与实车场景一致，无明显穿模\n\n## 技术要点\n\n通过 HTTP API 调用外部能力；120 秒超时；返回 jobId、状态、模型 URL、顶点数和包围盒。\n\n## 预计工时\n\n40h\n\n## 依赖 Issue\n\n#2 #3 \n",
+      "number": 4,
+      "state": "OPEN",
+      "title": "[feat] 3D - 拍照转 3D 模型生成服务",
+      "url": "https://github.com/MN0709/MotoViz/issues/4"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDOEyDE_Q",
+          "login": "20050202ys-sketch",
+          "name": "爽仔",
+          "databaseId": 320914685
+        }
+      ],
+      "body": "## 任务描述\n\n支持 1-4 张 JPG/PNG 配件图片上传、校验、方向修正与预处理状态记录。\n\n## 验收标准\n\n- [ ] 上传 4 张共 20MB 图片，3 秒内返回 uploadId\n- [ ] 非法格式 100% 拦截并给出中文提示\n\n## 技术要点\n\n使用 multipart/form-data；限制数量和单张体积；中断可重试，预处理失败保留原图。\n\n## 预计工时\n\n16h\n\n## 依赖 Issue\n\n#1 \n",
+      "number": 3,
+      "state": "OPEN",
+      "title": "[feat] 3D - 配件图片上传与预处理",
+      "url": "https://github.com/MN0709/MotoViz/issues/3"
+    },
+    {
+      "assignees": [
+        {
+          "id": "U_kgDODNL_4A",
+          "login": "siguadht",
+          "name": "千泷QAQ",
+          "databaseId": 215154656
+        }
+      ],
+      "body": "## 任务描述\n\n调研拍照转 3D 候选方案，跑通首选 Demo，并冻结与实际能力一致的服务输入输出。\n\n## 验收标准\n\n- [ ] 核实候选方案并补充 1-2 个新方案\n- [ ] 用 3 张真实配件照片跑通首选方案\n- [ ] 记录质量、耗时、硬件与许可证结论\n- [ ] D2 前确定方案；不可行则明确启用 F08\n\n## 技术要点\n\nAI 能力通过 HTTP API 集成；同时验证 GLB 输出、尺寸元数据和降级边界。\n\n## 预计工时\n\n32h\n\n## 依赖 Issue\n\n#1 \n",
+      "number": 2,
+      "state": "OPEN",
+      "title": "[feat] 3D - 开源方案调研选型与 Demo 跑通",
+      "url": "https://github.com/MN0709/MotoViz/issues/2"
+    },
+    {
+      "assignees": [],
+      "body": "## 任务描述\n\n建立全 TypeScript npm workspaces 骨架、质量检查与协作规范，让 8 人可并行开工。\n\n## 验收标准\n\n- [ ] `npm install` 成功\n- [ ] lint、typecheck、build 全部通过\n- [ ] CI、Issue/PR 模板、CODEOWNERS 和 README 齐全\n\n## 技术要点\n\n保持轻量；共享配置由子包继承；不实现 3D/RAG 功能。\n\n## 预计工时\n\n12h\n\n## 依赖 Issue\n\n无\n",
+      "number": 1,
+      "state": "OPEN",
+      "title": "[feat] 公共 - 项目脚手架与 Monorepo 初始化",
+      "url": "https://github.com/MN0709/MotoViz/issues/1"
+    }
+  ],
+  "comments": {
+    "6": [
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/6#issuecomment-5646806421",
+        "author": "siguadht",
+        "created_at": "2026-09-12T15:24:46Z",
+        "body": "3D 组分工确认：@kevin-long26 为 #6 挂载逻辑主责，@1105qianhao-oss 负责 #5 场景侧接入；两位先约定模块边界，避免重复实现。\n\nDay 2：在 #5 场景接口基础上说明 VehicleModel.id、MountPoint 和 Part.fitModels 如何映射；车型清单与年款命名尚未跨组确认，暂不能把 Mock 名称当正式挂载承诺。Day 5：至少一台已确认车型与配件完成自动挂载、冲突提示和受限微调；最终还须验证保存后重新打开状态一致、无悬浮穿模、无配置时有展示位。接口/共享类型变化先在 #20 说明影响并双向确认。主开发分支按 feat/F06-short-name，一个分支只处理本 Issue。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/6#issuecomment-5651695645",
+        "author": "siguadht",
+        "created_at": "2026-09-13T06:35:07Z",
+        "body": "@kevin-long26 @1105qianhao-oss 请尽快在这里确认 #6 的模块边界：谁提供车型/配件 GLB 加载与场景更新，谁负责 VehicleModel.id、MountPoint、Part.fitModels 的匹配和冲突处理。先以一套许可清楚的通用素材跑通“选配件 → 自动挂载 → 保存并重开”最小切片，提交分支/PR 或演示链接、现有阻塞和预计交付时间。车型正式清单与接口尚未冻结，不要把 Mock 名称写成正式支持范围；涉及共享类型或 /api/3d/* 的差异先列到 #20 等双向确认。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/6#issuecomment-5652061003",
+        "author": "siguadht",
+        "created_at": "2026-09-13T07:53:17Z",
+        "body": "@kevin-long26 @1105qianhao-oss 补充 #6 的最小联调输入：RAG 的 `partId/fitModels/thumbnailUrl` 分别是配件 ID、适配名称和 **2D 图片**；挂载还需要 3D 组自己的真实 GLB `modelId/modelUrl`、`partId → modelId` 映射，以及 `vehicleModelId → MountPoint`。跨组方案和需要双方确认的问题已集中写在 #20：https://github.com/MN0709/MotoViz/issues/20\n\n请先用一台许可清楚的通用车型和一个真实配件 GLB，把这两个映射及挂载点配置写成可检查的最小示例，贴出实际可加载演示、素材许可和对应 `partId/modelId/vehicleModelId`。找不到该具体型号 GLB 时，不要把同类型预设说成“该型号装车效果”；等待 #20 的产品展示口径确认。接口/共享类型改动继续先走 #20 双向确认。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/6#issuecomment-5653183828",
+        "author": "siguadht",
+        "created_at": "2026-09-13T12:11:59Z",
+        "body": "@kevin-long26 @1105qianhao-oss，RAG 组长已在 #20 **原则确认方案 A**：RAG 只给稳定 `partId`、`fitModels` 和 2D 图片；`partId → modelId` 与挂载点由 3D 组负责。稳定 ID 的具体实现、`fitModels` 语义和正式车型清单仍在 #20 澄清，暂不把当前 CSV/Mock 名称当作可挂载承诺。\n\n请按现有分工给出第一个可验收的纵向切片：Kevin 在 #6/#8 提供版本化配件模型映射与挂载配置；Qianhao 在 #5 提供真实车型/配件 GLB 的浏览器加载、旋转和失败状态。先用一台许可明确的通用车型和一件实际可加载配件跑通“选配件 → 挂载 → 保存 → 重开”；贴出车型/配件 GLB 来源和许可、`partId/modelId/vehicleModelId/mountPointId`、尺寸/位置、演示证据及分支/PR。没有具体产品 GLB 时只能展示标注清楚的预设示意，不能冒称该产品效果。\n\n请两位在本 Issue 回复各自已完成的可运行部分、具体阻塞和预计首个版本时间。拿到可核验素材后，我会据此与 @MN0709、@zooxz7c-cyber、@moronfranklyn-lab 确认首批 2–3 款车型；在此之前不填虚构清单，也不擅自改共享类型或冻结接口。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/6#issuecomment-5674109203",
+        "author": "Freya-Qian",
+        "created_at": "2026-09-15T03:13:18Z",
+        "body": "同步一下用户名口径：我的 GitHub 账号没有变，只是用户名已从 @1105qianhao-oss 更新为 @Freya-Qian。后续本 Issue 相关协作、进度同步、PR review 和验收提醒请统一使用 @Freya-Qian，避免通知遗漏。历史评论中的 @1105qianhao-oss 可以视为同一账号的旧用户名。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/6#issuecomment-5674622900",
+        "author": "kevin-long26",
+        "created_at": "2026-09-15T04:13:11Z",
+        "body": "我来认领这个任务，负责车型适配与配件挂载逻辑。"
+      }
+    ],
+    "9": [
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5654602908",
+        "author": "MN0709",
+        "created_at": "2026-09-13T16:41:28Z",
+        "body": "## 临时暂停范围变更：等待 #20 冻结首批车型与配件类别\n\n@zooxz7c-cyber 当前原始约 600 条配件数据先作为候选清单保留，不删除、不覆盖，也不要补造 `source/sourceUrl`。请另存带日期的原始备份；今晚不要求逐条修复 404、登录页或第三方聚合页。\n\n在 #20 确认首批具体车型、年款和配件类别前：\n\n- 不把当前 5 款春风候选写成已冻结产品范围；\n- 不把缺乏可追溯来源的记录计入验收合格数据；\n- 不因为链接问题删除原始记录；\n- 若已有分支或 PR，请保留并标记为 Draft/WIP，在本 Issue 回复链接，不宣称 #9 已完成。\n\n允许的轻量工作仅限备份和状态回执：文件名、总条数、原始文件是否完整、空链接/打不开链接的大致数量。正式任务卡待 #20 决策后一次性更新。\n\n此处是临时执行门禁，不代表原始数据被否定，也不关闭本 Issue。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5658181199",
+        "author": "MN0709",
+        "created_at": "2026-09-14T02:29:54Z",
+        "body": "## 今日轻量协调任务：首批车型与配件类别候选调研\n\n@zooxz7c-cyber 你对现有验收标准的质疑成立：当前 #9 只规定数量、导入耗时和失败记录，首批具体车型、年款、配件类别及来源质量尚未在 #20 冻结。因此当前不判定你验收失败，正式数据扩展继续受范围门禁约束。\n\n### 本轮任务\n\n请用 **60–90 分钟**列出 **3–5 款候选车型**。每款只需包含：\n\n1. 品牌、具体车型、候选年款或年款范围；\n2. 一句话说明市场常见度、改装活跃度或资料可得性；\n3. 2–4 个常见配件类别；\n4. 1–2 个当前可访问的高质量来源，优先厂商官网、官方配件目录/适配表或能明确车型年款的可靠经销商；\n5. 采集难度：低/中/高，并说明主要困难；\n6. 图片或模型线索：只记录发现位置，不验证、不承诺 GLB；\n7. 尚未确认的问题：年款、版本、适配条件、来源或许可等。\n\n请明确区分已确认事实、推测和待确认项。第三方聚合页只能作线索，不能单独证明适配。\n\n### 本轮边界\n\n- 不修改代码或 CSV；\n- 不重建现有约 600 条数据；\n- 不新增 50 条正式数据；\n- 不修改 #9 正文或验收标准；\n- 不把当前 CSV、Mock、图片或模型线索写成已支持范围；\n- 不负责验证 GLB、许可、加载或挂载能力。\n\n### 后续流程\n\n候选清单提交后，由 3D 组根据真实 GLB、许可、浏览器加载和挂载证据，逐项标记“可交付 / 需验证 / 不可交付”。中控台再取数据可采集候选与 3D 可交付能力的交集，交给 @moronfranklyn-lab 冻结首批 2–3 款车型及配件类别。冻结后才更新 #9 验收标准并允许扩展正式数据。\n\n请直接在本 Issue 回复候选清单；无需新建代码分支或 PR。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5658718407",
+        "author": "MN0709",
+        "created_at": "2026-09-14T03:50:18Z",
+        "body": "## 任务状态更新：原“3–5 款候选车型调研”已被取代\n\n@zooxz7c-cyber 暂停执行上方“自行列出 3–5 款候选车型”的任务，不需要再花 60–90 分钟做车型候选扩展，也不判定你验收失败。\n\n原因：@moronfranklyn-lab 已在 #20 冻结中国大陆销售版本的首批车型基准：\n\n- 春风 / CFMOTO 250SR，2025 款单摇臂版；\n- 春风 / CFMOTO 450SR，2025 款普通版，不含 450SR-S 或天蝎排气版；\n- 春风 / CFMOTO 675SR-R，2024 款，正式名称保留 -R。\n\n产品确认原文：https://github.com/MN0709/MotoViz/issues/20#issuecomment-5658396755\n\n因此，原候选调研任务状态改为 **被取代**。当前仍保持以下门禁：\n\n- 不修改或重建现有 CSV；\n- 不凭车型冻结通知批量改名、补造适配或扩大正式数据；\n- 具体配件类别、真实适配来源和 3D 可交付能力仍未冻结；\n- 等中控台基于上述三款车型重新整理后续数据任务卡，再开始正式扩展。\n\n现有原始数据继续保留并保证可追溯。本评论不修改 #9 正文或验收标准，也不代表 #9 已完成。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5667892665",
+        "author": "MN0709",
+        "created_at": "2026-09-14T17:20:07Z",
+        "body": "## 状态更新：候选配件类别与来源调研进行中\n\n@zooxz7c-cyber 已由 RAG 组长确认开始整理首批三款冻结车型对应的**候选配件类别和来源线索**。\n\n本轮只记录调研状态，不恢复此前已被取代的“自行选择 3–5 款候选车型”任务，也不代表已有具体产品样本通过验收。\n\n### 当前边界\n\n- 车型基准只使用 #20 已确认的三款具体车型、年款和版本；\n- 当前只调研候选配件类别及来源线索；\n- 不修改或重建现有 CSV；\n- 不扩展 50 条正式数据，不补造 `fitModels`、库存或适配关系；\n- 不负责验证 GLB、挂载能力或图片衍生 3D 授权；\n- 候选类别不自动成为最终产品范围，仍需来源证据、3D 可交付证据及产品负责人确认。\n\n提交候选清单后，RAG 组先核查来源质量与适配证据，再决定是否生成下一阶段的具体产品样本任务卡。本 Issue 保持打开，本评论不修改现有验收标准。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5675464841",
+        "author": "MN0709",
+        "created_at": "2026-09-15T05:56:16Z",
+        "body": "## 今日冻结任务卡：候选配件类别证据清单\n\n- **任务目标**：将当前调研收敛为轻量候选类别证据清单，避免未经验证的数据进入正式运行时 CSV。\n- **用户结果**：围绕已冻结三款车型看到有来源依据的候选配件类别；未确认适配必须明确标记。\n- **负责人**：@nexorithium\n- **必须完成**：\n  1. 只使用 #20 已确认的 250SR 2025 单摇臂版、450SR 2025 普通版、675SR-R 2024；\n  2. 整理当前八类候选：全段排气、尾端排气、竞技风挡、LED 转向灯、刹车系统、半热熔轮胎、发动机防摔、链条牙盘；\n  3. 每类提供 1–2 个可访问来源，区分官网、店铺首页、具体商品页和第三方线索；\n  4. 标明适用车型证据、图片来源和未确认问题；\n  5. 直接在本 Issue 提交清单。\n- **明确不做**：不继续扩展或合并 `4611f58` 的 357 条运行时 CSV；不重建 PR #23 的 600 条 CSV；不补造 `partId`、`fitModels`、库存或适配；不验证 GLB；不冻结最终类别。\n- **依赖**：#20 已冻结的三款车型与版本。\n- **验收标准**：车型口径一致；八类均有来源或明确写“暂无可靠来源”；事实/推测/待确认分开；店铺首页或图片不冒充适配证明；正式 CSV 不再修改。\n- **最终决定人**：@moronfranklyn-lab 冻结产品类别；@MN0709 先验收证据质量。\n- **完成后状态**：已实现待验收。\n\n当前分支与提交仅作为待审计材料保留，不进入合并判断。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5679889111",
+        "author": "MN0709",
+        "created_at": "2026-09-15T12:07:25Z",
+        "body": "## 候选配件来源清单催收\n\n@nexorithium 请按当前冻结任务卡提交候选数据进展。本次只催收轻量来源清单，不修改CSV、不扩大正式采集。\n\n### 时间要求\n\n- **2026-09-15 22:00前**：在本Issue回复已接收任务、当前进度和具体卡点；\n- **2026-09-16 12:00前**：直接在本Issue提交八类候选配件来源清单。\n\n### 八类范围\n\n1. 全段排气；\n2. 尾端排气；\n3. 竞技风挡；\n4. LED转向灯；\n5. 刹车系统；\n6. 半热熔轮胎；\n7. 发动机防摔；\n8. 链条牙盘。\n\n**本期不包含边箱。**\n\n### 交付要求\n\n- 每类提供1–2个当前可访问来源；\n- 找不到可靠来源时直接写“暂无可靠来源”，不要持续等待或凑数；\n- 区分已确认事实、推测和待确认项；\n- 说明来源是否能直接证明具体车型、年款和版本适配；\n- 说明图片来源情况，但图片不能单独证明适配或3D能力；\n- 不修改CSV，不补造适配、库存、来源、`partId`或`fitModels`；\n- 不包含边箱。\n\n如无法在规定时间提交，必须在本Issue说明阻塞原因和最早可交付时间，不能无回复。“已接收”不等于清单已经完成。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5692249815",
+        "author": "MN0709",
+        "created_at": "2026-09-16T04:55:42Z",
+        "body": "## 逾期催收：请提交八类候选来源清单\n\n@nexorithium 原定 **2026-09-16 12:00** 的交付已逾期。当前GitHub仍没有本轮任务接收回复、八类来源清单、具体卡点或新的预计时间。\n\n本任务不要求修改CSV，也不能用旧CSV代替本轮交付。请直接在Issue #9提交以下八类候选来源清单：\n\n1. 全段排气；\n2. 尾端排气；\n3. 竞技风挡；\n4. LED转向灯；\n5. 刹车系统；\n6. 半热熔轮胎；\n7. 发动机防摔；\n8. 链条牙盘。\n\n每类提供1–2个当前可访问来源；找不到可靠来源时可以明确写“暂无可靠来源”，不要持续等待或凑数。清单必须：\n\n- 区分已确认事实、推测和待确认项；\n- 说明每个来源能证明什么、不能证明什么；\n- 说明是否能证明具体车型、年款和版本适配；\n- 说明图片来源情况，但图片不能单独证明适配或3D能力；\n- 本期不包含边箱；\n- 不补造价格、库存、适配关系、`partId`或`fitModels`。\n\n### 新时间要求\n\n- **2026-09-16 14:00前**：在本Issue回复已接收、当前进度、具体卡点和预计时间；\n- **2026-09-16 18:00前**：直接在本Issue提交八类来源清单。\n\n如果无法按时提交，必须说明原因和最早可交付时间。回复“已接收”不等于清单已经完成。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5692988669",
+        "author": "MN0709",
+        "created_at": "2026-09-16T06:21:53Z",
+        "body": "## 组员 A GitHub 账号迁移与任务继承\n\n经成员身份确认，@Noveridian、@nexorithium 和 @zooxz7c-cyber 为同一名组员。后续统一使用 @Noveridian。\n\n本次仅迁移账号与当前责任，原有数据采集任务继续继承，不重新创建任务；历史评论、Commit 和贡献记录保持不变。此前无法回复与旧账号停用有关，不直接作为成员未工作的判断。\n\n当前交付边界不变：\n- 旧 CSV 不能代替本轮要求的八类候选来源清单；\n- 本期不包含边箱；\n- 不补造价格、库存、适配关系、partId 或 fitModels；\n- 无法按时完成时，必须说明具体原因和最早可交付时间。\n\n新的时间要求：\n- **2026-09-16 18:00 前**：@Noveridian 回复已接收、当前进度和具体卡点；\n- **2026-09-17 12:00 前**：在 Issue #9 提交八类候选来源清单。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5693681502",
+        "author": "MN0709",
+        "created_at": "2026-09-16T07:28:37Z",
+        "body": "## 候选配件数据文档阶段性验收结果\n\n### 验收对象\n\n- 分支：`feat/F09-data-collection`\n- Commit：[`4611f58f77c84c243ee90101addbb2eeaaacedfd`](https://github.com/MN0709/MotoViz/commit/4611f58f77c84c243ee90101addbb2eeaaacedfd)\n- 文件：[`packages/rag-engine/data/parts/改装配件.csv`](https://github.com/MN0709/MotoViz/blob/4611f58f77c84c243ee90101addbb2eeaaacedfd/packages/rag-engine/data/parts/%E6%94%B9%E8%A3%85%E9%85%8D%E4%BB%B6.csv)\n- 文件 Blob SHA：`f25edfc62211ddf482c5b32ab77b648411ea3dcc`\n\n已确认当前分支 Head 仍为上述 Commit，文件可正常读取和解析。\n\n### 结构与范围核查\n\n- 候选记录：**357 条**，另有 1 行表头。\n- 车型覆盖：\n  - 春风 250SR 单摇臂版 2025：119 条；\n  - 春风 450SR 2025：119 条；\n  - 春风 675SR-R 2024：119 条。\n- 配件类别覆盖：\n  - 全段排气：28 条；\n  - 尾端排气：59 条；\n  - 竞技风挡：45 条；\n  - LED 转向灯：45 条；\n  - 刹车系统：45 条；\n  - 半热熔轮胎：45 条；\n  - 发动机防摔：45 条；\n  - 链条牙盘：45 条。\n- 全文件未发现“边箱”记录。\n- 文件中的 `摩托品牌`、`可改配件` 分别承载本轮要求的车型、配件类别语义；其余字段为 `配件品牌`、`配件型号`、`安装条件`、`参考价格`、`source`、`sourceUrl`、`imageUrl`、`描述`。上述 10 个字段在 357 条记录中均无空值。\n- 未发现空数据行、列数错位、字段首尾多余空白、非数字参考价格或非 HTTP(S) URL 格式。\n- 格式备注：文件首列带 UTF-8 BOM；列名使用 `摩托品牌` / `可改配件`，不是任务文字中的 `车型` / `配件类别`。当前可正常解析，不影响本轮候选文档验收。\n\n## 结论\n\n**候选配件数据文档阶段性验收通过。**\n\n这表示该文件可以作为候选清单和后续来源审计输入，不代表整个 Issue #9 已最终完成，也不代表 357 条记录已经成为正式可信生产数据。\n\n### 必须保留的限制\n\n- 当前不代表 357 条记录的价格、安装条件和车型适配已经全部证明；\n- 品牌官网、店铺首页、搜索页和通用图片不能单独证明具体商品适配；\n- 当前数据不得直接宣称为正式生产数据；\n- 282 条记录的 `sourceUrl` 指向站点或店铺首页，另有 9 条带搜索特征，后续真实性抽查应优先检查这些来源能否落到具体商品和具体车型版本；\n- 后续只需对来源真实性和具体适配进行抽查，不要求成员重新采集或重抄 357 条数据；\n- 在真实性抽查完成前，不能直接绑定真实 3D 商品模型，也不能对外承诺适配效果。\n\n### 任务要求更新\n\n本次产品决定已复用现有 CSV：此前“重新提交八类候选来源清单”的重复要求由本次阶段性验收决定取代。@Noveridian 无需重复整理已有字段。后续工作收敛为来源真实性和具体车型适配抽查。Issue #9 继续保持打开。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/9#issuecomment-5693804401",
+        "author": "MN0709",
+        "created_at": "2026-09-16T07:39:19Z",
+        "body": "## 后续冻结任务卡：建设 10–12 条 A 级真实配件数据\n\n**负责人：@Noveridian**\n\n### 背景与产品决定\n\n现有 357 条候选数据已经通过[候选配件数据文档阶段性验收](https://github.com/MN0709/MotoViz/issues/9#issuecomment-5693681502)。这些数据继续作为候选库保留，不删除、不重建，也不要求逐条补证据。\n\n后续工作收敛为正式演示所需的 **10–12 条 A 级真实配件数据**：目标 12 条，最低 10 条。不再验证全部 357 条。没有足够证据的记录继续保留为候选，不得冒充 A 级数据。\n\n### 车型与类别范围\n\n只选择：\n\n1. 春风 250SR，2025 款单摇臂版；\n2. 春风 450SR，2025 款普通版，不含 450SR-S 或天蝎排气版；\n3. 春风 675SR-R，2024 款。\n\n优先类别：\n\n- 排气：全段排气、尾端排气；\n- 竞技风挡。\n\n**本期不包含边箱。**\n\n目标分配为每款车型 4 条：排气 2 条、竞技风挡 2 条，合计 12 条。\n\n如确实找不到足够证据，可最低交付 10 条，但必须满足：\n\n- 每款车型至少 3 条；\n- 每款车型至少包含 1 条排气和 1 条竞技风挡；\n- 不得用证据不足的数据凑数；\n- 缺少的数量必须说明具体原因。\n\n### A 级数据认定条件\n\n每条数据必须同时满足：\n\n1. 商品真实存在；\n2. 有当前可访问的具体商品页或官方产品目录；\n3. 来源能明确证明配件品牌和型号；\n4. 有证据证明适配指定车型、年款和版本；\n5. 图片来自同一个具体商品页面或官方产品页面；\n6. 图片能够对应具体商品，不能使用搜索结果图或无关通用图；\n7. 价格有明确出处和核查时间；没有可靠价格时不得补造；\n8. 安装条件有商品说明、官方资料或其他明确依据；\n9. 能回到原始来源；\n10. 不使用店铺首页、搜索页或品牌首页单独证明具体商品适配。\n\n允许一条数据使用两类来源：官方目录或适配表证明车型适配，具体商品页证明商品、图片和价格。如果无法证明具体车型适配，该记录只能标记为 B 级候选，不能计入 10–12 条 A 级数据。\n\n### 每条 A 级数据必须提交的字段\n\n- 原 CSV 行号或候选记录标识；\n- 车型和年款版本；\n- 配件类别；\n- 品牌；\n- 配件型号；\n- 具体商品页面；\n- 适配证据页面；\n- 来源类型；\n- 来源能够证明的内容；\n- 页面无法证明的内容；\n- 图片链接及图片出处；\n- 参考价格、币种和核查时间；\n- 安装条件及证据；\n- 核查时间；\n- 最终等级：A；\n- 尚存风险。\n\n### 交付方式\n\n优先从现有 357 条候选数据中挑选，不重新大规模采集。直接在本 Issue 提交一张 10–12 条 A 级数据表，或者提交独立文档链接并在本 Issue 说明路径。\n\n不要直接覆盖现有 CSV。是否将 A 级数据写入正式运行时数据，后续另行决定。\n\n### 时间要求\n\n- **2026-09-16 20:00 前**：@Noveridian 确认接收，说明能否按目标 12 条执行以及当前卡点；\n- **2026-09-17 18:00 前**：提交 10–12 条 A 级数据及全部证据；\n- 如果无法达到最低 10 条，必须按实际验证结果提交，不允许凑数，并说明哪些车型或类别缺少可靠来源。\n\n### 验收标准\n\n- 总数 10–12 条；\n- 三款车型均有覆盖；\n- 排气和竞技风挡均有覆盖；\n- 每条都有具体商品证据和明确适配证据；\n- 图片与商品可以追溯到同一来源；\n- 价格和安装条件不补造；\n- 不包含边箱；\n- A 级、B 级和无法确认的数据不混用；\n- 现有 357 条候选数据不被删除或覆盖。\n\n### 后续使用边界\n\n通过验收的 A 级数据可以用于 RAG 配件检索测试、Top-5 命中率测试、车型过滤测试、前端真实商品展示和来源引用展示。\n\n在 3D 组未提供具体商品模型及挂载证据前：\n\n- 不能宣称 A 级商品已有对应真实 3D 模型；\n- 不能把通用预设模型冒充为该商品的真实装车效果；\n- 只能标注“商品数据已验证，3D 效果为预设示意”。\n\n### 明确不做\n\n- 不验证或重抄全部 357 条候选数据；\n- 不删除、重建或覆盖现有候选 CSV；\n- 不修改 Issue 正文或原始验收标准；\n- 不把候选记录直接升级为 A 级；\n- 不在本任务中决定正式运行时数据写入；\n- 不扩大到边箱或其他配件类别。\n\n完成本任务后进入独立验收，不能直接宣布 Issue #9 最终完成。"
+      }
+    ],
+    "20": [
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5646340028",
+        "author": "siguadht",
+        "created_at": "2026-09-12T14:00:24Z",
+        "body": "我审核了 3D 部分：**技术上可实现，当前 Mock 可以用于字段联调；但我暂不确认这版为最终冻结契约。**\n\n现有 `POST /api/3d/generate` 只返回同步的 `success/fallback`，缺少 #4 验收所需的异步任务状态、超时处理、顶点数和包围盒；当前接口也没有覆盖 #6 的场景保存与重新打开。请补充 #3 的预处理失败、重试和原图保留约定，并对齐原模板中的 `requestId` 与 3D 错误码。#8 的模型 URL 目前是占位，不能作为 GLB 可加载的验收证据。这些差异会阻塞 3D 真实服务与 #18 展示页按同一契约联调。\n\n方案 A（建议）：保留新增的预设模型查询接口，同时补齐异步生成、模型元数据和场景读写能力，与 #3/#4/#6 的 P0 验收保持一致。方案 B：改为同步生成或仅在浏览器本地保存；实现较简，但须先由 @Ethan-hy 明确调整相应 MVP 验收与产品行为，否则存在交付与 Issue 不一致的风险。\n\n请 @MN0709 与我先对齐文档、共享类型、Mock 及错误码，并在文档变更记录中双向确认后，再标记接口冻结。核查依据：当前 main 的接口文档与共享类型（提交 a5c0922）、#3、#4、#6、#8 和 #18。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5646812823",
+        "author": "siguadht",
+        "created_at": "2026-09-12T15:25:56Z",
+        "body": "3D 组开工后的跨组决策请求（车型命名与挂载映射）。@MN0709 的 4 个 RAG API 可以独立签字；此前提出的生成/上传/场景保存缺口由 3D 组牵头，不以此阻塞 RAG 单独验收。但 `fitModels` 与 3D 车型挂载确实是共同边界，尚不能视为冻结。\n\n**问题与证据**：当前 `Part.fitModels` 是自由字符串数组，`VehicleModel` 用 `id` 和单个 `year`，`MountPoint`/`SceneState` 关联 `vehicleModelId`；Mock 的多个车型名称没有对应已提交的可加载车型 GLB 和挂载点。检索到某车型不等于 3D 已支持它。PR #21 还修改了双方消费的 `Part.sourceUrl`，需 3D 组审阅。影响 #6 自动挂载、#18 展示页、RAG 配件结果与共享类型。\n\n**方案 A（建议，MVP 范围较小）**：由 3D 组与产品负责人先确认实际能交付的首批车型，建立唯一清单，逐条记录稳定 `vehicleModelId`、展示名（品牌 + 车型 + 年款范围）、年款起止、车型 GLB 及挂载配置。RAG `fitModels` 暂保留字符串，但对可 3D 展示项仅使用清单中的精确名称；前端按清单映射到 ID，未入清单的检索项只显示信息，不承诺 3D 挂载。风险是字符串同步需要自动校验。\n\n**方案 B**：在共享 `Part`/RAG 响应中新增稳定车型 ID（或 ID 列表），保留展示名；联调更稳，但涉及共享类型、RAG API、Mock 和前端的同步改动，10 天 MVP 成本更高。\n\n请 @MN0709 确认 A/B 的接口方向及 RAG 字段影响；请 @Ethan-hy 决定首批 MVP 展示车型数量/范围，以及“RAG 检索到但未支持 3D 的车型”应如何对外展示。3D 组会提供实际模型/挂载可交付性证据。决定后先改 `docs/api-contract.md`、共享类型与 Mock，在变更记录中完成两组双向确认，再合并或要求 #18 硬依赖。\n\n补充确认：谢以波的 GitHub 账号为 @zooxz7c-cyber；请他与 3D 组共同核对车型展示名、年款范围和 `vehicleModelId` 映射。@Ethan-hy 负责最终 MVP 范围与产品行为取舍。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5651112018",
+        "author": "moronfranklyn-lab",
+        "created_at": "2026-09-13T04:21:08Z",
+        "body": "产品范围确认：\n\n- 首批规划支持 2–3 款车型的 3D 展示与挂载。具体车型尚未确定，请根据实际模型资源和挂载验证结果提供可交付候选，再确认车型清单。\n- RAG 能检索到、但尚不支持 3D 的车型，仍展示配件信息，明确标注“暂不支持 3D”并禁用挂载。\n- 图片生成入口保留；生成失败时切换预设模型，并明确标注为预设模型，详见 #2。\n\n以上确认产品范围与展示行为；车型映射的具体接口方案仍需两组技术负责人对齐，不将本次确认视为共享接口已冻结。前端同步见 #18。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5651718676",
+        "author": "siguadht",
+        "created_at": "2026-09-13T06:40:48Z",
+        "body": "3D 组长 @siguadht 已确认：以以下 **P0 技术草案**牵头与 RAG 组对齐。此评论是待审提案，不是接口冻结，也不授权合并。产品负责人此前已在本 Issue 确认“保留图片生成入口、失败标注预设模型、首批规划 2–3 款车型、未支持 3D 的车型只展示配件信息”。\n\n1. **异步生成**：保留 `POST /api/3d/generate` 请求中的 `uploadId/partType`，建议改为 `202 {jobId,status:'queued'}`；新增 `GET /api/3d/jobs/{jobId}` 查询 `queued/processing/success/fallback/failed`。结束态返回真实可加载的 GLB URL、模型 ID、顶点数、包围盒；`fallback` 必须能识别为预设模型。请对齐 #4 的 60 秒可展示目标与 120 秒服务超时，明确谁在何时触发降级。\n2. **上传与失败保护**：保留 `POST /api/3d/upload` 的 1–4 张 JPG/PNG 约束；补充 `processing/done/failed` 的查询方式、预处理失败与重试规则。任何失败不得删除或覆盖用户原始照片。\n3. **场景保存**：为 #6 增加最小场景读写接口，建议 `PUT/GET /api/3d/scenes/{sceneId}`，请求和响应复用 `packages/shared` 中的 `SceneState`；是否需要独立创建场景入口，请在契约中明确。\n4. **车型映射**：MVP 先采用单一登记表，含稳定 `vehicleModelId`、展示名（品牌 + 车型 + 年款范围）、实际可加载车型 GLB、许可和挂载点。RAG 对支持 3D 的项暂用登记表精确展示名填 `Part.fitModels`；前端映射到 ID。未入清单只展示信息并禁用挂载。具体 2–3 款车型须凭素材与挂载证据再选，现阶段不猜名单。@zooxz7c-cyber 请共同核对命名格式。\n5. **错误与共用类型**：请共同决定现有 3D 细分错误码如何与 `3D_VALIDATION_ERROR`、`3D_GENERATION_TIMEOUT` 对齐，以及统一错误是否加入 `requestId`。这会影响 RAG、Mock 与前端，不能由 3D 组单方改。PR #21 正修改 `packages/shared/src/types/3d.ts` 和本契约，合并前需避免冲突并完成 3D 审阅。\n\n请 @MN0709 逐项确认技术方向，特别是异步任务响应、车型 `fitModels` 的精确名称映射，以及错误响应是否会改变 RAG API。若有异议，请直接指出字段或状态和替代方案。确认方向后，我会从最新 main 建独立 Issue 分支，先改 `docs/api-contract.md`，同步共享类型、Mock 与调用方；两组在文档“变更记录”双向签认，并经 PR/CI/产品验收后再合并。#18 在冻结前只接 Mock，不硬依赖未定字段。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5651964600",
+        "author": "moronfranklyn-lab",
+        "created_at": "2026-09-13T07:34:25Z",
+        "body": "产品方向同步（Ethan 已确认）\n\n@MN0709 @siguadht @zooxz7c-cyber @khu016 @1105qianhao-oss @kevin-long26 请在后续数据与跨组方案规划中优先考虑以下方向。\n\n当前重点：车型数据、品牌数据、零部件改装与适配数据，以及贴膜/拉花生成所需的数据；维修手册数据先后置。本次同步方向与规划依据，不直接暂停、改派现有任务，也不表示现有接口或验收标准已完成变更。\n\n范围澄清：天蝎（Akrapovič）排气只是 Ethan 举的示例，不是限定品牌、限定部件或指定首发范围。整体方向是面向不同品牌与改装部件，根据用户车辆和需求完成适配判断、选型推荐与改装效果预览；具体首批品类和品牌尚未确定。\n\n通用场景：用户选定自己的车辆，提出某类改装需求或品牌偏好，希望知道哪些具体产品适合自己的车，并看到选定方案的改装后外观。\n\n需要区分三个环节：\n1. 能不能装：以可追溯资料核实车型、年款、版本、具体配件型号及安装条件。向量相似度不能代替适配证明。\n2. 哪款更适合：在已核实适配的范围内，结合用户预算、外观、声浪偏好与使用要求比较；资料不足时明确待确认，不推断兼容。\n3. 装完什么样：效果预览应对应用户选定的具体车辆与配件型号；视觉生成结果不能作为真实安装可行性的证明。\n\n数据规划建议围绕这条流程展开：结构化维护车型、品牌、配件型号和适配关系；非结构化说明按语义与产品边界切分并保留来源、版本和适用车型；视觉侧考虑具体型号图片、模型或覆盖区域等资料。切分、检索与排序需用车型/配件查询评估准确性和耗时，而不是只追求向量召回。\n\n关联：#9 数据采集、#10 切分、#11 索引、#12 配件匹配、#15 评估、#6 挂载、#18 展示、#19 检索页面。贴膜/拉花生成的具体功能范围和实现方式尚待另行明确，不在本条消息中直接新增交付承诺。\n\n此前已确认的 2–3 款首批车型规划、生成失败切预设并明确标注、未支持 3D 时展示信息但禁用挂载的规则继续有效。\n\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5652060859",
+        "author": "siguadht",
+        "created_at": "2026-09-13T07:53:15Z",
+        "body": "承接上方产品方向中“装完什么样”必须对应选定车辆与具体配件型号，补充一个会阻塞 #6/#18 真正联调的**数据衔接缺口**，请 @MN0709 @moronfranklyn-lab @zooxz7c-cyber 一起确认。\n\n**已核查**：RAG `Part/SearchResult` 有 `partId`、`partType`、`fitModels`；PR #21 的 `thumbnailUrl` 计划用于 2D 图片，但目前仍在需修改状态，Mock 实际响应尚无该字段。3D `Model3D` 有 `modelId/modelUrl/partType`，却没有“某个具体 `partId` 对应哪个 GLB”的关系；`fitModels` 是自由字符串，挂载点则按 `vehicleModelId` 关联。因此，RAG 给出适配车型和图片，只能支持信息展示，**不能自动证明已经有该具体产品的 3D 模型，更不能用缩略图完成挂载**。现有 Mock GLB URL 仍是占位，不能算真实模型。\n\n**MVP 提案 A（建议）**：先不扩 RAG API。RAG 保证 `partId` 稳定，按双方确认的车型展示名填 `fitModels`，并提供可溯源的 2D 图片；3D 组维护唯一映射表 `partId → modelId`，只对确有许可、能加载、已校尺寸及挂载点的具体产品启用“该型号 3D 预览”。车型展示名再映射到稳定 `vehicleModelId`。找不到该具体产品 GLB 时，仍展示 RAG 图片；若按此前产品决策启用同类型预设 GLB，页面必须标明“预设效果示意”，不能说成该具体型号的装车效果，也不能据此证明适配。\n\n**方案 B**：在共享 `Part/SearchResult` 增 `modelId` 或单独关联字段，由 RAG 直接返回具体模型 ID。好处是前端直连，风险是 RAG API、共享类型、Mock、模型库同步改动更大，且 RAG 无法替 3D 组保证 GLB 许可与挂载质量。\n\n请 @MN0709 明确确认 A/B，特别是 `partId` 是否保持稳定、`fitModels` 如何只使用已核准车型清单名称，以及 `thumbnailUrl` 是 2D 展示图片而非 GLB；请 @moronfranklyn-lab 确认“无该具体型号 GLB、但有同类型预设模型”时上述示意标注是否符合对外展示要求。确认后先更新契约和变更记录，双方签认，再同步共享类型、Mock 与 #18。贴膜/拉花不在此处增加当前 P0 范围。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5652842385",
+        "author": "MN0709",
+        "created_at": "2026-09-13T10:58:04Z",
+        "body": "RAG组长 @MN0709 确认：**选择方案A**，不扩RAG API。\n\n逐项回复3个确认点：\n\n1. **partId保持稳定** ✅\n   - 我们的partId采用自增ID（part-1、part-2...），在CSV数据加载时生成\n   - 只要配件CSV不重新全量生成，partId就不变\n   - 后续新增配件追加在末尾，不影响已有ID\n\n2. **fitModels只使用已核准车型清单名称** ✅\n   - RAG组承诺：fitModels字段只填双方确认的车型展示名（品牌+车型+年款范围）\n   - 数据采集时由谢以波（@zooxz7c-cyber）按3D组提供的车型清单统一填写\n   - 未入清单的车型不进fitModels，前端只展示信息并禁用挂载\n\n3. **thumbnailUrl是2D展示图片，不是GLB** ✅\n   - thumbnailUrl是配件实物照片（电商/官网产品图），用于前端选配件时展示\n   - 不是3D模型，不用于挂载\n   - 3D模型由3D组维护partId→modelId映射表，RAG不涉及\n\n**RAG组配合动作**：\n- 配件数据采集时严格按车型清单填fitModels\n- 保证partId稳定，不随意重新生成\n- thumbnailUrl字段在PR #21中落地（rc5已定义，待khu016修复）\n\n**待3D组提供**：\n- 已核准车型清单（2-3款首批车型的标准展示名）\n- partId→modelId映射表的维护方式和更新时机\n\n确认后请3D组更新契约变更记录，双方签认。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5652860870",
+        "author": "MN0709",
+        "created_at": "2026-09-13T11:02:12Z",
+        "body": "**RAG 组长确认方案 A。**\n\n1. **partId 保持稳定**：采用自增 ID（part-1、part-2...），CSV 数据源不重新生成则 ID 不变。\n2. **fitModels 只用已核准车型清单名称**：谢以波（@zooxz7c-cyber）采集时按双方确认的车型展示名格式填写（品牌 + 车型 + 年款范围），未入清单的车型不承诺 3D 挂载。\n3. **thumbnailUrl 是 2D 配件展示图片**，用于前端列表/详情页展示，不是 GLB 模型。\n4. **partId → modelId 映射由 3D 组维护**：RAG 不扩 API，3D 组对确有许可、能加载、已校尺寸及挂载点的产品启用 3D 预览；无对应 GLB 时展示 RAG 2D 图片，启用同类型预设 GLB 须标注预设效果示意。\n\n车型清单等 3D 组提供可交付的 2-3 款车型后，双方共同确认并更新契约变更记录。@siguadht"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5653181553",
+        "author": "siguadht",
+        "created_at": "2026-09-13T12:11:31Z",
+        "body": "@MN0709 感谢确认方案 A。3D 组按此方向牵头：`partId → modelId` 及 `vehicleModelId → MountPoint` 由 #6/#8 维护一份版本化登记表；每条记录至少有稳定 ID、车型展示名、配件类型、真实可加载 GLB、来源/许可、尺寸与挂载点。只有实际素材和浏览器挂载验证通过的条目才开放“具体型号 3D 预览”。首批 2–3 款车型会从这些可验证条目提出，现阶段没有证据，不能先把 Mock/CSV 车型写成已支持清单。\n\n正式落文档前还有两个跨组数据点需要确认，已核查 PR #26 当前提交 `101b91f`：\n1. `packages/rag-engine/src/parts-loader.ts` 用 `part-${parts.length + 1}` 按清洗后顺序生成 ID。CSV 行重排、删行或去重规则改变，会让同一个 `partId` 指向另一个产品，3D 映射可能装错件。“不重新全量生成”不足以防止此事。建议源数据保存不可变 `partId`（或独立持久映射表），加载时校验唯一性；请 @MN0709 确认采用哪种稳定 ID 方案及数据修订规则。\n2. 当前加载器把 `fitModels` 写成 `[motorcycleBrand]`，尚不是“品牌 + 车型 + 年款范围”的已核准名称。更关键的是，`fitModels` 在契约中是配件**真实适配车型**；若只填首批支持 3D 的车型，其他经核实适配、但尚无 GLB 的车型会失去适配信息，与此前“仍展示配件信息、禁用 3D 挂载”的产品决定容易冲突。我的建议是：RAG 保留全部有来源证据的真实适配车型并统一命名；3D 登记表独立决定哪些可挂载，前端未命中登记表时只显示信息。请 @MN0709 与 @moronfranklyn-lab 确认字段语义和页面口径。若 MVP 只收集首批 2–3 款车型的数据，也请明确标成“数据暂未覆盖”，不要暗示其他车型不适配。\n\n`thumbnailUrl` 是 2D 图片、不能充作 GLB，此点已确认；PR #26 当前 CSV `imageUrl` 还未进入 `Part.thumbnailUrl`，请在实际 RAG 响应联调时对齐。此前提出的异步生成/上传状态/场景读写/错误码（本 Issue 上方 P0 技术草案第 1–3、5 点）仍待 @MN0709 逐项确认。@moronfranklyn-lab 也请确认“同类型预设效果示意”的具体展示文字。完成这些确认后我再更新 `docs/api-contract.md` 和变更记录，请两组签认；当前不视为接口冻结。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5654602726",
+        "author": "MN0709",
+        "created_at": "2026-09-13T16:41:26Z",
+        "body": "## 跨组范围待确认：首批车型与配件模型（临时执行门禁）\n\n为避免各组或 Codex 依据当前 Mock、CSV 车型直接提交并形成返工，现将状态集中如下：\n\n### 已确认\n- MVP 首批规划支持 2–3 款车型。\n- RAG 可检索但未进入 3D 登记表的车型，只展示配件信息，标注“暂不支持 3D”并禁用挂载。\n- 图片生成失败时切换预设模型，并明确标注为预设效果。\n- RAG 负责稳定 `partId`、有来源证据的真实 `fitModels` 和 2D 图片；3D 负责 `partId → modelId`、真实 GLB、挂载点及浏览器挂载验证。\n\n### 尚未确认，暂不得当作已支持范围\n1. 首批具体 2–3 款车型名称及年款；\n2. 首批具体配件类别；\n3. 哪些车型 GLB、配件 GLB 已具备清楚来源/许可并能实际加载、挂载；\n4. 当前春风 CSV 或 Mock 中的车型名称均不自动等于 3D 已支持车型。\n\n请 @siguadht 基于 #5/#6/#8 的实际素材和验证结果，回复可交付候选：车型/年款、配件类别、GLB 来源与许可、当前加载/挂载状态；若暂无可交付候选，请直接说明，不用 Mock 名称代替。\n\n请 @moronfranklyn-lab 在候选提交后确认首批具体 2–3 款车型与配件类别。确认前不据此修改共享契约、Mock 或宣称挂载完成。\n\n此评论仅建立协作门禁和决策请求，不暂停与上述范围无关的独立开发，也不授权合并。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5658126826",
+        "author": "siguadht",
+        "created_at": "2026-09-14T02:21:30Z",
+        "body": "@MN0709 @moronfranklyn-lab 根据 #20 的临时执行门禁，3D 组目前**暂无可交付的首批车型/配件候选**，因此现在不能给出已支持的 2–3 款车型、年款或配件类别。\n\n我刚核查了仓库 `main`、公开分支/PR 及 #5/#6/#8：`main` 没有车型或配件 GLB；现有 3D 代码与 Mock 仍不足以证明真实素材可加载、挂载；#5/#6/#8 尚无组员提交的可复核演示、素材来源/许可记录或 PR。#2 的图片转 3D 测试虽然生成了结构有效的 GLB，但外观质量和耗时未达标，也不能据此承诺具体车型/配件的装车预览。公开仓库没有进展证据，不等于断言组员在线下完全没有进展。\n\n3D 组会继续催 #5/#6/#8 先提交一组最小证据：车型与配件 GLB 的来源及许可、车型/年款和配件类别、浏览器实际加载与挂载结果、`partId → modelId` 和挂载点配置、截图/录屏与分支或 PR。核实通过后，我再提交候选清单，请 @moronfranklyn-lab 确认首批范围。此前不把 CSV/Mock 名称写成已支持清单，不改共享契约/Mock，也不宣称 #6/#18 已完成联调；不依赖具体车型名单的独立开发继续推进。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5658183021",
+        "author": "MN0709",
+        "created_at": "2026-09-14T02:30:10Z",
+        "body": "## 首批范围冻结流程补充：先轻量候选，再做 3D 实证\n\n已在 #9 给 @zooxz7c-cyber 安排 60–90 分钟的轻量候选调研：只列 3–5 款车型、常见配件类别及每款 1–2 个高质量来源，不改 CSV、不扩正式数据，也不要求其验证 GLB。任务卡见：https://github.com/MN0709/MotoViz/issues/9#issuecomment-5658181199\n\n@siguadht 最新回执已说明当前公开仓库尚无可验证为“可交付”的车型/配件候选，因此流程保持以下门禁：\n\n1. RAG 候选清单只证明市场与数据采集可行性，不代表 3D 支持；\n2. 候选提交后，3D 组基于真实 GLB、许可、浏览器加载和挂载结果，逐项标记：\n   - **可交付**：许可清楚，GLB 可实际加载，至少一个相关配件可完成基本挂载；\n   - **需验证**：存在素材线索，但许可、加载、尺寸或挂载证据不完整；\n   - **不可交付**：仅有 Mock、图片、占位 URL，或许可、加载、挂载不成立；\n3. 中控台只把“数据来源可采集”与“3D 可交付”取交集；“需验证”只作备选，不写成首批支持；\n4. 交集形成后，再由 @moronfranklyn-lab 冻结最终 2–3 款车型和配件类别；\n5. 冻结前不修改 Issue #9 验收标准、不扩正式数据、不把 CSV/Mock 名称当成已支持范围。\n\n3D 复核责任仍按现有分工：@kevin-long26 提供配件 GLB、许可和挂载映射证据；@1105qianhao-oss 提供浏览器加载与场景侧验证；@siguadht 汇总逐项结论。本评论不关闭 #20，也不代表跨组接口已经冻结。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5658219051",
+        "author": "MN0709",
+        "created_at": "2026-09-14T02:35:35Z",
+        "body": "## 防返工边界：候选清单不等于 3D 开发清单\n\n组员 A 后续提交的 3–5 款候选车型，仅用于市场、数据来源与现有 3D 能力的交集判断，**不构成要求 3D 组逐款开发或补齐素材**。\n\n3D 组第一轮只需将候选与已有素材、已有许可记录、已有加载及挂载验证证据进行比对：\n\n- 已有完整证据：可标记“可交付”；\n- 有线索但证据不完整：标记“需验证”；\n- 没有现成素材或验证证据：直接标记“当前不可交付”。\n\n不得为了覆盖 A 的全部候选，临时新增车型 GLB、配件 GLB、挂载配置或其他开发工作。\n\n这条边界**不暂停也不改变** 3D 组原有 #5、#6、#8 P0 任务。3D 组可以继续按既定范围完成原定最小纵向切片；但 A 的候选清单不能成为扩大开发范围、增加车型数量或新增配件类别的依据。\n\n后续仍只将“RAG 数据可采集”与“3D 已有证据可交付”的结果取交集，再交由 @moronfranklyn-lab 冻结最终范围。本评论不代表接口冻结，也不授权新增开发。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5658396755",
+        "author": "moronfranklyn-lab",
+        "created_at": "2026-09-14T03:03:19Z",
+        "body": "## Ethan 确认：首批三款车型与年款基准\n\n同步给各组：@MN0709 @siguadht @zooxz7c-cyber @khu016 @kevin-long26 @1105qianhao-oss @20050202ys-sketch\n\nEthan（@moronfranklyn-lab）已确认以下三款，市场统一为**中国大陆销售版本**：\n\n| 品牌 | 车型 | 年款 | 版本边界 |\n| --- | --- | --- | --- |\n| 春风 / CFMOTO | 250SR | 2025 | 单摇臂版；不混入 FUN 或其他版本 |\n| 春风 / CFMOTO | 450SR | 2025 | 普通 450SR；不混入 450SR-S 或天蝎排气版 |\n| 春风 / CFMOTO | 675SR-R | 2024 | 正式车型名保留 -R |\n\n这份清单取代此前三款名称、年款待定的口径；不再沿用“三款全部 2025 款”的中间提议。675SR-R 改用 2024 款已获 Ethan 明确确认。\n\n### 来源与命名处理\n\n车型名称与版本区分已核对春风中国官网：[车型目录](https://cn.cfmoto.com/portfolio-motorcycles)、[250SR 单摇臂](https://cn.cfmoto.com/motorcycles/250sr)、[450SR](https://cn.cfmoto.com/motorcycles/450SR)、[675SR-R](https://cn.cfmoto.com/motorcycles/675SR-R)。官网当前详情页未明确标注年款，不能把当前页面整套参数直接套到上述历史年款。\n\n年款记录来自已直接核查的汽车之家车型库：[2025 款 250SR 单摇臂版](https://car.autohome.com.cn/motorbike/series/10006289)、[2025 款 450SR](https://car.autohome.com.cn/motorbike/series/10060012)、[2024 款 675SR-R](https://car.autohome.com.cn/motorbike/series/10210817)。这是第三方年款记录，不是厂商年款公告，也不是配件适配证明。\n\nCSV 原始名称需保留可追溯性：官网部分配件标题本身使用“675SR”简称，不能一概判错，也不能无条件批量映射；须对照每条来源、版本和年款后归一为标准车型。`765SR` 不能直接改成 `750SR-S`；两者也不纳入本次三款基准。\n\n### 各组统一执行口径\n\n- **RAG / 数据组（#9/#10/#11/#12/#14/#15）**：候选整理、来源核查及检索评估以这三款具体版本为基准。车型、年款、版本分别保留；不把未知适配填成确定适配，不丢弃其他有证据的真实适配信息。原始 CSV 保留，不凭本通知批量改名或补造适配数据。\n- **3D 组（#5/#6/#7/#8）**：按这三款比对已有素材与许可、加载、尺寸和挂载证据，分别标记“可交付 / 需验证 / 当前不可交付”。这次确认车型基准，不代表三款已支持 3D，也不要求为了覆盖名单临时新增三款模型开发；既定任务继续按原范围推进。\n- **前端（#17/#18/#19，Ethan 同步知悉）**：车型展示口径按上述名称、年款和版本区分。未通过 3D 登记验证时，仍展示已有配件信息，标注“暂不支持 3D”并禁用挂载。保留生成入口，失败时切换预设模型并明确标注预设效果。\n\n本次解决车型名称、市场、年款和版本的选择；具体配件类别、真实适配与 3D 可交付范围仍按证据确认，不自动解除此前正式数据扩展或接口变更的门禁，也不代表 PR 验收或合并。品牌与部件范围不局限于天蝎排气，该场景仍只是举例。\n\n请各组在本条下回复已知冲突或现有证据链接，后续统一引用本条，避免继续使用旧的五款候选或未区分版本的名称。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5667132959",
+        "author": "siguadht",
+        "created_at": "2026-09-14T16:20:19Z",
+        "body": "@MN0709 @zooxz7c-cyber 同步 3D 组对 PR #23 候选配件 CSV（当前 Head `10e395c`）的只读核查结果，避免把图片误当成已能生成并挂载的具体产品模型：\n\n- 600 条记录有 600 个唯一 `partId`，但只有 60 条不同 `imageUrl`；按实际 GET 检查，60 条都返回 JPEG。此前用 HEAD 得到 404 是检查方式不适配，不能说图片失效。\n- 37 条图片链接被不同“配件品牌＋型号”复用，涉及 485 条记录。CSV 没有图片可用于外部 AI 生成及衍生 3D 模型的授权记录；全部 `fitModels` 为“数据未覆盖”。原始车型文字也没有一条与已确认的三款车型/版本完整精确匹配，这不等于断言它们实际不适配。\n- PR #23 的 `partId → modelId` 登记目前是 Mock 的 `part-001` 等编号，不是这些 `csv-part-*` 的可加载 GLB。3D 组不能据此宣称某个具体产品已支持挂载。\n\n请 @MN0709 确认：在 #9 现有“暂不改 CSV、不扩正式数据”门禁下，RAG 组能否先只读提供 2–3 条**候选**的核验证据，分别列出稳定 `partId`、准确品牌/型号或 SKU、对应原图及允许外部 AI 生成/使用衍生模型的依据、对首批具体车型年款/版本的适配来源？若目前没有，请明确回复“暂无”，3D 组继续用有许可的通用预设做技术切片，不把它冒充具体产品。此请求不要求重建 600 条 CSV，也不单方改共享类型或冻结接口。\n\n一旦有合格样本，3D 组才逐个生成并验收 GLB，按一个具体 `partId` 对应一个 `modelId` 登记；未验收的不登记。具体配件类别与首批 3D 可交付范围仍由产品负责人基于证据确认。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5667893047",
+        "author": "MN0709",
+        "created_at": "2026-09-14T17:20:09Z",
+        "body": "@siguadht 状态同步：@zooxz7c-cyber 目前正在整理首批三款冻结车型对应的候选配件类别和来源线索，尚未提交可验收清单，因此当前还没有能够提供给 3D 组的 2–3 条合格具体产品样本。\n\n待其提交后，RAG 组会先核查准确品牌/型号或 SKU、对应车型年款及版本的适配来源、图片来源，以及是否具备用于外部 AI 生成或使用衍生 3D 模型的授权依据；只有证据成立的条目才交给 3D 逐项验证。\n\n此前 3D 组可继续使用来源和许可清楚的通用预设完成原定技术切片，并明确标注“预设效果示意”，不绑定具体 `csv-part-*`，也不宣称具体产品已经支持。\n\n当前继续保持 #9 门禁：不重建 CSV、不补造适配、不扩大正式采集。具体配件类别与首批 3D 可交付范围仍需基于双方证据交由 @moronfranklyn-lab 最终确认。本回复不冻结接口、不新增 3D 开发范围。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5675465755",
+        "author": "MN0709",
+        "created_at": "2026-09-15T05:56:23Z",
+        "body": "## 今日冻结协调任务卡：首批配件与 3D 可交付范围\n\n- **任务目标**：将 RAG 有来源证据的数据范围与 3D 已有可交付能力取交集，形成首批配件类别和展示行为的唯一产品结论。\n- **用户结果**：证据完整的具体产品才开放真实 3D；无具体 GLB 时只展示 2D 并禁用挂载；通用预设明确标注“预设效果示意”。\n- **协调负责人**：@MN0709\n- **必须完成**：\n  1. 收回 #9 候选类别和来源证据；\n  2. 收回 #5/#6/#8 的真实 GLB、许可、浏览器加载、尺寸及挂载证据；\n  3. 逐项标记“可交付／需验证／当前不可交付”；\n  4. 只取 RAG 与 3D 证据均成立的交集；\n  5. 提交产品决策卡，由 @moronfranklyn-lab 冻结首批类别和展示口径。\n- **明确不做**：不要求 3D 为覆盖候选新增车型或配件；不用 Mock、CSV 名称或图片证明 3D 可交付；不修改共享类型、Mock、接口文档、业务代码或正式 CSV；不替产品负责人决定范围。\n- **执行输入负责人**：#9 为 @nexorithium；#5 为 @Freya-Qian；#6/#8 为 @kevin-long26；3D 证据由 @siguadht 汇总。\n- **验收标准**：每个候选都有 RAG 来源状态和 3D 状态；“需验证”不写成已支持；具体产品模型与通用预设严格区分；Ethan 的最终范围和提示口径写入本 Issue；不产生额外开发。\n- **最终决定人**：@moronfranklyn-lab\n- **完成后状态**：已验证完成；后续文档或代码变更另建独立执行任务。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5677017804",
+        "author": "kevin-long26",
+        "created_at": "2026-09-15T08:17:47Z",
+        "body": "F08 接入边界确认请求（kevin-long26）\n\n已完成六件通用无品牌 GLB、来源/许可、尺寸与变换清单及独立浏览器验证。当前仅交付资产，不声明具体产品/车型适配；生产模式开关和自动降级尚未接入。\n\n证据：main 438b2b6 的 packages/3d-renderer/src/types.ts:2 仅声明 RendererMode；packages/mock-server/src/routes/3d.ts:56 固定选择预设，未知类型会落到第一项；docs/api-contract.md 第 5 节明确 URL 是占位。F08 资产位于个人分支 feat/F08-preset-model-library 的 packages/3d-renderer/assets/presets/，验证说明见 docs/F08-preset-assets.md。\n\n影响：F04 生成、F05 加载、F08 模式选择、F18 来源提示和资源部署。若现在自行把资产加入 Mock 或导出新的共享选择接口，会越过 #20 尚待确认的边界。\n\n方案 A（推荐）：F08 交付资产及内部清单；F05 确认资产托管路径和 Model3D 消费方式；由 F04 服务侧读取 3D_MODE，preset 模式跳过生成，generated 模式失败后按相同 PartType 选预设。无同类型预设时明确失败，不替换为其他品类。F18 依据 fallback 展示“预设效果示意”。保持现有响应字段，异步状态变更另按 #20 处理。成本较低，但仍需协调静态资源部署。\n\n方案 B：F18 前端读取模式并管理资产及降级。页面可独立演示，但配置与服务器状态可能不一致，资源路径和构建配置均需前端负责人维护，且可能重复 F04 的失败处理。\n\n请 @siguadht @MN0709 确认是否采用方案 A 的职责划分，并由 @Freya-Qian 确认 F05 的资产加载/托管接入位置；如不同意，请给出替代归属。@moronfranklyn-lab 请审阅通用预设外观是否达到示意要求。\n\n等待期间可继续核查资产完整性、补充截图和处理资产本身 Review；不修改共享类型、API、Mock 或产品页面。下一检查点为收到职责/托管确认后重新核查分支和契约，再进行接入。本次不关闭 #8，不宣称联调或验收完成。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5678397539",
+        "author": "siguadht",
+        "created_at": "2026-09-15T10:09:10Z",
+        "body": "@siguadht 以 3D 组长身份确认采用 F08 接入**方案 A**的职责划分：\n\n- F08 维护预设 GLB 资产及内部清单，不单独扩展共享类型或公共 API；\n- F05 负责确认静态资源托管路径，并通过现有 `Model3D` 消费真实可加载 GLB；\n- F04 服务侧读取 `3D_MODE`：`preset` 模式跳过生成并按相同 `PartType` 选择预设；`generated` 模式生成失败或超时后按相同类型降级；没有同类型预设时明确失败，不能换成其他品类；\n- F18 根据返回的 fallback/预设状态展示“预设效果示意”，不得将通用模型描述为具体商品或真实车型适配结果。\n\n我已对 Draft PR #29 当前 Head `04d8213` 完成独立技术验收并 Approve：六件 GLB 可复现，结构/哈希检查、浏览器实载、类型筛选、变换重置、失败恢复以及 lint/typecheck/build/CI 均通过。批准范围只覆盖资产阶段，不代表 F05/F06/F18 联调或生产降级完成，也不授权合并。\n\n请 @MN0709 确认上述方案保持现有响应字段时是否影响当前契约，并继续单独对齐异步任务状态与错误响应；请 @Freya-Qian 确认 F05 的资源托管和加载位置；请 @moronfranklyn-lab 做预设外观与提示语的产品验收。在这些确认前不修改共享类型、Mock 或正式接口，本评论不视为 `/api/3d/*` 已冻结。\n"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5679261439",
+        "author": "kevin-long26",
+        "created_at": "2026-09-15T11:15:00Z",
+        "body": "同意按当前方案推进集成：\n1. 使用仓库内置的六个通用 GLB 预设；\n2. 由 F05 确认生产环境资产托管边界；\n3. 生产加载失败时保留图片展示并提供降级提示；\n4. 集成完成后重新执行验证，再进行最终验收。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5679660948",
+        "author": "MN0709",
+        "created_at": "2026-09-15T11:48:26Z",
+        "body": "## 产品范围确认请求：本期不启用边箱\n\n@moronfranklyn-lab 请确认以下产品范围提案。\n\nPR #29 当前 Head `04d821362199bd9ea8f880d4a212086442bc63a2` 共包含六件通用预设 GLB：2 件排气、2 件风挡、2 件边箱。结合本期产品不做边箱的范围，建议采用方案 A：\n\n1. 保留 `saddlebag-compact.glb` 和 `saddlebag-large.glb` 作为未启用储备资产，不删除已经完成的许可、哈希和加载验证证据；\n2. 本期产品只启用 4 个模型：2 件排气和 2 件风挡；\n3. 两个边箱模型本期对用户不可见、不可选、不可演示，也不计入本期产品验收；\n4. 现有 `saddlebag` 枚举暂时保留兼容性，不因本次产品范围决定直接修改公共接口。\n\n请最终确认：\n\n- 是否采用上述方案 A；\n- 是否接受本期启用模型数量为 4 个；\n- 是否同意边箱文件保留，但本期不进入用户页面、演示和产品验收。\n\n“Mock 或正式接口具体如何过滤边箱”本次暂不冻结。产品范围确认后，由 3D 负责人提出最小技术实现；如涉及公共接口变化，必须另走契约变更。\n\n本评论只请求产品范围确认，不修改 Issue #8、PR #29、代码、Mock、共享类型或接口，也不授权合并。"
+      },
+      {
+        "url": "https://github.com/MN0709/MotoViz/issues/20#issuecomment-5691009702",
+        "author": "moronfranklyn-lab",
+        "created_at": "2026-09-16T02:16:40Z",
+        "body": "## Ethan 产品范围确认：本期启用四件通用预设，边箱仅作储备\n\n@MN0709 @siguadht @kevin-long26 @Freya-Qian @20050202ys-sketch @khu016 @nexorithium\n\nEthan（@moronfranklyn-lab）已明确接受此前方案 A：\n\n- 本期启用 **2 件排气 + 2 件风挡，共 4 件通用预设模型**。\n- `saddlebag-compact.glb`、`saddlebag-large.glb` 保留为未启用储备资产；本期在用户页面与产品演示中不可见、不可选，不计入本期产品验收。\n- 现有 `saddlebag` 枚举保留兼容性，不因本次范围决定直接修改公共接口。\n\n六件资产可以保留完整的来源、许可与校验记录；资产检查与储备归档不等于产品启用。请 3D 组按此前职责提出最小接入方案，确保用户入口、候选列表和自动降级都遵循四件启用范围，不把边箱通过其他入口重新暴露。涉及共享类型或 API 的变化仍需另行对齐。\n\n所有通用模型继续标注“预设效果示意”，不绑定为某个真实商品或首批车型的准确模型。具体产品无已验证 GLB 时，仍展示配件信息、标注“暂不支持 3D”并禁用挂载。\n\n该决定不改变已确认的三款车型基准，也不代表 #9 的八类候选都支持 3D、#8 已完成或 F04/F05/F06/F18 生产联调通过。本次不授权合并、不关闭 Issue。\n"
+      }
+    ]
+  }
+}
