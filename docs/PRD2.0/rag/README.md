@@ -5,7 +5,7 @@
 | 当前负责人 | 资料方向 | 填写入口 | 任务 |
 | --- | --- | --- | --- |
 | @MN0709 | 450SR整车、结构与比例参考 | [整车资料](整车建模资料.md) | [#39](https://github.com/MN0709/MotoViz/issues/39) |
-| @nexorithium | 可替换配件图片、轮廓、比例 | [配件资料](配件建模资料.md) | [#40](https://github.com/MN0709/MotoViz/issues/40) |
+| @nexorithium | 可替换配件图片、轮廓、比例 | [配件资料](配件建模资料.md)；[Aprilia 首批风挡与排气资料](Aprilia配件建模资料.md) | [#40](https://github.com/MN0709/MotoViz/issues/40) |
 | @khu016 | 可贴区域、拉花贴画、风格参考 | [贴膜资料](贴膜建模资料.md) | [#41](https://github.com/MN0709/MotoViz/issues/41) |
 
 资料组按建模组需求提供够用原始参考；来源事实、未知值与视觉估算分别记录，不要求官网/实物一比一复刻。缺精确尺寸可交建模侧判断是否可用，不能用臆造值填满。
