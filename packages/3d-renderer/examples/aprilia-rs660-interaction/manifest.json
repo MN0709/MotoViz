@@ -1,0 +1,215 @@
+{
+  "source": "Aprilia_RS-660-2021.glb（由贡献者本地提供；构建过程未覆盖源文件）",
+  "source_sha256": "feef902e044815c7b66ec95c6fe07ad22545c4e7ce48e26ef4d7144f4cf80ddf",
+  "vehicle": "Aprilia RS 660 2021（依据文件名与模型外观，未核来源页）",
+  "method": "完整对象或完整连续网格岛重组；零多边形硬切；机械主体保留为基础层",
+  "dimensions_m": [
+    2.008541,
+    0.830007,
+    1.210548
+  ],
+  "groups": {
+    "base_assembly": {
+      "label": "机械基础层",
+      "partId": "APR-RS660-BASE_ASSEMBLY",
+      "interactive": false,
+      "objects": [
+        "chain_1_002",
+        "chassis024",
+        "exmanifold024",
+        "gauge024",
+        "glass024_001",
+        "homologation024",
+        "livery_0_024_001",
+        "livery_0_024_001.001",
+        "mechanics024_001"
+      ],
+      "vertices": 134736,
+      "faces": 139087
+    },
+    "mirror_left": {
+      "label": "左后视镜总成",
+      "partId": "APR-RS660-MIRROR_LEFT",
+      "interactive": true,
+      "objects": [
+        "mirror_left_from_livery_1_024_001",
+        "mirror_left_from_mirror024"
+      ],
+      "vertices": 1870,
+      "faces": 2189
+    },
+    "mirror_right": {
+      "label": "右后视镜总成",
+      "partId": "APR-RS660-MIRROR_RIGHT",
+      "interactive": true,
+      "objects": [
+        "mirror_right_from_livery_1_024_001",
+        "mirror_right_from_mirror024"
+      ],
+      "vertices": 1870,
+      "faces": 2189
+    },
+    "windscreen": {
+      "label": "风挡及边框紧固件",
+      "partId": "APR-RS660-WINDSCREEN",
+      "interactive": true,
+      "objects": [
+        "BASE_glass_edge",
+        "windscreen_from_glass024_001",
+        "windscreen_from_mechanics024_001"
+      ],
+      "vertices": 1403,
+      "faces": 1786
+    },
+    "front_cowl": {
+      "label": "车头外壳与灯组",
+      "partId": "APR-RS660-FRONT_COWL",
+      "interactive": true,
+      "objects": [
+        "front_cowl_from_glass024_001",
+        "front_cowl_from_glass024_001.001",
+        "front_cowl_from_homologation024",
+        "front_cowl_from_light024",
+        "front_cowl_from_livery_0_024_001"
+      ],
+      "vertices": 16783,
+      "faces": 19887
+    },
+    "front_fender": {
+      "label": "前挡泥板",
+      "partId": "APR-RS660-FRONT_FENDER",
+      "interactive": true,
+      "objects": [
+        "front_fender_from_livery_0_024_001"
+      ],
+      "vertices": 2718,
+      "faces": 3442
+    },
+    "tank": {
+      "label": "油箱外壳",
+      "partId": "APR-RS660-TANK",
+      "interactive": true,
+      "objects": [
+        "tank_from_livery_0_024_001"
+      ],
+      "vertices": 3082,
+      "faces": 4655
+    },
+    "seat": {
+      "label": "主坐垫",
+      "partId": "APR-RS660-SEAT",
+      "interactive": true,
+      "objects": [
+        "seat_from_livery_0_024_001"
+      ],
+      "vertices": 1679,
+      "faces": 2505
+    },
+    "tail": {
+      "label": "后座与尾壳总成",
+      "partId": "APR-RS660-TAIL",
+      "interactive": true,
+      "objects": [
+        "tail_from_glass024_001",
+        "tail_from_glass024_001.001",
+        "tail_from_light024",
+        "tail_from_livery_0_024_001"
+      ],
+      "vertices": 6132,
+      "faces": 6344
+    },
+    "fairing_left": {
+      "label": "左侧整流罩",
+      "partId": "APR-RS660-FAIRING_LEFT",
+      "interactive": true,
+      "objects": [
+        "fairing_left_from_livery_0_024_001"
+      ],
+      "vertices": 6358,
+      "faces": 8205
+    },
+    "fairing_right": {
+      "label": "右侧整流罩",
+      "partId": "APR-RS660-FAIRING_RIGHT",
+      "interactive": true,
+      "objects": [
+        "fairing_right_from_livery_0_024_001"
+      ],
+      "vertices": 6340,
+      "faces": 8172
+    },
+    "lower_cowl": {
+      "label": "底部导流罩",
+      "partId": "APR-RS660-LOWER_COWL",
+      "interactive": true,
+      "objects": [
+        "lower_cowl_from_livery_0_024_001"
+      ],
+      "vertices": 8707,
+      "faces": 10664
+    },
+    "front_wheel": {
+      "label": "前轮总成",
+      "partId": "APR-RS660-FRONT_WHEEL",
+      "interactive": true,
+      "objects": [
+        "f_rim024",
+        "f_tyre001",
+        "frontbrake024",
+        "frontbrake024_R"
+      ],
+      "vertices": 7909,
+      "faces": 8809
+    },
+    "rear_wheel": {
+      "label": "后轮总成",
+      "partId": "APR-RS660-REAR_WHEEL",
+      "interactive": true,
+      "objects": [
+        "b_rim024",
+        "b_tyre014",
+        "backbrake024",
+        "gear024"
+      ],
+      "vertices": 6003,
+      "faces": 7049
+    },
+    "muffler": {
+      "label": "排气尾段",
+      "partId": "APR-RS660-MUFFLER",
+      "interactive": true,
+      "objects": [
+        "muffler024"
+      ],
+      "vertices": 3744,
+      "faces": 3859
+    },
+    "license_bracket": {
+      "label": "牌照架与后挡泥板",
+      "partId": "APR-RS660-LICENSE_BRACKET",
+      "interactive": true,
+      "objects": [
+        "license_bracket_from_homologation024"
+      ],
+      "vertices": 3422,
+      "faces": 3406
+    }
+  },
+  "geometry_check": {
+    "before": {
+      "faces": 232248,
+      "geometry": "a5f0940332c6a2953ad3722965c7e15e8336b412709010207826569b2c34fd9d",
+      "geometry_uv": "45bafaa65ef30fdb53b71855111325bba901cb0c400fd040707b5077a12e9a07",
+      "geometry_uv_material": "95a18647e9ad62fa413c5a24d28be4e1ac5a07c2f44061f588cd18b4c5ff01ed"
+    },
+    "after": {
+      "faces": 232248,
+      "geometry": "a5f0940332c6a2953ad3722965c7e15e8336b412709010207826569b2c34fd9d",
+      "geometry_uv": "45bafaa65ef30fdb53b71855111325bba901cb0c400fd040707b5077a12e9a07",
+      "geometry_uv_material": "95a18647e9ad62fa413c5a24d28be4e1ac5a07c2f44061f588cd18b4c5ff01ed"
+    },
+    "faces_and_world_geometry_preserved": true,
+    "uv_signature_preserved": true,
+    "material_signature_preserved": true
+  }
+}

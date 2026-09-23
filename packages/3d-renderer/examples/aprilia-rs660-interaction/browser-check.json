@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-23T03:26:16.628Z",
+  "url": "local launch.py server",
+  "checks": {
+    "load": "pass",
+    "groupCount": "16",
+    "explode": "pass",
+    "baseStationary": "pass",
+    "isolate": "pass",
+    "hideShow": "pass",
+    "paint": "pass",
+    "wrapAndRestore": "pass",
+    "invalidReplacementProtection": "pass",
+    "reset": "pass"
+  },
+  "invalidReplacementMessage": "替换失败：Unexpected token 'o', \"not-a-glb\" is not valid JSON；原件保持不变",
+  "errors": [],
+  "screenshots": [
+    "web-exploded.png",
+    "web-assembled.png"
+  ],
+  "repositoryPackageCheck": {
+    "load": "pass",
+    "groupCount": 16,
+    "explode": "pass",
+    "baseStationary": "pass",
+    "errors": []
+  }
+}

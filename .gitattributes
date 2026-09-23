@@ -1,0 +1,2 @@
+packages/3d-renderer/examples/aprilia-rs660-interaction/*.glb filter=lfs diff=lfs merge=lfs -text
+packages/3d-renderer/examples/aprilia-rs660-interaction/*.blend filter=lfs diff=lfs merge=lfs -text
