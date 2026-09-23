@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "vehicles": [
+    {
+      "vehicleId": "kawasaki-ninja-zx25r-demo-pending",
+      "model": "kawasaki-zx25r-demo.glb",
+      "slots": 15,
+      "replaceable": 13,
+      "glbNodes": 61
+    },
+    {
+      "vehicleId": "aprilia-rs660-2021-demo",
+      "model": "aprilia-rs660-2021.glb",
+      "slots": 15,
+      "replaceable": 13,
+      "glbNodes": 59
+    },
+    {
+      "vehicleId": "aprilia-rsv4r-2010-demo",
+      "model": "aprilia-rsv4r-2010.glb",
+      "slots": 14,
+      "replaceable": 12,
+      "glbNodes": 59
+    }
+  ]
+}

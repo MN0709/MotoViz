@@ -1,0 +1,45 @@
+﻿车型显示名,vehicleId,模板版本,slotKey,slotId,部件名称,GLB节点,是否开放替换,尺度状态
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,mirror_left,KAW-DEMO-SLOT-001,左后视镜,mirror_left,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,mirror_right,KAW-DEMO-SLOT-002,右后视镜,mirror_right,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,windscreen,KAW-DEMO-SLOT-003,风挡,windscreen,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,front_fender,KAW-DEMO-SLOT-004,前挡泥板,front_fender,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,seat,KAW-DEMO-SLOT-005,主坐垫,seat_front,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,seat_rear,KAW-DEMO-SLOT-006,后坐垫,seat_rear,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,tank,KAW-DEMO-SLOT-007,油箱外观,tank,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,tail_left,KAW-DEMO-SLOT-008,左尾壳,tail_left,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,tail_right,KAW-DEMO-SLOT-009,右尾壳,tail_right,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,fairing_left,KAW-DEMO-SLOT-010,左侧整流罩,fairing_left,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,fairing_right,KAW-DEMO-SLOT-011,右侧整流罩,fairing_right,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,front_cowl,KAW-DEMO-SLOT-012,车头外壳,front_cowl,是,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,front_wheel,KAW-DEMO-SLOT-013,前轮总成,wheel_front,否,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,rear_wheel,KAW-DEMO-SLOT-014,后轮总成,wheel_rear,否,uncalibrated
+川崎 Ninja ZX-25R（年款待核）,kawasaki-ninja-zx25r-demo-pending,0.1.0,muffler,KAW-DEMO-SLOT-015,排气尾段,exhaust_right,是,uncalibrated
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,mirror_left,APR-RS660-SLOT-MIRROR_LEFT,左后视镜,mirror_left,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,mirror_right,APR-RS660-SLOT-MIRROR_RIGHT,右后视镜,mirror_right,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,windscreen,APR-RS660-SLOT-WINDSCREEN,风挡,windscreen,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,front_cowl,APR-RS660-SLOT-FRONT_COWL,车头外壳,front_cowl,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,front_fender,APR-RS660-SLOT-FRONT_FENDER,前挡泥板,front_fender,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,tank,APR-RS660-SLOT-TANK,油箱外观,tank,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,seat,APR-RS660-SLOT-SEAT,主坐垫,seat,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,tail,APR-RS660-SLOT-TAIL,尾壳总成,tail,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,fairing_left,APR-RS660-SLOT-FAIRING_LEFT,左侧整流罩,fairing_left,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,fairing_right,APR-RS660-SLOT-FAIRING_RIGHT,右侧整流罩,fairing_right,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,lower_cowl,APR-RS660-SLOT-LOWER_COWL,底部导流罩,lower_cowl,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,front_wheel,APR-RS660-SLOT-FRONT_WHEEL,前轮总成,front_wheel,否,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,rear_wheel,APR-RS660-SLOT-REAR_WHEEL,后轮总成,rear_wheel,否,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,muffler,APR-RS660-SLOT-MUFFLER,排气尾段,muffler,是,approximate-meter-from-model-bounds
+Aprilia RS 660 2021,aprilia-rs660-2021-demo,0.1.0,license_bracket,APR-RS660-SLOT-LICENSE_BRACKET,牌照架与后挡泥板,license_bracket,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,mirror_left,APR-RSV4R-SLOT-MIRROR_LEFT,左后视镜,mirror_left,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,mirror_right,APR-RSV4R-SLOT-MIRROR_RIGHT,右后视镜,mirror_right,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,windscreen,APR-RSV4R-SLOT-WINDSCREEN,风挡,windscreen,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,front_cowl,APR-RSV4R-SLOT-FRONT_COWL,车头外壳,front_cowl,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,front_fender,APR-RSV4R-SLOT-FRONT_FENDER,前挡泥板,front_fender,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,tank,APR-RSV4R-SLOT-TANK,油箱外观,tank,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,tail,APR-RSV4R-SLOT-TAIL,尾壳总成,tail,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,fairing_left,APR-RSV4R-SLOT-FAIRING_LEFT,左侧整流罩,fairing_left,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,fairing_right,APR-RSV4R-SLOT-FAIRING_RIGHT,右侧整流罩,fairing_right,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,lower_cowl,APR-RSV4R-SLOT-LOWER_COWL,底部导流罩,lower_cowl,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,front_wheel,APR-RSV4R-SLOT-FRONT_WHEEL,前轮总成,front_wheel,否,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,rear_wheel,APR-RSV4R-SLOT-REAR_WHEEL,后轮总成,rear_wheel,否,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,muffler,APR-RSV4R-SLOT-MUFFLER,排气尾段,muffler,是,approximate-meter-from-model-bounds
+Aprilia RSV4 R 2010,aprilia-rsv4r-2010-demo,0.1.0,license_bracket,APR-RSV4R-SLOT-LICENSE_BRACKET,牌照架与后挡泥板,license_bracket,是,approximate-meter-from-model-bounds

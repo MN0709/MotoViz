@@ -1,0 +1,1544 @@
+{
+  "schemaVersion": "1.0.0",
+  "coordinateSystem": {
+    "upAxis": "Y",
+    "rotationUnit": "degree",
+    "unit": "scene-unit",
+    "note": "川崎模板尚未完成米制校准；不得把全部车型坐标当作真实米制"
+  },
+  "relationKey": "vehicleId + templateVersion + slotKey",
+  "vehicles": [
+    {
+      "vehicleId": "kawasaki-ninja-zx25r-demo-pending",
+      "templateId": "KAW-DEMO-TPL-001",
+      "templateVersion": "0.1.0",
+      "displayName": "川崎 Ninja ZX-25R（年款待核）",
+      "identityStatus": "pending",
+      "modelUrl": "./assets/kawasaki-zx25r-demo.glb",
+      "defaultSlotKey": "tank",
+      "slots": [
+        {
+          "slotKey": "mirror_left",
+          "slotId": "KAW-DEMO-SLOT-001",
+          "label": "左后视镜",
+          "groupNode": "mirror_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.44,
+            0.16,
+            -0.02
+          ]
+        },
+        {
+          "slotKey": "mirror_right",
+          "slotId": "KAW-DEMO-SLOT-002",
+          "label": "右后视镜",
+          "groupNode": "mirror_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.44,
+            0.16,
+            -0.02
+          ]
+        },
+        {
+          "slotKey": "windscreen",
+          "slotId": "KAW-DEMO-SLOT-003",
+          "label": "风挡",
+          "groupNode": "windscreen",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.4,
+            -0.2
+          ]
+        },
+        {
+          "slotKey": "front_fender",
+          "slotId": "KAW-DEMO-SLOT-004",
+          "label": "前挡泥板",
+          "groupNode": "front_fender",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.34,
+            -0.28
+          ]
+        },
+        {
+          "slotKey": "seat",
+          "slotId": "KAW-DEMO-SLOT-005",
+          "label": "主坐垫",
+          "groupNode": "seat_front",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.5,
+            0.05
+          ]
+        },
+        {
+          "slotKey": "seat_rear",
+          "slotId": "KAW-DEMO-SLOT-006",
+          "label": "后坐垫",
+          "groupNode": "seat_rear",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.46,
+            0.3
+          ]
+        },
+        {
+          "slotKey": "tank",
+          "slotId": "KAW-DEMO-SLOT-007",
+          "label": "油箱外观",
+          "groupNode": "tank",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.34,
+            0.02
+          ]
+        },
+        {
+          "slotKey": "tail_left",
+          "slotId": "KAW-DEMO-SLOT-008",
+          "label": "左尾壳",
+          "groupNode": "tail_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.37,
+            0.08,
+            0.31
+          ]
+        },
+        {
+          "slotKey": "tail_right",
+          "slotId": "KAW-DEMO-SLOT-009",
+          "label": "右尾壳",
+          "groupNode": "tail_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.37,
+            0.08,
+            0.31
+          ]
+        },
+        {
+          "slotKey": "fairing_left",
+          "slotId": "KAW-DEMO-SLOT-010",
+          "label": "左侧整流罩",
+          "groupNode": "fairing_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.58,
+            0,
+            0
+          ]
+        },
+        {
+          "slotKey": "fairing_right",
+          "slotId": "KAW-DEMO-SLOT-011",
+          "label": "右侧整流罩",
+          "groupNode": "fairing_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.58,
+            0,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_cowl",
+          "slotId": "KAW-DEMO-SLOT-012",
+          "label": "车头外壳",
+          "groupNode": "front_cowl",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.08,
+            -0.55
+          ]
+        },
+        {
+          "slotKey": "front_wheel",
+          "slotId": "KAW-DEMO-SLOT-013",
+          "label": "前轮总成",
+          "groupNode": "wheel_front",
+          "replaceable": false,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": "轮组当前仅用于视觉展示，不开放商品替换"
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            -0.04,
+            -0.6
+          ]
+        },
+        {
+          "slotKey": "rear_wheel",
+          "slotId": "KAW-DEMO-SLOT-014",
+          "label": "后轮总成",
+          "groupNode": "wheel_rear",
+          "replaceable": false,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": "轮组当前仅用于视觉展示，不开放商品替换"
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            -0.04,
+            0.65
+          ]
+        },
+        {
+          "slotKey": "muffler",
+          "slotId": "KAW-DEMO-SLOT-015",
+          "label": "排气尾段",
+          "groupNode": "exhaust_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.48,
+            -0.03,
+            0.15
+          ]
+        }
+      ],
+      "unitStatus": "uncalibrated"
+    },
+    {
+      "vehicleId": "aprilia-rs660-2021-demo",
+      "templateId": "APR-RS660-TPL-001",
+      "templateVersion": "0.1.0",
+      "displayName": "Aprilia RS 660 2021",
+      "identityStatus": "filename-only",
+      "modelUrl": "./assets/aprilia-rs660-2021.glb",
+      "defaultSlotKey": "tank",
+      "slots": [
+        {
+          "slotKey": "mirror_left",
+          "slotId": "APR-RS660-SLOT-MIRROR_LEFT",
+          "label": "左后视镜",
+          "groupNode": "mirror_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.03,
+            0.1,
+            -0.22
+          ]
+        },
+        {
+          "slotKey": "mirror_right",
+          "slotId": "APR-RS660-SLOT-MIRROR_RIGHT",
+          "label": "右后视镜",
+          "groupNode": "mirror_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.03,
+            0.1,
+            0.22
+          ]
+        },
+        {
+          "slotKey": "windscreen",
+          "slotId": "APR-RS660-SLOT-WINDSCREEN",
+          "label": "风挡",
+          "groupNode": "windscreen",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.12,
+            0.14,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_cowl",
+          "slotId": "APR-RS660-SLOT-FRONT_COWL",
+          "label": "车头外壳",
+          "groupNode": "front_cowl",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.13,
+            0.04,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_fender",
+          "slotId": "APR-RS660-SLOT-FRONT_FENDER",
+          "label": "前挡泥板",
+          "groupNode": "front_fender",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.1,
+            0.11,
+            0
+          ]
+        },
+        {
+          "slotKey": "tank",
+          "slotId": "APR-RS660-SLOT-TANK",
+          "label": "油箱外观",
+          "groupNode": "tank",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.18,
+            0
+          ]
+        },
+        {
+          "slotKey": "seat",
+          "slotId": "APR-RS660-SLOT-SEAT",
+          "label": "主坐垫",
+          "groupNode": "seat",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.05,
+            0.15,
+            0
+          ]
+        },
+        {
+          "slotKey": "tail",
+          "slotId": "APR-RS660-SLOT-TAIL",
+          "label": "尾壳总成",
+          "groupNode": "tail",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.15,
+            0.09,
+            0
+          ]
+        },
+        {
+          "slotKey": "fairing_left",
+          "slotId": "APR-RS660-SLOT-FAIRING_LEFT",
+          "label": "左侧整流罩",
+          "groupNode": "fairing_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0,
+            -0.2
+          ]
+        },
+        {
+          "slotKey": "fairing_right",
+          "slotId": "APR-RS660-SLOT-FAIRING_RIGHT",
+          "label": "右侧整流罩",
+          "groupNode": "fairing_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0,
+            0.2
+          ]
+        },
+        {
+          "slotKey": "lower_cowl",
+          "slotId": "APR-RS660-SLOT-LOWER_COWL",
+          "label": "底部导流罩",
+          "groupNode": "lower_cowl",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            -0.13,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_wheel",
+          "slotId": "APR-RS660-SLOT-FRONT_WHEEL",
+          "label": "前轮总成",
+          "groupNode": "front_wheel",
+          "replaceable": false,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": "轮组当前仅用于视觉展示，不开放商品替换"
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.16,
+            -0.05,
+            0
+          ]
+        },
+        {
+          "slotKey": "rear_wheel",
+          "slotId": "APR-RS660-SLOT-REAR_WHEEL",
+          "label": "后轮总成",
+          "groupNode": "rear_wheel",
+          "replaceable": false,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": "轮组当前仅用于视觉展示，不开放商品替换"
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.16,
+            -0.05,
+            0
+          ]
+        },
+        {
+          "slotKey": "muffler",
+          "slotId": "APR-RS660-SLOT-MUFFLER",
+          "label": "排气尾段",
+          "groupNode": "muffler",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.05,
+            -0.05,
+            0.16
+          ]
+        },
+        {
+          "slotKey": "license_bracket",
+          "slotId": "APR-RS660-SLOT-LICENSE_BRACKET",
+          "label": "牌照架与后挡泥板",
+          "groupNode": "license_bracket",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.15,
+            0.02,
+            0
+          ]
+        }
+      ],
+      "unitStatus": "approximate-meter-from-model-bounds"
+    },
+    {
+      "vehicleId": "aprilia-rsv4r-2010-demo",
+      "templateId": "APR-RSV4R-TPL-001",
+      "templateVersion": "0.1.0",
+      "displayName": "Aprilia RSV4 R 2010",
+      "identityStatus": "filename-only",
+      "modelUrl": "./assets/aprilia-rsv4r-2010.glb",
+      "defaultSlotKey": "tank",
+      "slots": [
+        {
+          "slotKey": "mirror_left",
+          "slotId": "APR-RSV4R-SLOT-MIRROR_LEFT",
+          "label": "左后视镜",
+          "groupNode": "mirror_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.03,
+            0.1,
+            -0.22
+          ]
+        },
+        {
+          "slotKey": "mirror_right",
+          "slotId": "APR-RSV4R-SLOT-MIRROR_RIGHT",
+          "label": "右后视镜",
+          "groupNode": "mirror_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.03,
+            0.1,
+            0.22
+          ]
+        },
+        {
+          "slotKey": "windscreen",
+          "slotId": "APR-RSV4R-SLOT-WINDSCREEN",
+          "label": "风挡",
+          "groupNode": "windscreen",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.12,
+            0.14,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_cowl",
+          "slotId": "APR-RSV4R-SLOT-FRONT_COWL",
+          "label": "车头外壳",
+          "groupNode": "front_cowl",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.13,
+            0.04,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_fender",
+          "slotId": "APR-RSV4R-SLOT-FRONT_FENDER",
+          "label": "前挡泥板",
+          "groupNode": "front_fender",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.1,
+            0.11,
+            0
+          ]
+        },
+        {
+          "slotKey": "tank",
+          "slotId": "APR-RSV4R-SLOT-TANK",
+          "label": "油箱外观",
+          "groupNode": "tank",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0.18,
+            0
+          ]
+        },
+        {
+          "slotKey": "tail",
+          "slotId": "APR-RSV4R-SLOT-TAIL",
+          "label": "尾壳总成",
+          "groupNode": "tail",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.15,
+            0.09,
+            0
+          ]
+        },
+        {
+          "slotKey": "fairing_left",
+          "slotId": "APR-RSV4R-SLOT-FAIRING_LEFT",
+          "label": "左侧整流罩",
+          "groupNode": "fairing_left",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0,
+            -0.2
+          ]
+        },
+        {
+          "slotKey": "fairing_right",
+          "slotId": "APR-RSV4R-SLOT-FAIRING_RIGHT",
+          "label": "右侧整流罩",
+          "groupNode": "fairing_right",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            0,
+            0.2
+          ]
+        },
+        {
+          "slotKey": "lower_cowl",
+          "slotId": "APR-RSV4R-SLOT-LOWER_COWL",
+          "label": "底部导流罩",
+          "groupNode": "lower_cowl",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0,
+            -0.13,
+            0
+          ]
+        },
+        {
+          "slotKey": "front_wheel",
+          "slotId": "APR-RSV4R-SLOT-FRONT_WHEEL",
+          "label": "前轮总成",
+          "groupNode": "front_wheel",
+          "replaceable": false,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": "轮组当前仅用于视觉展示，不开放商品替换"
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            0.16,
+            -0.05,
+            0
+          ]
+        },
+        {
+          "slotKey": "rear_wheel",
+          "slotId": "APR-RSV4R-SLOT-REAR_WHEEL",
+          "label": "后轮总成",
+          "groupNode": "rear_wheel",
+          "replaceable": false,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": "轮组当前仅用于视觉展示，不开放商品替换"
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.16,
+            -0.05,
+            0
+          ]
+        },
+        {
+          "slotKey": "muffler",
+          "slotId": "APR-RSV4R-SLOT-MUFFLER",
+          "label": "排气尾段",
+          "groupNode": "muffler",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.05,
+            -0.05,
+            0.16
+          ]
+        },
+        {
+          "slotKey": "license_bracket",
+          "slotId": "APR-RSV4R-SLOT-LICENSE_BRACKET",
+          "label": "牌照架与后挡泥板",
+          "groupNode": "license_bracket",
+          "replaceable": true,
+          "replacementPolicy": {
+            "fitMode": "bounds",
+            "manualCalibration": true,
+            "reason": ""
+          },
+          "mount": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          },
+          "explodeOffset": [
+            -0.15,
+            0.02,
+            0
+          ]
+        }
+      ],
+      "unitStatus": "approximate-meter-from-model-bounds"
+    }
+  ]
+}
