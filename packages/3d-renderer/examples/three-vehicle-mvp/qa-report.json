@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-23T13:17:00+08:00",
+  "registryValidation": "pass",
+  "browserChecks": {
+    "kawasaki-load": "pass: 15 slots",
+    "rs660-switch-and-load": "pass: 15 slots",
+    "rsv4r-switch-and-load": "pass: 14 slots",
+    "switch-clears-previous-state": "pass",
+    "explode-control": "pass",
+    "replaceable-slot-state": "pass",
+    "non-replaceable-wheel-disabled": "pass",
+    "rs660-explode-control": "pass: 60%",
+    "rsv4r-switch-resets-explode": "pass: reset to 0%",
+    "rsv4r-wheel-replacement-disabled": "pass",
+    "rsv4r-mirror-replacement-enabled": "pass",
+    "isolate-and-reset": "pass",
+    "console-errors": "pass: none"
+  },
+  "notYetVerified": [
+    "三车型尚未使用真实商品改装件逐一完成挂点校准",
+    "川崎模型尚未校准到米制",
+    "RSV4 R 主坐垫没有安全独立槽位",
+    "车型身份仍需来源资料确认"
+  ],
+  "mergeConditions": [
+    "产品负责人确认公开仓库是否可保留三份购买素材的二进制文件",
+    "共享接口草案经 @MN0709 双向确认后才能进入 packages/shared"
+  ]
+}
